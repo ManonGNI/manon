@@ -26,6 +26,6 @@ Reel 9:16 (1080 × 1920), 30 secondes, 30 i/s. Réalisé selon la charte graphiq
 ## Médias à déposer dans `assets/medias/`
 
 - `ancien-logo.png` : ancien logo, fond transparent (fourni)
-- `flashback-1.jpg` à `flashback-5.jpg` : photos réelles (conventions, rencontres, agences), idéalement verticales
+- `flashback-1.jpg` à `flashback-5.jpg` : photos réelles des événements (fournies). Les photos paysage sont parcourues par un lent travelling horizontal, réglable via `pan` dans `CONFIG`.
 
 Puis relancer `node render.mjs`. Les textes se modifient dans le bloc `CONFIG` en haut du script de `index.html`.

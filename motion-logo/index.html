@@ -46,13 +46,14 @@
 
   /* Flash-back */
   .shot { position: absolute; inset: 0; overflow: hidden; background: var(--bleu-fonce); }
-  .shot img, .shot .ph-photo { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; }
+  .shot .ph-photo { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; }
+  .shot img.pano { position: absolute; left: 0; top: -2%; height: 104%; width: auto; max-width: none; transform-origin: left top; }
   .ph-photo { display: flex; align-items: flex-start; justify-content: flex-start; padding: 330px 90px; text-align: left;
     color: rgba(255,255,255,.22); font-weight: 800; font-size: 64px; line-height: 1.05; letter-spacing: -.01em;
     background: #2a4266; }
   .ph-photo span { display: block; font-weight: 500; font-size: 26px; margin-top: 18px; letter-spacing: 0; }
   /* Dégradé bleu en bas uniquement (règle charte : jamais de voile sur toute la photo) */
-  .shot .degrade { position: absolute; left: 0; right: 0; bottom: 0; height: 62%;
+  .shot .degrade { position: absolute; left: 0; right: 0; bottom: 0; height: 52%;
     background: linear-gradient(to top, rgba(31,49,77,.92) 0%, rgba(31,49,77,.75) 38%, rgba(31,49,77,0) 100%); }
   .grain { position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
@@ -149,11 +150,12 @@
 const CONFIG = {
   ancienLogo: "assets/medias/ancien-logo.png",      // PNG fond transparent
   flashbacks: [                                        // photos verticales d'événements réels
-    { src: "assets/medias/flashback-1.jpg", label: "Photo convention" },
-    { src: "assets/medias/flashback-2.jpg", label: "Photo rencontre / réunion de secteur" },
-    { src: "assets/medias/flashback-3.jpg", label: "Photo scène / remise de prix" },
-    { src: "assets/medias/flashback-4.jpg", label: "Photo agence du réseau" },
-    { src: "assets/medias/flashback-5.jpg", label: "Photo de groupe convention" },
+    // pan : cadrage de départ → d'arrivée (0 = bord gauche de la photo, 1 = bord droit)
+    { src: "assets/medias/flashback-1.jpg", label: "Photo convention", pan: [0.72, 1.0] },
+    { src: "assets/medias/flashback-2.jpg", label: "Photo rencontre", pan: [0.30, 0.58] },
+    { src: "assets/medias/flashback-3.jpg", label: "Photo soirée", pan: [0.22, 0.55] },
+    { src: "assets/medias/flashback-4.jpg", label: "Photo soirée dansante", pan: [0.36, 0.62] },
+    { src: "assets/medias/flashback-5.jpg", label: "Photo de groupe", pan: [0.30, 0.68] },
   ],
   phrases: [
     "Des conventions.",
@@ -213,7 +215,7 @@ function buildShots() {
     return new Promise(res => {
       const img = new Image();
       const finish = el => { shot.prepend(el); const d = document.createElement("div"); d.className = "degrade"; shot.appendChild(d); res(); };
-      img.onload = () => finish(img);
+      img.onload = () => { img.className = "pano"; img.dataset.w = 1920 * 1.04 * img.naturalWidth / img.naturalHeight; finish(img); };
       img.onerror = () => { const d = document.createElement("div"); d.className = "ph-photo"; d.innerHTML = `${f.label}<span>à déposer : ${f.src}</span>`; finish(d); };
       img.src = f.src;
     });
@@ -243,7 +245,12 @@ function render(t) {
     const on = t >= a && (t < b || i === n - 1);
     const k = seg(t, a, b + .3), sc = 1.03 + .07 * k, dx = (i % 2 ? -1 : 1) * 20 * k;
     const shot = $("shot" + i); shot.style.opacity = on ? 1 : 0;
-    if (shot.firstElementChild) shot.firstElementChild.style.transform = `translateX(${dx}px) scale(${sc})`;
+    const media = shot.firstElementChild;
+    if (media && media.classList.contains("pano")) {
+      // photo paysage : lent travelling horizontal à travers l'image
+      const [p0, p1] = CONFIG.flashbacks[i].pan || [.5, .5], span = +media.dataset.w - 1080;
+      media.style.transform = `translateX(${-span * (p0 + (p1 - p0) * eInOut(k))}px)`;
+    } else if (media) media.style.transform = `translateX(${dx}px) scale(${sc})`;
     const w = $("word" + i);
     if (on) { const p = eOut(seg(t, a + .08, a + .5)); set(w, p, `translateY(${(1 - p) * 36}px)`); } else w.style.opacity = 0;
     if (i > 0 && t >= a) flash = Math.max(flash, 1 - seg(t, a, a + .18));
