@@ -5,54 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GNI Nouveau Logo</title>
 <style>
-  @font-face { font-family: "Montserrat"; font-weight: 400; src: url(assets/fonts/montserrat-latin-400-normal.woff2) format("woff2"); }
   @font-face { font-family: "Montserrat"; font-weight: 500; src: url(assets/fonts/montserrat-latin-500-normal.woff2) format("woff2"); }
   @font-face { font-family: "Montserrat"; font-weight: 700; src: url(assets/fonts/montserrat-latin-700-normal.woff2) format("woff2"); }
   @font-face { font-family: "Montserrat"; font-weight: 800; src: url(assets/fonts/montserrat-latin-800-normal.woff2) format("woff2"); }
   @font-face { font-family: "Allison"; font-weight: 400; src: url(assets/fonts/allison-latin-400-normal.woff2) format("woff2"); }
 
-  /* Charte V4 : bleu #2F4A71 (≈60 %), blanc / ivoire (≈30 %), doré #D9AE57 en accent (≈10 %) */
+  /* Charte V4 : bleu #2F4A71 (≈60 %), blanc (≈30 %), doré #D9AE57 en accent (≈10 %) */
   :root { --bleu: #2F4A71; --bleu-fonce: #1F314D; --or: #D9AE57; --blanc: #FFFFFF; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: #0f1724; height: 100%; }
   body { display: flex; align-items: center; justify-content: center; font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif; }
 
   /* Scène 1080×1920 (Reel 9:16). Zones de sécurité charte : 250 px en haut, 350 px en bas. */
-  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--blanc); transform-origin: center center; flex: none; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--bleu); transform-origin: center center; flex: none; }
   #cam { position: absolute; inset: 0; transform-origin: 50% 50%; }
-  body.render { display: block; background: var(--blanc); }
+  body.render { display: block; background: var(--bleu); }
   body.render #stage { transform: none !important; }
 
-  .layer { position: absolute; inset: 0; background: var(--blanc); overflow: hidden; }
-  .abs { position: absolute; }
+  .layer { position: absolute; inset: 0; overflow: hidden; }
+  .blanc { background: var(--blanc); }
   .bleu { background: var(--bleu); }
+  .abs { position: absolute; }
 
   /* Texte cinétique : chaque mot monte depuis un masque de ligne */
   .k { font-weight: 800; letter-spacing: -.03em; line-height: 1; }
-  .k .ln { display: block; overflow: hidden; padding: .06em 0 .1em; margin: -.06em 0 -.1em; }
+  .k .ln { display: block; overflow: hidden; padding: .06em 0 .12em; margin: -.06em 0 -.12em; }
   .k .w { display: inline-block; will-change: transform; }
   .k .or { color: var(--or); }
-  .txt { font-weight: 500; font-size: 42px; line-height: 1.28; }
   .filetV { position: absolute; width: 10px; background: var(--or); transform-origin: center top; }
   .sign { font-family: "Allison", cursive; font-weight: 400; line-height: 1; }
 
-  /* Bloc-marque : fichier officiel découpé en 3 calques superposés (jamais redessiné) */
+  /* Bloc-marque : fichier officiel découpé en 3 calques (jamais redessiné) */
   .gni { position: absolute; aspect-ratio: 1033 / 565; }
   .gni img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .gni .filet { transform-origin: center center; }
   .old { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
   .old img { display: block; width: 100%; height: auto; }
 
-  /* Flash-back */
-  .shot { position: absolute; inset: 0; overflow: hidden; background: var(--bleu-fonce); transform-origin: 50% 50%; }
-  .shot img { position: absolute; left: 0; top: -2%; height: 104%; width: auto; max-width: none; }
-  .degrade { position: absolute; left: 0; right: 0; bottom: 0; height: 55%;
-    background: linear-gradient(to top, rgba(31,49,77,.92) 0%, rgba(31,49,77,.7) 40%, rgba(31,49,77,0) 100%); }
-  .strip { position: absolute; top: 0; height: 1920px; overflow: hidden; }
-  .strip img { position: absolute; top: 0; height: 100%; width: auto; max-width: none; }
-  #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
-  .bar { position: absolute; left: 0; width: 1080px; transform: scaleX(0); }
+  /* Mur de photos : vignettes au format d'origine 3:2, donc nettes */
+  .row { position: absolute; left: 0; height: 360px; width: 10000px; }
+  .tile { position: absolute; top: 0; width: 540px; height: 360px; background-repeat: no-repeat; background-color: var(--bleu-fonce); }
+  #band { position: absolute; left: 0; width: 1080px; top: 735px; height: 450px; background: var(--bleu); transform-origin: center; }
 
+  /* « 20 » rempli de photos */
+  #num20 { position: absolute; left: 30px; top: 300px; font-weight: 800; font-size: 840px; line-height: .86; letter-spacing: -.07em;
+    color: transparent; -webkit-background-clip: text; background-clip: text; background-size: cover; background-position: center; padding: 0 20px; }
+
+  .bar { position: absolute; left: 0; width: 1080px; transform: scaleX(0); }
   #ctrl { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 10px; align-items: center;
     background: rgba(0,0,0,.65); color: #fff; padding: 8px 14px; border-radius: 8px; font: 500 13px "Montserrat", sans-serif; z-index: 10; }
   #ctrl button { font: inherit; padding: 4px 10px; cursor: pointer; }
@@ -63,53 +62,54 @@
 <body>
 <div id="stage"><div id="cam">
 
+  <!-- 3 · « 20 » rempli de photos (sous le mur, révélé quand il s'envole) -->
+  <div class="layer bleu" id="s3">
+    <div id="num20">20</div>
+    <div class="filetV" id="s3filet" style="left:110px; top:1110px; height:310px"></div>
+    <div class="abs k" id="s3a" style="left:150px; top:1100px; font-size:150px; color:var(--blanc)"></div>
+    <div class="abs k" id="s3b" style="left:152px; top:1465px; font-size:44px; font-weight:500; letter-spacing:0; color:var(--blanc)"></div>
+  </div>
+
+  <!-- 2 · Mur de souvenirs -->
+  <div class="layer" id="s2">
+    <div id="wall" class="layer" style="transform-origin:50% 50%"></div>
+    <div id="band">
+      <div class="filetV" id="s2filet" style="left:110px; top:70px; height:310px"></div>
+      <div id="s2words"></div>
+    </div>
+  </div>
+
   <!-- 1 · 2007, l'ancien logo -->
-  <div class="layer" id="s1">
+  <div class="layer blanc" id="s1">
     <div class="old" id="oldLogo1" style="width:800px; top:38%"></div>
     <div class="filetV" id="s1filet" style="left:110px; top:1110px; height:250px"></div>
     <div class="abs k" id="s1a" style="left:150px; top:1100px; font-size:150px; color:var(--bleu)"></div>
     <div class="abs k" id="s1b" style="left:152px; top:1265px; font-size:44px; font-weight:500; letter-spacing:0; line-height:1.25; color:var(--bleu)"></div>
   </div>
 
-  <!-- 2 · Flash-back -->
-  <div class="layer" id="s2" style="background:var(--bleu-fonce)">
-    <div id="shots"></div>
-    <div class="filetV" id="s2filet" style="left:90px; top:1150px; height:330px"></div>
-    <div id="s2words"></div>
-  </div>
-
-  <!-- 3 · Compteur 20 ans -->
-  <div class="layer bleu" id="s3">
-    <div class="abs k" id="s3num" style="left:50px; top:250px; font-size:800px; color:var(--blanc); letter-spacing:-.07em; font-variant-numeric: tabular-nums">20</div>
-    <div class="filetV" id="s3filet" style="left:110px; top:1120px; height:310px"></div>
-    <div class="abs k" id="s3a" style="left:150px; top:1110px; font-size:150px; color:var(--blanc)"></div>
-    <div class="abs k" id="s3b" style="left:152px; top:1470px; font-size:44px; font-weight:500; letter-spacing:0; color:var(--blanc)"></div>
-  </div>
-
-  <!-- Mosaïque de bandes photo (transition flash-back → 20 ans) -->
-  <div class="layer" id="strips" style="background:transparent"></div>
-
-  <!-- 4 · Ancien → nouveau logo -->
-  <div class="layer" id="s4">
+  <!-- 4 · Ancien → nouveau logo (ouverture en iris depuis le « 0 ») -->
+  <div class="layer blanc" id="s4">
     <div class="old" id="oldLogo2" style="width:800px; top:46%"></div>
     <div class="gni" id="logoA" style="width:820px; left:130px; top:640px">
       <img class="filet" src="assets/medias/logo-filet.png" alt="">
       <img class="texte" src="assets/medias/logo-texte-bleu.png" alt="">
       <img class="barre" src="assets/medias/logo-barre.png" alt="">
     </div>
+    <div class="abs" id="goldLine" style="left:135px; width:9px; background:var(--or); top:0; height:1920px; transform-origin:center top"></div>
     <div class="abs k" id="s4txt" style="left:0; width:1080px; text-align:center; top:1310px; font-size:46px; font-weight:700; letter-spacing:0; color:var(--bleu)"></div>
   </div>
 
   <!-- 5 · Le groupement demeure et un réseau se lance -->
   <div class="layer bleu" id="s5">
-    <div class="filetV" id="s5filet" style="left:110px; top:640px; height:560px"></div>
-    <div class="abs k" id="s5a" style="left:150px; top:630px; font-size:112px; color:var(--blanc); white-space:nowrap"></div>
-    <div class="abs k" id="s5b" style="left:150px; top:905px; font-size:112px; color:var(--blanc); white-space:nowrap"></div>
-    <div class="abs k" id="s5c" style="left:146px; top:1020px; font-size:150px; color:var(--or); white-space:nowrap; transform-origin:left center"></div>
+    <div class="abs k" id="s5a" style="left:90px; top:300px; font-size:104px; color:var(--blanc); white-space:nowrap"></div>
+    <div class="abs" id="s5photo" style="left:0; top:590px; width:1080px; height:720px; overflow:hidden">
+      <div class="abs" id="s5img" style="inset:0; background-size:cover; background-position:center"></div>
+    </div>
+    <div class="abs k" id="s5b" style="left:90px; top:1350px; font-size:100px; color:var(--blanc); white-space:nowrap"></div>
   </div>
 
   <!-- 6 · Carton de fin -->
-  <div class="layer" id="s6">
+  <div class="layer blanc" id="s6">
     <div class="gni" id="logoB" style="width:760px; left:160px; top:520px">
       <img class="filet" src="assets/medias/logo-filet.png" alt="">
       <img class="texte" src="assets/medias/logo-texte-bleu.png" alt="">
@@ -117,11 +117,10 @@
     </div>
     <div class="abs sign" id="s6sign" style="left:0; width:1080px; text-align:center; top:1060px; font-size:150px; color:var(--bleu)">Plus fortes ensemble.</div>
     <div class="abs k" id="s6txt" style="left:0; width:1080px; text-align:center; top:1290px; font-size:40px; font-weight:700; letter-spacing:0; color:var(--bleu)"></div>
-    <div class="abs txt" id="s6url" style="left:0; width:1080px; text-align:center; top:1440px; color:var(--bleu); font-size:32px"></div>
+    <div class="abs" id="s6url" style="left:0; width:1080px; text-align:center; top:1440px; color:var(--bleu); font-weight:500; font-size:32px"></div>
   </div>
 
   <div id="bars"></div>
-  <div id="flash"></div>
 </div></div>
 
 <div id="ctrl">
@@ -137,18 +136,30 @@
    ====================================================================== */
 const CONFIG = {
   ancienLogo: "assets/medias/ancien-logo.png",
+  photos: [
+    "assets/medias/flashback-1.jpg", // convention
+    "assets/medias/flashback-2.jpg", // cocktail en terrasse
+    "assets/medias/flashback-3.jpg", // photobooth
+    "assets/medias/flashback-4.jpg", // soirée dansante
+    "assets/medias/flashback-5.jpg", // photo de groupe
+  ],
+  // vignettes du mur : [photo, zoom, cadrage X %, cadrage Y %]
+  vignettes: [
+    [0, 1, 50, 50], [4, 2, 22, 40], [2, 1.8, 42, 30], [3, 1, 50, 50], [1, 1, 50, 50], [0, 2.6, 96, 52],
+    [4, 1, 50, 50], [2, 2.2, 62, 66], [1, 2, 45, 62], [3, 2, 50, 78], [0, 2, 14, 62], [4, 2, 80, 40],
+    [2, 1, 50, 50], [1, 2.4, 60, 88], [3, 2.6, 95, 45], [4, 2, 50, 55],
+  ],
   ouverture: { annee: "2007.", phrase: "Des agences indépendantes|réunies pour collaborer" },
-  flashbacks: [
-    // pan : cadrage de départ → d'arrivée (0 = bord gauche de la photo, 1 = bord droit)
-    { src: "assets/medias/flashback-1.jpg", pan: [0.72, 1.0],  texte: "Des|conventions." },
-    { src: "assets/medias/flashback-2.jpg", pan: [0.30, 0.58], texte: "Des|rencontres." },
-    { src: "assets/medias/flashback-3.jpg", pan: [0.22, 0.55], texte: "Des réussites|partagées." },
-    { src: "assets/medias/flashback-4.jpg", pan: [0.36, 0.62], texte: "Près de *450*|agences|partenaires." },
-    { src: "assets/medias/flashback-5.jpg", pan: [0.30, 0.68], texte: "Un même|collectif." },
+  phrases: [
+    "Des|conventions.",
+    "Des|rencontres.",
+    "Des réussites|partagées.",
+    "Près de *450*|agences|partenaires.",
+    "Un même|collectif.",
   ],
   vingtAns: { titre: "ans,|*bientôt.*", suite: "Et le Groupe évolue." },
   identite: "Notre nouvelle identité.",
-  reseau: { a: "Le groupement|demeure", b: "et un réseau", c: "se lance" },
+  reseau: { a: "Le groupement|demeure", b: "et un réseau|*se lance*", photoA: 0, photoB: 4 },
   finTexte: "Bientôt 20 ans. Une nouvelle page.",
   siteWeb: "groupenationalimmobilier.fr",
 };
@@ -158,56 +169,56 @@ const DURATION = 30;
 const $ = id => document.getElementById(id);
 const clamp = v => Math.max(0, Math.min(1, v));
 const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
 const eOut = x => 1 - Math.pow(1 - x, 3);
 const eIn = x => x * x * x;
 const eInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 const eOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const eInExpo = x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10);
 const eOutBack = x => { const c = 1.6; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
 const show = (el, on) => { el.style.display = on ? "" : "none"; };
 const drop = (el, t, a, d = .45) => { el.style.transform = `scaleY(${eOutExpo(seg(t, a, a + d))})`; };
+const url = i => `url("${CONFIG.photos[i]}")`;
 
-/* Texte cinétique */
 function kin(el, text) {
+  let gold = false;   // *…* peut couvrir plusieurs mots
   el.innerHTML = text.split("|").map(line =>
-    `<span class="ln">${line.split(" ").map(w => w.startsWith("*") ? `<span class="w or">${w.replace(/\*/g, "")}</span>` : `<span class="w">${w}</span>`).join(" ")}</span>`
+    `<span class="ln">${line.split(" ").map(w => {
+      const open = w.startsWith("*"), close = w.endsWith("*"); if (open) gold = true;
+      const html = `<span class="w${gold ? " or" : ""}">${w.replace(/\*/g, "")}</span>`; if (close) gold = false; return html;
+    }).join(" ")}</span>`
   ).join("");
   el._w = [...el.querySelectorAll(".w")];
 }
-// entrée mot à mot (a), sortie optionnelle vers le haut (b)
 function words(el, t, a, b = Infinity, st = .06, d = .5) {
   el._w.forEach((w, j) => {
     const p = eOutExpo(seg(t, a + j * st, a + j * st + d));
-    const q = b === Infinity ? 0 : eIn(seg(t, b + j * .03, b + j * .03 + .3));
-    w.style.transform = `translateY(${(1 - p) * 110 - q * 110}%)`;
+    const q = b === Infinity ? 0 : eIn(seg(t, b + j * .03, b + j * .03 + .28));
+    w.style.transform = `translateY(${(1 - p) * 115 - q * 115}%)`;
   });
 }
 
-/* Coups de caméra : léger zoom qui retombe, calés sur les temps forts */
-const HITS = [0.15, 1.0, 3.1, 13.2, 17.4, 18.95, 23.6, 27.5];
+/* Coups de caméra sur les temps forts */
+const HITS = [0.15, 1.0, 11.15, 18.3, 23.45, 27.5];
 function camera(t) {
-  let s = 0; for (const h of HITS) if (t >= h) s += .045 * Math.exp(-(t - h) * 7);
+  let s = 0; for (const h of HITS) if (t >= h) s += .04 * Math.exp(-(t - h) * 7);
   $("cam").style.transform = `scale(${1 + s})`;
 }
 
-/* Transition par bandes (5 bandes horizontales décalées) */
-const BARS = [ // [début, couleur]
-  [2.6, "var(--bleu)"], [16.8, "var(--bleu)"], [21.0, "var(--bleu)"], [26.0, "var(--blanc)"],
-];
+/* Transition par bandes */
+const BARS = [[20.9, "var(--bleu)"], [26.0, "var(--blanc)"]];
 function bars(t) {
-  const els = $("bars").children;
-  const cur = BARS.find(([a]) => t >= a - .01 && t < a + 1.1);
+  const els = $("bars").children, cur = BARS.find(([a]) => t >= a - .01 && t < a + 1.1);
   for (let i = 0; i < els.length; i++) {
     const b = els[i];
     if (!cur) { b.style.transform = "scaleX(0)"; continue; }
     const [a, col] = cur; b.style.background = col;
-    const p = eInOut(seg(t, a + i * .05, a + i * .05 + .32));
-    const q = eInOut(seg(t, a + .5 + i * .05, a + .5 + i * .05 + .32));
+    const p = eInOut(seg(t, a + i * .05, a + i * .05 + .32)), q = eInOut(seg(t, a + .5 + i * .05, a + .5 + i * .05 + .32));
     b.style.transformOrigin = q > 0 ? "right center" : "left center";
     b.style.transform = `scaleX(${q > 0 ? 1 - q : p})`;
   }
 }
 
-/* Montage du bloc-marque : filet, texte révélé depuis le filet, barre du G (la clé) */
 function assembleLogo(box, t, a, k = 1) {
   const [filet, texte, barre] = box.children;
   const pf = eInOut(seg(t, a, a + .45 * k));
@@ -220,104 +231,100 @@ function assembleLogo(box, t, a, k = 1) {
   barre.style.transform = `translateX(${(1 - eOutBack(pb)) * -240}px)`;
 }
 
-/* ---------- Médias ---------- */
-function oldLogoInto(id) {
-  const box = $(id), img = new Image();
-  return new Promise(res => { img.onload = () => { box.appendChild(img); res(); }; img.onerror = res; img.src = CONFIG.ancienLogo; });
-}
-const PHOTOS = [];
-function buildShots() {
-  return Promise.all(CONFIG.flashbacks.map((f, i) => new Promise(res => {
-    const shot = document.createElement("div"); shot.className = "shot"; shot.id = "shot" + i; $("shots").appendChild(shot);
+/* ---------- Construction ---------- */
+const ROWS = 5, PER = 8, PITCH = 560;           // 5 rangées, 8 vignettes par cycle
+const PH_T = [3.45, 4.9, 6.35, 7.8, 9.25];        // changements de phrase
+function buildWall() {
+  for (let r = 0; r < ROWS; r++) {
+    const row = document.createElement("div"); row.className = "row"; row.id = "row" + r;
+    row.style.top = (-10 + r * 385) + "px";
+    for (let k = 0; k < PER * 2; k++) {
+      const [p, z, x, y] = CONFIG.vignettes[(r * 5 + k) % CONFIG.vignettes.length];
+      const tile = document.createElement("div"); tile.className = "tile";
+      tile.style.left = (k * PITCH) + "px";
+      tile.style.backgroundImage = url(p); tile.style.backgroundSize = `${z * 100}% auto`; tile.style.backgroundPosition = `${x}% ${y}%`;
+      row.appendChild(tile);
+    }
+    $("wall").appendChild(row);
+  }
+  CONFIG.phrases.forEach((txt, i) => {
     const w = document.createElement("div"); w.className = "abs k"; w.id = "word" + i;
-    w.style.cssText = "left:130px; bottom:440px; width:900px; font-size:130px; color:#fff;";
-    $("s2words").appendChild(w); kin(w, f.texte);
-    const img = new Image();
-    img.onload = () => {
-      const width = 1920 * 1.04 * img.naturalWidth / img.naturalHeight;
-      PHOTOS[i] = { width, img };
-      shot.appendChild(img); const d = document.createElement("div"); d.className = "degrade"; shot.appendChild(d);
-      // bande correspondante pour la mosaïque
-      const s = document.createElement("div"); s.className = "strip"; s.style.left = (i * 216) + "px"; s.style.width = "216px";
-      const im2 = img.cloneNode(); const center = (f.pan[0] + f.pan[1]) / 2;
-      const w2 = 1920 * img.naturalWidth / img.naturalHeight;
-      im2.style.left = (-(w2 * (0.18 + 0.64 * center)) + 108) + "px";
-      s.appendChild(im2); $("strips").appendChild(s);
-      res();
-    };
-    img.onerror = res; img.src = f.src;
-  })));
+    w.style.cssText = "left:150px; top:60px; width:900px; font-size:104px; color:#fff;";
+    $("s2words").appendChild(w); kin(w, txt);
+  });
 }
-function imgsLoaded() {
-  return Promise.all([...document.querySelectorAll(".gni img")].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; })));
+function preload() {
+  return Promise.all([...CONFIG.photos, CONFIG.ancienLogo].map(src => new Promise(r => { const i = new Image(); i.onload = i.onerror = () => r(i); i.src = src; })))
+    .then(([, , , , , old]) => { if (old.naturalWidth) ["oldLogo1", "oldLogo2"].forEach(id => $(id).appendChild(old.cloneNode())); });
 }
 
 /* ---------- Timeline ---------- */
 function render(t) {
   camera(t); bars(t);
 
-  // 1 — 2007 (0 → 3,1 s)
-  show($("s1"), t < 3.1);
-  { const p = eOutExpo(seg(t, .1, .8)); const o = $("oldLogo1");
+  // 1 — 2007 sur blanc, puis poussé vers le haut par le mur de photos
+  const push = eInOut(seg(t, 2.75, 3.35));
+  show($("s1"), t < 3.4);
+  $("s1").style.transform = `translateY(${-push * 1920}px)`;
+  { const p = eOutExpo(seg(t, .1, .8)), o = $("oldLogo1");
     o.style.opacity = p; o.style.transform = `translate(-50%,-50%) scale(${1.12 - .12 * p})`; o.style.filter = `blur(${(1 - p) * 10}px)`; }
   drop($("s1filet"), t, .9);
   words($("s1a"), t, .95);
   words($("s1b"), t, 1.35, Infinity, .045, .45);
 
-  // 2 — flash-back : 5 plans de 1,5 s, coupe sèche + zoom « punch » + flou de vitesse
-  const T2 = 3.0, L = 1.5, n = CONFIG.flashbacks.length;
-  show($("s2"), t >= T2 && t < 11.3);
-  let flash = 0;
-  for (let i = 0; i < n; i++) {
-    const a = T2 + i * L, b = a + L, on = t >= a && (t < b || i === n - 1);
-    const shot = $("shot" + i); show(shot, on);
-    const z = eOutExpo(seg(t, a, a + .45));
-    shot.style.transform = `scale(${1.2 - .14 * z + .03 * seg(t, a, b)})`;
-    shot.style.filter = `blur(${(1 - z) * 9}px)`;
-    const ph = PHOTOS[i];
-    if (ph) { const [p0, p1] = CONFIG.flashbacks[i].pan, span = ph.width - 1080;
-      ph.img.style.transform = `translateX(${-span * (p0 + (p1 - p0) * seg(t, a, b + .3))}px)`; }
-    const w = $("word" + i); show(w, on); words(w, t, a + .12, i === n - 1 ? 10.35 : b - .22, .06, .45);
-    if (i > 0 && t >= a) flash = Math.max(flash, 1 - seg(t, a, a + .1));
+  // 2 — mur de souvenirs : rangées qui défilent en sens alternés, accélération à chaque phrase
+  show($("s2"), t >= 2.7 && t < 11.4);
+  $("s2").style.transform = `translateY(${(1 - push) * 1920}px)`;
+  let burst = 0; for (const h of PH_T.slice(1)) if (t > h) burst += 260 * (1 - Math.exp(-(t - h) * 5));
+  for (let r = 0; r < ROWS; r++) {
+    const dir = r % 2 ? 1 : -1, speed = 90 + (r % 3) * 25;
+    const x = ((speed * t + burst + r * 173) % (PER * PITCH) + PER * PITCH) % (PER * PITCH);
+    $("row" + r).style.transform = `translateX(${dir < 0 ? -x : x - PER * PITCH}px)`;
   }
-  drop($("s2filet"), t, T2 + .1);
-  $("flash").style.opacity = (t > T2 && t < 10.6) ? flash * .7 : 0;
+  // le mur s'envole (zoom + fondu) pour révéler le « 20 »
+  { const z = eInExpo(seg(t, 10.6, 11.35)); $("wall").style.transform = `scale(${1 + z * 2.2})`; $("wall").style.opacity = 1 - seg(t, 10.95, 11.35); }
+  { const open = eOutExpo(seg(t, 3.3, 3.75)), close = eInOut(seg(t, 10.45, 10.8));
+    $("band").style.transform = `scaleY(${open * (1 - close)})`; }
+  drop($("s2filet"), t, 3.6);
+  CONFIG.phrases.forEach((_, i) => {
+    const a = PH_T[i], b = i < PH_T.length - 1 ? PH_T[i + 1] - .3 : 10.2;
+    words($("word" + i), t, a + .15, b, .06, .45);
+  });
 
-  // Mosaïque : 5 bandes qui tombent / montent en alternance, puis s'ouvrent sur le bleu
-  { const strips = $("strips").children; show($("strips"), t >= 10.4 && t < 12.2);
-    for (let i = 0; i < strips.length; i++) {
-      const dir = i % 2 ? 1 : -1;
-      const p = eOutExpo(seg(t, 10.45 + i * .05, 10.45 + i * .05 + .5));
-      const q = eInOut(seg(t, 11.55 + i * .05, 11.55 + i * .05 + .4));
-      strips[i].style.transform = `translateY(${(1 - p) * dir * 1920 - q * dir * 1920}px)`;
-      strips[i].firstChild.style.transform = `scale(${1.1 - .1 * eOut(seg(t, 10.45, 11.6))})`;
-    } }
+  // 3 — « 20 » rempli de photos qui défilent à l'intérieur des chiffres
+  show($("s3"), t >= 10.5 && t < 15.75);
+  { const p = eOutExpo(seg(t, 10.95, 11.5)), n = $("num20");
+    n.style.opacity = seg(t, 10.95, 11.1); n.style.transform = `scale(${1.35 - .35 * p})`; n.style.filter = `blur(${(1 - p) * 8}px)`;
+    const k = Math.max(0, Math.floor((t - 11.0) / .42)), ph = [4, 0, 3, 2, 1][k % 5];
+    n.style.backgroundImage = url(ph);
+    n.style.backgroundPosition = `${50 + 8 * Math.sin(t * 1.3)}% 50%`;
+    $("s3").style.transform = `scale(${1 + .18 * eIn(seg(t, 15.05, 15.7))})`; }
+  drop($("s3filet"), t, 12.35);
+  words($("s3a"), t, 12.4, Infinity, .12, .5);
+  words($("s3b"), t, 13.4, Infinity, .05, .45);
 
-  // 3 — compteur 00 → 20 (11,5 → 15,8 s), puis traversée vers le blanc
-  show($("s3"), t >= 11.5 && t < 15.8);
-  { const c = Math.round(20 * eOut(seg(t, 12.1, 13.2))); $("s3num").textContent = String(c).padStart(2, "0");
-    const p = eOutExpo(seg(t, 11.9, 12.4)); $("s3num").style.opacity = p;
-    const q = eIn(seg(t, 15.2, 15.75)); $("s3").style.transform = `scale(${1 + q * 1.4})`; $("s3").style.opacity = 1 - q; }
-  drop($("s3filet"), t, 13.15);
-  words($("s3a"), t, 13.2, Infinity, .12, .5);
-  words($("s3b"), t, 14.1, Infinity, .05, .45);
+  // 4 — iris blanc depuis le « 0 », ancien logo éjecté, filet d'or qui tombe et devient le nouveau logo
+  show($("s4"), t >= 15.05 && t < 21.45);
+  { const r = eInOut(seg(t, 15.05, 15.65)) * 2300; $("s4").style.clipPath = `circle(${r}px at 742px 650px)`; }
+  { const p = eOutExpo(seg(t, 15.3, 15.9)), q = eInExpo(seg(t, 16.45, 16.8)), o = $("oldLogo2");
+    show(o, t < 16.8);
+    o.style.opacity = p; o.style.transform = `translate(calc(-50% - ${q * 1300}px),-50%) scale(${1.08 - .08 * p})`; o.style.filter = `blur(${q * 14}px)`; }
+  { const g = $("goldLine"), d = eOutExpo(seg(t, 16.55, 16.9)), s = eInOut(seg(t, 16.95, 17.35));
+    show(g, t >= 16.55 && t < 17.4);
+    g.style.top = lerp(0, 645, s) + "px"; g.style.height = lerp(1920, 439, s) + "px";
+    g.style.transform = `scaleY(${d})`; }
+  show($("logoA"), t >= 17.3);
+  assembleLogo($("logoA"), t, 16.9);
+  words($("s4txt"), t, 18.75, Infinity, .07, .45);
 
-  // 4 — ancien logo → bandes → nouveau bloc-marque
-  show($("s4"), t >= 15.45 && t < 21.45);
-  $("s4").style.opacity = eOut(seg(t, 15.45, 15.7));
-  { const p = eOutExpo(seg(t, 15.6, 16.2)), o = $("oldLogo2"); show(o, t < 17.15);
-    o.style.opacity = p; o.style.transform = `translate(-50%,-50%) scale(${1.1 - .1 * p})`; }
-  show($("logoA"), t >= 17.15);
-  assembleLogo($("logoA"), t, 17.4);
-  words($("s4txt"), t, 19.3, Infinity, .07, .45);
-
-  // 5 — le groupement demeure et un réseau se lance
+  // 5 — le groupement demeure (photo convention) et un réseau se lance (photo de groupe)
   show($("s5"), t >= 21.3 && t < 26.4);
-  drop($("s5filet"), t, 21.5, .7);
-  words($("s5a"), t, 21.6, Infinity, .09, .5);
-  words($("s5b"), t, 22.9, Infinity, .09, .5);
-  { const p = eOutBack(seg(t, 23.55, 24.05)), c = $("s5c");
-    c.style.opacity = seg(t, 23.55, 23.65); c.style.transform = `scale(${.5 + .5 * p})`; }
+  words($("s5a"), t, 21.45, Infinity, .09, .5);
+  { const o = eOutExpo(seg(t, 21.85, 22.5)); $("s5photo").style.clipPath = `inset(0 ${50 * (1 - o)}% 0 ${50 * (1 - o)}%)`;
+    const second = t >= 23.45, a = second ? 23.45 : 21.85;
+    $("s5img").style.backgroundImage = url(second ? CONFIG.reseau.photoB : CONFIG.reseau.photoA);
+    $("s5img").style.transform = `scale(${1.12 - .1 * eOut(seg(t, a, a + 2.5))})`; }
+  words($("s5b"), t, 23.4, Infinity, .1, .5);
 
   // 6 — carton de fin
   show($("s6"), t >= 26.3);
@@ -328,6 +335,7 @@ function render(t) {
 }
 
 /* ---------- Initialisation ---------- */
+buildWall();
 kin($("s1a"), CONFIG.ouverture.annee);
 kin($("s1b"), CONFIG.ouverture.phrase);
 kin($("s3a"), CONFIG.vingtAns.titre);
@@ -335,7 +343,6 @@ kin($("s3b"), CONFIG.vingtAns.suite);
 kin($("s4txt"), CONFIG.identite);
 kin($("s5a"), CONFIG.reseau.a);
 kin($("s5b"), CONFIG.reseau.b);
-$("s5c").textContent = CONFIG.reseau.c;
 kin($("s6txt"), CONFIG.finTexte);
 $("s6url").textContent = CONFIG.siteWeb;
 for (let i = 0; i < 5; i++) { const b = document.createElement("div"); b.className = "bar"; b.style.top = (i * 384) + "px"; b.style.height = "385px"; $("bars").appendChild(b); }
@@ -343,7 +350,8 @@ for (let i = 0; i < 5; i++) { const b = document.createElement("div"); b.classNa
 window.ready = Promise.all([
   ...["800", "700", "500"].map(w => document.fonts.load(`${w} 100px "Montserrat"`)),
   document.fonts.load('400 100px "Allison"'),
-  oldLogoInto("oldLogo1"), oldLogoInto("oldLogo2"), buildShots(), imgsLoaded(),
+  preload(),
+  ...[...document.querySelectorAll(".gni img")].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; })),
 ]).then(() => document.fonts.ready);
 window.render = render;
 

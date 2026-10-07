@@ -12,23 +12,24 @@ Reel 9:16 (1080 × 1920), 30 secondes, 30 i/s. Réalisé selon la charte graphiq
 | `render.mjs` | Export MP4 : `node render.mjs` (nécessite Playwright + ffmpeg) |
 | `assets/medias/` | Logo officiel découpé en calques (filet, texte, barre du G) + vos médias |
 
-## Découpage (version dynamique)
+## Découpage (concept « mur de souvenirs »)
 
-Montage rythmé : coupes franches, textes révélés mot à mot, transitions par bandes,
-légers « coups de caméra » sur les temps forts (calables sur une musique à ~120 BPM).
+Les photos d'événements sont horizontales : elles sont montrées à leur format d'origine (nettes),
+jamais étirées en plein écran vertical.
 
 | Temps | Plan |
 |---|---|
-| 0 – 3 s | Ancien logo (apparition avec flou), « 2007. » puis « Des agences indépendantes réunies pour collaborer » |
-| 2,6 – 3,4 s | Transition par bandes bleues |
-| 3 – 10,5 s | Flash-back : 5 photos de 1,5 s, coupe sèche + zoom + flash blanc, travelling horizontal, texte mot à mot |
-| 10,5 – 12 s | Mosaïque : les 5 photos en bandes verticales qui tombent et remontent en alternance |
-| 12 – 15,8 s | Compteur 00 → 20, « ans, bientôt. Et le Groupe évolue. », puis zoom traversant vers le blanc |
-| 15,5 – 21,4 s | Ancien logo → bandes bleues → montage du nouveau bloc-marque (filet, texte, barre du G) · « Notre nouvelle identité. » |
-| 21,4 – 26,4 s | « Le groupement demeure et un réseau se lance » (« se lance » en doré, effet rebond) |
-| 26,4 – 30 s | Carton de fin : logo, « Plus fortes ensemble. », « Bientôt 20 ans. Une nouvelle page. », site web |
+| 0 – 3 s | Ancien logo, « 2007. Des agences indépendantes réunies pour collaborer » |
+| 2,8 – 3,4 s | Le mur de photos pousse l'écran blanc vers le haut |
+| 3 – 10,8 s | Mur de souvenirs : 5 rangées de photos qui défilent en sens alternés (accélération à chaque phrase), bandeau bleu central avec les phrases mot à mot |
+| 10,6 – 11,4 s | Le mur s'envole (zoom) et révèle un « 20 » géant rempli de photos qui défilent dans les chiffres |
+| 12,4 – 15 s | « ans, bientôt. Et le Groupe évolue. » |
+| 15 – 21 s | Ouverture en iris depuis le « 0 » ; l'ancien logo est éjecté, un filet d'or tombe et devient le filet du nouveau logo, qui se construit (barre du G = la clé) · « Notre nouvelle identité. » |
+| 21,4 – 26,4 s | « Le groupement demeure » (photo convention) / « et un réseau se lance » (photo de groupe) |
+| 26,4 – 30 s | Carton de fin : logo, « Plus fortes ensemble. », site web |
 
-Tous les textes se modifient dans le bloc `CONFIG` (« | » = retour à la ligne, `*mot*` = mot en doré).
+Tous les textes et le choix des vignettes se modifient dans le bloc `CONFIG`
+(« | » = retour à la ligne, `*mot*` = mot en doré).
 
 ## Médias à déposer dans `assets/medias/`
 
