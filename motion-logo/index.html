@@ -111,15 +111,11 @@
     <div class="abs txt" id="s4txt" style="left:0; width:1080px; text-align:center; top:1290px; color:var(--bleu); font-weight:700">Notre nouvelle identité.</div>
   </div>
 
-  <!-- 5 · Le groupement + le réseau sous licence de marque -->
+  <!-- 5 · Le groupement demeure et un réseau se lance -->
   <div class="layer" id="s5" style="background:var(--bleu)">
-    <div class="filetV" id="s5filetA" style="left:110px; top:410px; height:300px"></div>
-    <div class="abs t" id="s5a" style="left:150px; top:400px; font-size:108px; color:var(--blanc); white-space:nowrap">Le groupement<br>demeure.</div>
-    <div class="abs txt" id="s5a2" style="left:152px; top:640px; color:var(--blanc); opacity:.8; font-size:36px"></div>
-    <div class="abs t" id="s5plus" style="left:128px; top:700px; font-size:230px; color:var(--or); font-weight:700; transform-origin:30% 60%">+</div>
-    <div class="filetV" id="s5filetB" style="left:110px; top:1010px; height:310px"></div>
-    <div class="abs t" id="s5b" style="left:150px; top:1000px; font-size:108px; color:var(--blanc); white-space:nowrap">un réseau<br>sous <span style="color:var(--or)">licence</span><br>de marque.</div>
-    <div class="abs txt" id="s5c" style="left:152px; top:1360px; color:var(--blanc); font-size:36px"></div>
+    <div class="filetV" id="s5filet" style="left:110px; top:700px; height:460px"></div>
+    <div class="abs t" id="s5a" style="left:150px; top:690px; font-size:104px; color:var(--blanc); white-space:nowrap">Le groupement<br>demeure</div>
+    <div class="abs t" id="s5b" style="left:150px; top:945px; font-size:104px; color:var(--blanc); white-space:nowrap">et un réseau<br><span style="color:var(--or)">se lance</span></div>
   </div>
 
   <!-- 6 · Carton de fin -->
@@ -165,8 +161,6 @@ const CONFIG = {
     "Près de 450 agences partenaires.",
     "Un même collectif.",
   ],
-  groupementPrecision: "Les agences partenaires en restent membres.",
-  reseauPrecision: "Lancement en 2026.",
   finTexte: "Bientôt 20 ans. Une nouvelle page.",
   siteWeb: "groupenationalimmobilier.fr",
 };
@@ -275,13 +269,9 @@ function render(t) {
 
   // 5 — le groupement + un réseau sous licence de marque
   $("s5").style.opacity = win(t, ...T.s5, .2, 0);
-  drop($("s5filetA"), t, 22.5, .5);
+  drop($("s5filet"), t, 22.5, .7);
   rise($("s5a"), t, 22.6, .7);
-  rise($("s5a2"), t, 23.1, .6, 20);
-  { const p = eOutExpo(seg(t, 23.9, 24.5)); set($("s5plus"), p, `scale(${.3 + .7 * p})`); }
-  drop($("s5filetB"), t, 24.3, .5);
-  rise($("s5b"), t, 24.4, .7);
-  rise($("s5c"), t, 25.4, .6, 20);
+  rise($("s5b"), t, 24.0, .7);
 
   // 6 — carton de fin : logo, signature, un seul appel à l'action
   $("s6").style.opacity = win(t, T.s6[0], T.s6[1] + 1, .2, 0);
@@ -292,8 +282,6 @@ function render(t) {
 }
 
 /* ---------- Initialisation ---------- */
-$("s5a2").textContent = CONFIG.groupementPrecision;
-$("s5c").textContent = CONFIG.reseauPrecision;
 $("s6txt").textContent = CONFIG.finTexte;
 $("s6url").textContent = CONFIG.siteWeb;
 window.ready = Promise.all([

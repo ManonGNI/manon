@@ -20,7 +20,7 @@ Reel 9:16 (1080 × 1920), 30 secondes, 30 i/s. Réalisé selon la charte graphiq
 | 3,7 – 12,7 s | Flash-back : 5 photos d'événements, flash blanc à chaque coupe | Des conventions. / Des rencontres. / Des réussites partagées. / Près de 450 agences partenaires. / Un même collectif. |
 | 12,5 – 17 s | Fond bleu, « 20 » monumental | « ans, bientôt. Et le Groupe évolue. » |
 | 16,8 – 22,6 s | Ancien logo → volet bleu → montage du nouveau bloc-marque : le filet se trace, le texte se révèle, la barre dorée glisse dans le G (la clé dans la serrure) | « Notre nouvelle identité. » |
-| 22,4 – 27,4 s | Fond bleu | « Le groupement demeure. + un réseau sous licence de marque. Lancement en 2026. » |
+| 22,4 – 27,4 s | Fond bleu | « Le groupement demeure et un réseau se lance » |
 | 27,2 – 30 s | Carton de fin | Logo, « Plus fortes ensemble. » (Allison), site web |
 
 ## Médias à déposer dans `assets/medias/`
