@@ -12,16 +12,23 @@ Reel 9:16 (1080 × 1920), 30 secondes, 30 i/s. Réalisé selon la charte graphiq
 | `render.mjs` | Export MP4 : `node render.mjs` (nécessite Playwright + ffmpeg) |
 | `assets/medias/` | Logo officiel découpé en calques (filet, texte, barre du G) + vos médias |
 
-## Découpage
+## Découpage (version dynamique)
 
-| Temps | Plan | Texte |
-|---|---|---|
-| 0 – 3,9 s | Ancien logo sur blanc | « 2007. Des agences indépendantes réunies pour collaborer » |
-| 3,7 – 12,7 s | Flash-back : 5 photos d'événements, flash blanc à chaque coupe | Des conventions. / Des rencontres. / Des réussites partagées. / Près de 450 agences partenaires. / Un même collectif. |
-| 12,5 – 17 s | Fond bleu, « 20 » monumental | « ans, bientôt. Et le Groupe évolue. » |
-| 16,8 – 22,6 s | Ancien logo → volet bleu → montage du nouveau bloc-marque : le filet se trace, le texte se révèle, la barre dorée glisse dans le G (la clé dans la serrure) | « Notre nouvelle identité. » |
-| 22,4 – 27,4 s | Fond bleu | « Le groupement demeure et un réseau se lance » |
-| 27,2 – 30 s | Carton de fin | Logo, « Plus fortes ensemble. » (Allison), site web |
+Montage rythmé : coupes franches, textes révélés mot à mot, transitions par bandes,
+légers « coups de caméra » sur les temps forts (calables sur une musique à ~120 BPM).
+
+| Temps | Plan |
+|---|---|
+| 0 – 3 s | Ancien logo (apparition avec flou), « 2007. » puis « Des agences indépendantes réunies pour collaborer » |
+| 2,6 – 3,4 s | Transition par bandes bleues |
+| 3 – 10,5 s | Flash-back : 5 photos de 1,5 s, coupe sèche + zoom + flash blanc, travelling horizontal, texte mot à mot |
+| 10,5 – 12 s | Mosaïque : les 5 photos en bandes verticales qui tombent et remontent en alternance |
+| 12 – 15,8 s | Compteur 00 → 20, « ans, bientôt. Et le Groupe évolue. », puis zoom traversant vers le blanc |
+| 15,5 – 21,4 s | Ancien logo → bandes bleues → montage du nouveau bloc-marque (filet, texte, barre du G) · « Notre nouvelle identité. » |
+| 21,4 – 26,4 s | « Le groupement demeure et un réseau se lance » (« se lance » en doré, effet rebond) |
+| 26,4 – 30 s | Carton de fin : logo, « Plus fortes ensemble. », « Bientôt 20 ans. Une nouvelle page. », site web |
+
+Tous les textes se modifient dans le bloc `CONFIG` (« | » = retour à la ligne, `*mot*` = mot en doré).
 
 ## Médias à déposer dans `assets/medias/`
 

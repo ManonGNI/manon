@@ -12,60 +12,47 @@
   @font-face { font-family: "Allison"; font-weight: 400; src: url(assets/fonts/allison-latin-400-normal.woff2) format("woff2"); }
 
   /* Charte V4 : bleu #2F4A71 (≈60 %), blanc / ivoire (≈30 %), doré #D9AE57 en accent (≈10 %) */
-  :root {
-    --bleu: #2F4A71;
-    --bleu-fonce: #1F314D;
-    --or: #D9AE57;
-    --blanc: #FFFFFF;
-    --ivoire: #E5DFCC;
-  }
+  :root { --bleu: #2F4A71; --bleu-fonce: #1F314D; --or: #D9AE57; --blanc: #FFFFFF; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: #0f1724; height: 100%; }
   body { display: flex; align-items: center; justify-content: center; font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif; }
 
   /* Scène 1080×1920 (Reel 9:16). Zones de sécurité charte : 250 px en haut, 350 px en bas. */
   #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--blanc); transform-origin: center center; flex: none; }
+  #cam { position: absolute; inset: 0; transform-origin: 50% 50%; }
   body.render { display: block; background: var(--blanc); }
   body.render #stage { transform: none !important; }
 
-  .layer { position: absolute; inset: 0; background: var(--blanc); }
+  .layer { position: absolute; inset: 0; background: var(--blanc); overflow: hidden; }
   .abs { position: absolute; }
+  .bleu { background: var(--bleu); }
+
+  /* Texte cinétique : chaque mot monte depuis un masque de ligne */
+  .k { font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .k .ln { display: block; overflow: hidden; padding: .06em 0 .1em; margin: -.06em 0 -.1em; }
+  .k .w { display: inline-block; will-change: transform; }
+  .k .or { color: var(--or); }
+  .txt { font-weight: 500; font-size: 42px; line-height: 1.28; }
+  .filetV { position: absolute; width: 10px; background: var(--or); transform-origin: center top; }
+  .sign { font-family: "Allison", cursive; font-weight: 400; line-height: 1; }
 
   /* Bloc-marque : fichier officiel découpé en 3 calques superposés (jamais redessiné) */
   .gni { position: absolute; aspect-ratio: 1033 / 565; }
   .gni img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .gni .filet { transform-origin: center center; }
-
-  /* Ancien logo (fichier fourni) ou cadre provisoire */
   .old { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
   .old img { display: block; width: 100%; height: auto; }
-  .ph-logo { width: 100%; aspect-ratio: 2 / 1; border: 4px dashed rgba(47,74,113,.55); color: var(--bleu);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-    font-weight: 700; font-size: 38px; text-align: center; }
-  .ph-logo small { font-weight: 500; font-size: 22px; opacity: .65; }
 
   /* Flash-back */
-  .shot { position: absolute; inset: 0; overflow: hidden; background: var(--bleu-fonce); }
-  .shot .ph-photo { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; }
-  .shot img.pano { position: absolute; left: 0; top: -2%; height: 104%; width: auto; max-width: none; transform-origin: left top; }
-  .ph-photo { display: flex; align-items: flex-start; justify-content: flex-start; padding: 330px 90px; text-align: left;
-    color: rgba(255,255,255,.22); font-weight: 800; font-size: 64px; line-height: 1.05; letter-spacing: -.01em;
-    background: #2a4266; }
-  .ph-photo span { display: block; font-weight: 500; font-size: 26px; margin-top: 18px; letter-spacing: 0; }
-  /* Dégradé bleu en bas uniquement (règle charte : jamais de voile sur toute la photo) */
-  .shot .degrade { position: absolute; left: 0; right: 0; bottom: 0; height: 52%;
-    background: linear-gradient(to top, rgba(31,49,77,.92) 0%, rgba(31,49,77,.75) 38%, rgba(31,49,77,0) 100%); }
-  .grain { position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .shot { position: absolute; inset: 0; overflow: hidden; background: var(--bleu-fonce); transform-origin: 50% 50%; }
+  .shot img { position: absolute; left: 0; top: -2%; height: 104%; width: auto; max-width: none; }
+  .degrade { position: absolute; left: 0; right: 0; bottom: 0; height: 55%;
+    background: linear-gradient(to top, rgba(31,49,77,.92) 0%, rgba(31,49,77,.7) 40%, rgba(31,49,77,0) 100%); }
+  .strip { position: absolute; top: 0; height: 1920px; overflow: hidden; }
+  .strip img { position: absolute; top: 0; height: 100%; width: auto; max-width: none; }
   #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+  .bar { position: absolute; left: 0; width: 1080px; transform: scaleX(0); }
 
-  /* Typographie */
-  .t { font-weight: 800; line-height: .98; letter-spacing: -.025em; }
-  .txt { font-weight: 500; font-size: 42px; line-height: 1.28; }
-  .filetV { position: absolute; width: 10px; background: var(--or); transform-origin: center top; }
-  .sign { font-family: "Allison", cursive; font-weight: 400; line-height: 1; }
-
-  /* Lecteur (masqué au rendu vidéo) */
   #ctrl { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 10px; align-items: center;
     background: rgba(0,0,0,.65); color: #fff; padding: 8px 14px; border-radius: 8px; font: 500 13px "Montserrat", sans-serif; z-index: 10; }
   #ctrl button { font: inherit; padding: 4px 10px; cursor: pointer; }
@@ -74,50 +61,51 @@
 </style>
 </head>
 <body>
-<div id="stage">
+<div id="stage"><div id="cam">
 
-  <!-- 1 · L'ancien logo -->
+  <!-- 1 · 2007, l'ancien logo -->
   <div class="layer" id="s1">
-    <div class="old" id="oldLogo1" style="width:800px; top:40%"></div>
-    <div class="filetV" id="s1filet" style="left:110px; top:1130px; height:200px"></div>
-    <div class="abs" id="s1a" style="left:150px; top:1120px; color:var(--bleu)"><div class="t" style="font-size:120px">2007.</div></div>
-    <div class="abs txt" id="s1b" style="left:152px; top:1255px; color:var(--bleu); width:820px">Des agences indépendantes<br>réunies pour collaborer</div>
+    <div class="old" id="oldLogo1" style="width:800px; top:38%"></div>
+    <div class="filetV" id="s1filet" style="left:110px; top:1110px; height:250px"></div>
+    <div class="abs k" id="s1a" style="left:150px; top:1100px; font-size:150px; color:var(--bleu)"></div>
+    <div class="abs k" id="s1b" style="left:152px; top:1265px; font-size:44px; font-weight:500; letter-spacing:0; line-height:1.25; color:var(--bleu)"></div>
   </div>
 
-  <!-- 2 · Flash-back : conventions, rencontres -->
-  <div class="layer" id="s2">
+  <!-- 2 · Flash-back -->
+  <div class="layer" id="s2" style="background:var(--bleu-fonce)">
     <div id="shots"></div>
-    <div class="grain"></div>
-    <div class="filetV" id="s2filet" style="left:90px; top:1250px; height:250px"></div>
+    <div class="filetV" id="s2filet" style="left:90px; top:1150px; height:330px"></div>
     <div id="s2words"></div>
   </div>
 
-  <!-- 3 · Bientôt 20 ans -->
-  <div class="layer" id="s3" style="background:var(--bleu)">
-    <div class="abs t" id="s3num" style="left:60px; top:250px; font-size:780px; color:var(--blanc); letter-spacing:-.07em">20</div>
-    <div class="filetV" id="s3filet" style="left:110px; top:1125px; height:300px"></div>
-    <div class="abs t" id="s3ans" style="left:150px; top:1115px; font-size:140px; color:var(--blanc)">ans,</div>
-    <div class="abs t" id="s3bientot" style="left:150px; top:1255px; font-size:140px; color:var(--or)">bientôt.</div>
-    <div class="abs txt" id="s3evol" style="left:152px; top:1470px; color:var(--blanc)">Et le Groupe évolue.</div>
+  <!-- 3 · Compteur 20 ans -->
+  <div class="layer bleu" id="s3">
+    <div class="abs k" id="s3num" style="left:50px; top:250px; font-size:800px; color:var(--blanc); letter-spacing:-.07em; font-variant-numeric: tabular-nums">20</div>
+    <div class="filetV" id="s3filet" style="left:110px; top:1120px; height:310px"></div>
+    <div class="abs k" id="s3a" style="left:150px; top:1110px; font-size:150px; color:var(--blanc)"></div>
+    <div class="abs k" id="s3b" style="left:152px; top:1470px; font-size:44px; font-weight:500; letter-spacing:0; color:var(--blanc)"></div>
   </div>
 
-  <!-- 4 · Passage de relais : ancien → nouveau logo -->
+  <!-- Mosaïque de bandes photo (transition flash-back → 20 ans) -->
+  <div class="layer" id="strips" style="background:transparent"></div>
+
+  <!-- 4 · Ancien → nouveau logo -->
   <div class="layer" id="s4">
-    <div class="old" id="oldLogo2" style="width:800px; top:44%"></div>
-    <div class="gni" id="logoA" style="width:820px; left:130px; top:620px">
+    <div class="old" id="oldLogo2" style="width:800px; top:46%"></div>
+    <div class="gni" id="logoA" style="width:820px; left:130px; top:640px">
       <img class="filet" src="assets/medias/logo-filet.png" alt="">
       <img class="texte" src="assets/medias/logo-texte-bleu.png" alt="">
       <img class="barre" src="assets/medias/logo-barre.png" alt="">
     </div>
-    <div class="abs" id="wipe" style="inset:0; background:var(--bleu)"></div>
-    <div class="abs txt" id="s4txt" style="left:0; width:1080px; text-align:center; top:1290px; color:var(--bleu); font-weight:700">Notre nouvelle identité.</div>
+    <div class="abs k" id="s4txt" style="left:0; width:1080px; text-align:center; top:1310px; font-size:46px; font-weight:700; letter-spacing:0; color:var(--bleu)"></div>
   </div>
 
   <!-- 5 · Le groupement demeure et un réseau se lance -->
-  <div class="layer" id="s5" style="background:var(--bleu)">
-    <div class="filetV" id="s5filet" style="left:110px; top:700px; height:460px"></div>
-    <div class="abs t" id="s5a" style="left:150px; top:690px; font-size:104px; color:var(--blanc); white-space:nowrap">Le groupement<br>demeure</div>
-    <div class="abs t" id="s5b" style="left:150px; top:945px; font-size:104px; color:var(--blanc); white-space:nowrap">et un réseau<br><span style="color:var(--or)">se lance</span></div>
+  <div class="layer bleu" id="s5">
+    <div class="filetV" id="s5filet" style="left:110px; top:640px; height:560px"></div>
+    <div class="abs k" id="s5a" style="left:150px; top:630px; font-size:112px; color:var(--blanc); white-space:nowrap"></div>
+    <div class="abs k" id="s5b" style="left:150px; top:905px; font-size:112px; color:var(--blanc); white-space:nowrap"></div>
+    <div class="abs k" id="s5c" style="left:146px; top:1020px; font-size:150px; color:var(--or); white-space:nowrap; transform-origin:left center"></div>
   </div>
 
   <!-- 6 · Carton de fin -->
@@ -128,12 +116,13 @@
       <img class="barre" src="assets/medias/logo-barre.png" alt="">
     </div>
     <div class="abs sign" id="s6sign" style="left:0; width:1080px; text-align:center; top:1060px; font-size:150px; color:var(--bleu)">Plus fortes ensemble.</div>
-    <div class="abs txt" id="s6txt" style="left:0; width:1080px; text-align:center; top:1290px; color:var(--bleu); font-weight:700; font-size:40px"></div>
+    <div class="abs k" id="s6txt" style="left:0; width:1080px; text-align:center; top:1290px; font-size:40px; font-weight:700; letter-spacing:0; color:var(--bleu)"></div>
     <div class="abs txt" id="s6url" style="left:0; width:1080px; text-align:center; top:1440px; color:var(--bleu); font-size:32px"></div>
   </div>
 
+  <div id="bars"></div>
   <div id="flash"></div>
-</div>
+</div></div>
 
 <div id="ctrl">
   <button id="play">⏸</button>
@@ -144,155 +133,213 @@
 <script>
 /* ======================================================================
    CONFIGURATION — textes et médias modifiables sans toucher au reste.
-   Déposez vos fichiers dans assets/medias/ avec ces noms (ou changez-les).
-   Tant qu'un fichier manque, un cadre « à remplacer » s'affiche.
+   Dans les textes : « | » = retour à la ligne, *mot* = mot en doré.
    ====================================================================== */
 const CONFIG = {
-  ancienLogo: "assets/medias/ancien-logo.png",      // PNG fond transparent
-  flashbacks: [                                        // photos verticales d'événements réels
+  ancienLogo: "assets/medias/ancien-logo.png",
+  ouverture: { annee: "2007.", phrase: "Des agences indépendantes|réunies pour collaborer" },
+  flashbacks: [
     // pan : cadrage de départ → d'arrivée (0 = bord gauche de la photo, 1 = bord droit)
-    { src: "assets/medias/flashback-1.jpg", label: "Photo convention", pan: [0.72, 1.0] },
-    { src: "assets/medias/flashback-2.jpg", label: "Photo rencontre", pan: [0.30, 0.58] },
-    { src: "assets/medias/flashback-3.jpg", label: "Photo soirée", pan: [0.22, 0.55] },
-    { src: "assets/medias/flashback-4.jpg", label: "Photo soirée dansante", pan: [0.36, 0.62] },
-    { src: "assets/medias/flashback-5.jpg", label: "Photo de groupe", pan: [0.30, 0.68] },
+    { src: "assets/medias/flashback-1.jpg", pan: [0.72, 1.0],  texte: "Des|conventions." },
+    { src: "assets/medias/flashback-2.jpg", pan: [0.30, 0.58], texte: "Des|rencontres." },
+    { src: "assets/medias/flashback-3.jpg", pan: [0.22, 0.55], texte: "Des réussites|partagées." },
+    { src: "assets/medias/flashback-4.jpg", pan: [0.36, 0.62], texte: "Près de *450*|agences|partenaires." },
+    { src: "assets/medias/flashback-5.jpg", pan: [0.30, 0.68], texte: "Un même|collectif." },
   ],
-  phrases: [
-    "Des conventions.",
-    "Des rencontres.",
-    "Des réussites partagées.",
-    "Près de 450 agences partenaires.",
-    "Un même collectif.",
-  ],
+  vingtAns: { titre: "ans,|*bientôt.*", suite: "Et le Groupe évolue." },
+  identite: "Notre nouvelle identité.",
+  reseau: { a: "Le groupement|demeure", b: "et un réseau", c: "se lance" },
   finTexte: "Bientôt 20 ans. Une nouvelle page.",
   siteWeb: "groupenationalimmobilier.fr",
 };
 const DURATION = 30;
 
-/* ---------- Outils d'animation ---------- */
+/* ---------- Outils ---------- */
 const $ = id => document.getElementById(id);
 const clamp = v => Math.max(0, Math.min(1, v));
 const seg = (t, a, b) => clamp((t - a) / (b - a));
 const eOut = x => 1 - Math.pow(1 - x, 3);
+const eIn = x => x * x * x;
 const eInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 const eOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
-const eOutBack = x => { const c = 1.4; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
-const win = (t, a, b, fi = .3, fo = .3) => (t < a || t > b) ? 0 : Math.min(fi ? seg(t, a, a + fi) : 1, fo ? 1 - seg(t, b - fo, b) : 1);
-function set(el, o, tf) { el.style.opacity = o; if (tf !== undefined) el.style.transform = tf; }
-function rise(el, t, a, d = .6, dist = 50) { const p = eOut(seg(t, a, a + d)); set(el, p, `translateY(${(1 - p) * dist}px)`); }
-function drop(el, t, a, d = .6) { el.style.transform = `scaleY(${eOutExpo(seg(t, a, a + d))})`; }
+const eOutBack = x => { const c = 1.6; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const show = (el, on) => { el.style.display = on ? "" : "none"; };
+const drop = (el, t, a, d = .45) => { el.style.transform = `scaleY(${eOutExpo(seg(t, a, a + d))})`; };
 
-/* Montage du bloc-marque : filet qui se trace, texte révélé depuis le filet,
-   puis la barre dorée glisse dans le G (la clé dans la serrure). */
-function assembleLogo(box, t, a) {
+/* Texte cinétique */
+function kin(el, text) {
+  el.innerHTML = text.split("|").map(line =>
+    `<span class="ln">${line.split(" ").map(w => w.startsWith("*") ? `<span class="w or">${w.replace(/\*/g, "")}</span>` : `<span class="w">${w}</span>`).join(" ")}</span>`
+  ).join("");
+  el._w = [...el.querySelectorAll(".w")];
+}
+// entrée mot à mot (a), sortie optionnelle vers le haut (b)
+function words(el, t, a, b = Infinity, st = .06, d = .5) {
+  el._w.forEach((w, j) => {
+    const p = eOutExpo(seg(t, a + j * st, a + j * st + d));
+    const q = b === Infinity ? 0 : eIn(seg(t, b + j * .03, b + j * .03 + .3));
+    w.style.transform = `translateY(${(1 - p) * 110 - q * 110}%)`;
+  });
+}
+
+/* Coups de caméra : léger zoom qui retombe, calés sur les temps forts */
+const HITS = [0.15, 1.0, 3.1, 13.2, 17.4, 18.95, 23.6, 27.5];
+function camera(t) {
+  let s = 0; for (const h of HITS) if (t >= h) s += .045 * Math.exp(-(t - h) * 7);
+  $("cam").style.transform = `scale(${1 + s})`;
+}
+
+/* Transition par bandes (5 bandes horizontales décalées) */
+const BARS = [ // [début, couleur]
+  [2.6, "var(--bleu)"], [16.8, "var(--bleu)"], [21.0, "var(--bleu)"], [26.0, "var(--blanc)"],
+];
+function bars(t) {
+  const els = $("bars").children;
+  const cur = BARS.find(([a]) => t >= a - .01 && t < a + 1.1);
+  for (let i = 0; i < els.length; i++) {
+    const b = els[i];
+    if (!cur) { b.style.transform = "scaleX(0)"; continue; }
+    const [a, col] = cur; b.style.background = col;
+    const p = eInOut(seg(t, a + i * .05, a + i * .05 + .32));
+    const q = eInOut(seg(t, a + .5 + i * .05, a + .5 + i * .05 + .32));
+    b.style.transformOrigin = q > 0 ? "right center" : "left center";
+    b.style.transform = `scaleX(${q > 0 ? 1 - q : p})`;
+  }
+}
+
+/* Montage du bloc-marque : filet, texte révélé depuis le filet, barre du G (la clé) */
+function assembleLogo(box, t, a, k = 1) {
   const [filet, texte, barre] = box.children;
-  const pf = eInOut(seg(t, a, a + .6));
+  const pf = eInOut(seg(t, a, a + .45 * k));
   filet.style.transform = `scaleY(${pf})`; filet.style.opacity = pf > 0 ? 1 : 0;
-  const pt = eOut(seg(t, a + .45, a + 1.25));
+  const pt = eOutExpo(seg(t, a + .3 * k, a + 1.0 * k));
   texte.style.clipPath = `inset(0 ${(1 - pt) * 100}% 0 0)`;
-  texte.style.transform = `translateX(${(1 - pt) * -40}px)`;
-  const pb = seg(t, a + 1.25, a + 1.85);
+  texte.style.transform = `translateX(${(1 - pt) * -60}px)`;
+  const pb = seg(t, a + 1.0 * k, a + 1.5 * k);
   barre.style.opacity = Math.min(1, pb * 4);
-  barre.style.transform = `translateX(${(1 - eOutBack(pb)) * -220}px)`;
+  barre.style.transform = `translateX(${(1 - eOutBack(pb)) * -240}px)`;
 }
 
 /* ---------- Médias ---------- */
 function oldLogoInto(id) {
   const box = $(id), img = new Image();
-  return new Promise(res => {
-    img.onload = () => { box.innerHTML = ""; box.appendChild(img); res(); };
-    img.onerror = () => { box.innerHTML = `<div class="ph-logo">ANCIEN LOGO<small>à déposer : ${CONFIG.ancienLogo}</small></div>`; res(); };
-    img.src = CONFIG.ancienLogo;
-  });
+  return new Promise(res => { img.onload = () => { box.appendChild(img); res(); }; img.onerror = res; img.src = CONFIG.ancienLogo; });
 }
+const PHOTOS = [];
 function buildShots() {
-  const wrap = $("shots"), words = $("s2words");
-  return Promise.all(CONFIG.flashbacks.map((f, i) => {
-    const shot = document.createElement("div"); shot.className = "shot"; shot.id = "shot" + i; wrap.appendChild(shot);
-    const w = document.createElement("div"); w.className = "abs t"; w.id = "word" + i;
-    w.style.cssText = "left:130px; top:1255px; width:880px; font-size:100px; color:#fff;";
-    w.textContent = CONFIG.phrases[i] || ""; words.appendChild(w);
-    return new Promise(res => {
-      const img = new Image();
-      const finish = el => { shot.prepend(el); const d = document.createElement("div"); d.className = "degrade"; shot.appendChild(d); res(); };
-      img.onload = () => { img.className = "pano"; img.dataset.w = 1920 * 1.04 * img.naturalWidth / img.naturalHeight; finish(img); };
-      img.onerror = () => { const d = document.createElement("div"); d.className = "ph-photo"; d.innerHTML = `${f.label}<span>à déposer : ${f.src}</span>`; finish(d); };
-      img.src = f.src;
-    });
-  }));
+  return Promise.all(CONFIG.flashbacks.map((f, i) => new Promise(res => {
+    const shot = document.createElement("div"); shot.className = "shot"; shot.id = "shot" + i; $("shots").appendChild(shot);
+    const w = document.createElement("div"); w.className = "abs k"; w.id = "word" + i;
+    w.style.cssText = "left:130px; bottom:440px; width:900px; font-size:130px; color:#fff;";
+    $("s2words").appendChild(w); kin(w, f.texte);
+    const img = new Image();
+    img.onload = () => {
+      const width = 1920 * 1.04 * img.naturalWidth / img.naturalHeight;
+      PHOTOS[i] = { width, img };
+      shot.appendChild(img); const d = document.createElement("div"); d.className = "degrade"; shot.appendChild(d);
+      // bande correspondante pour la mosaïque
+      const s = document.createElement("div"); s.className = "strip"; s.style.left = (i * 216) + "px"; s.style.width = "216px";
+      const im2 = img.cloneNode(); const center = (f.pan[0] + f.pan[1]) / 2;
+      const w2 = 1920 * img.naturalWidth / img.naturalHeight;
+      im2.style.left = (-(w2 * (0.18 + 0.64 * center)) + 108) + "px";
+      s.appendChild(im2); $("strips").appendChild(s);
+      res();
+    };
+    img.onerror = res; img.src = f.src;
+  })));
 }
 function imgsLoaded() {
   return Promise.all([...document.querySelectorAll(".gni img")].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; })));
 }
 
-/* ---------- Timeline (secondes) ---------- */
-const T = { s1: [0, 3.9], s2: [3.7, 12.7], s3: [12.5, 17.0], s4: [16.8, 22.6], s5: [22.4, 27.4], s6: [27.2, 30.0] };
-
+/* ---------- Timeline ---------- */
 function render(t) {
-  // 1 — l'ancien logo, sur blanc
-  $("s1").style.opacity = win(t, ...T.s1, 0, 0);
-  { const p = eOut(seg(t, .15, 1.3)); set($("oldLogo1"), p, `translate(-50%,-50%) scale(${.94 + .06 * p})`); }
-  drop($("s1filet"), t, 1.3, .6);
-  rise($("s1a"), t, 1.4, .7);
-  rise($("s1b"), t, 1.8, .7, 30);
+  camera(t); bars(t);
 
-  // 2 — flash-back : plans de 1,8 s, léger zoom, flash blanc à chaque coupe
-  $("s2").style.opacity = win(t, ...T.s2, .2, 0);
-  const n = CONFIG.flashbacks.length, len = (T.s2[1] - T.s2[0]) / n;
+  // 1 — 2007 (0 → 3,1 s)
+  show($("s1"), t < 3.1);
+  { const p = eOutExpo(seg(t, .1, .8)); const o = $("oldLogo1");
+    o.style.opacity = p; o.style.transform = `translate(-50%,-50%) scale(${1.12 - .12 * p})`; o.style.filter = `blur(${(1 - p) * 10}px)`; }
+  drop($("s1filet"), t, .9);
+  words($("s1a"), t, .95);
+  words($("s1b"), t, 1.35, Infinity, .045, .45);
+
+  // 2 — flash-back : 5 plans de 1,5 s, coupe sèche + zoom « punch » + flou de vitesse
+  const T2 = 3.0, L = 1.5, n = CONFIG.flashbacks.length;
+  show($("s2"), t >= T2 && t < 11.3);
   let flash = 0;
   for (let i = 0; i < n; i++) {
-    const a = T.s2[0] + i * len, b = a + len;
-    const on = t >= a && (t < b || i === n - 1);
-    const k = seg(t, a, b + .3), sc = 1.03 + .07 * k, dx = (i % 2 ? -1 : 1) * 20 * k;
-    const shot = $("shot" + i); shot.style.opacity = on ? 1 : 0;
-    const media = shot.firstElementChild;
-    if (media && media.classList.contains("pano")) {
-      // photo paysage : lent travelling horizontal à travers l'image
-      const [p0, p1] = CONFIG.flashbacks[i].pan || [.5, .5], span = +media.dataset.w - 1080;
-      media.style.transform = `translateX(${-span * (p0 + (p1 - p0) * eInOut(k))}px)`;
-    } else if (media) media.style.transform = `translateX(${dx}px) scale(${sc})`;
-    const w = $("word" + i);
-    if (on) { const p = eOut(seg(t, a + .08, a + .5)); set(w, p, `translateY(${(1 - p) * 36}px)`); } else w.style.opacity = 0;
-    if (i > 0 && t >= a) flash = Math.max(flash, 1 - seg(t, a, a + .18));
+    const a = T2 + i * L, b = a + L, on = t >= a && (t < b || i === n - 1);
+    const shot = $("shot" + i); show(shot, on);
+    const z = eOutExpo(seg(t, a, a + .45));
+    shot.style.transform = `scale(${1.2 - .14 * z + .03 * seg(t, a, b)})`;
+    shot.style.filter = `blur(${(1 - z) * 9}px)`;
+    const ph = PHOTOS[i];
+    if (ph) { const [p0, p1] = CONFIG.flashbacks[i].pan, span = ph.width - 1080;
+      ph.img.style.transform = `translateX(${-span * (p0 + (p1 - p0) * seg(t, a, b + .3))}px)`; }
+    const w = $("word" + i); show(w, on); words(w, t, a + .12, i === n - 1 ? 10.35 : b - .22, .06, .45);
+    if (i > 0 && t >= a) flash = Math.max(flash, 1 - seg(t, a, a + .1));
   }
-  drop($("s2filet"), t, T.s2[0] + .15, .5);
-  $("flash").style.opacity = (t > T.s2[0] && t < T.s2[1]) ? flash * .8 : 0;
+  drop($("s2filet"), t, T2 + .1);
+  $("flash").style.opacity = (t > T2 && t < 10.6) ? flash * .7 : 0;
 
-  // 3 — 20 ans, bientôt
-  $("s3").style.opacity = win(t, ...T.s3, .2, 0);
-  { const p = eOutExpo(seg(t, 12.6, 13.8)); set($("s3num"), p, `translateY(${(1 - p) * 140}px) scale(${1.12 - .12 * p})`); }
-  drop($("s3filet"), t, 13.4, .6);
-  rise($("s3ans"), t, 13.5, .6);
-  rise($("s3bientot"), t, 13.85, .6);
-  rise($("s3evol"), t, 15.0, .7, 30);
+  // Mosaïque : 5 bandes qui tombent / montent en alternance, puis s'ouvrent sur le bleu
+  { const strips = $("strips").children; show($("strips"), t >= 10.4 && t < 12.2);
+    for (let i = 0; i < strips.length; i++) {
+      const dir = i % 2 ? 1 : -1;
+      const p = eOutExpo(seg(t, 10.45 + i * .05, 10.45 + i * .05 + .5));
+      const q = eInOut(seg(t, 11.55 + i * .05, 11.55 + i * .05 + .4));
+      strips[i].style.transform = `translateY(${(1 - p) * dir * 1920 - q * dir * 1920}px)`;
+      strips[i].firstChild.style.transform = `scale(${1.1 - .1 * eOut(seg(t, 10.45, 11.6))})`;
+    } }
 
-  // 4 — passage de relais : volet bleu, puis assemblage du nouveau bloc-marque
-  $("s4").style.opacity = win(t, ...T.s4, .2, 0);
-  { const p = eOut(seg(t, 16.9, 17.6)); set($("oldLogo2"), p * (t < 18.75 ? 1 : 0), `translate(-50%,-50%) scale(${.97 + .03 * p})`); }
-  { const wIn = eInOut(seg(t, 18.1, 18.75)), wOut = eInOut(seg(t, 18.85, 19.5)), w = $("wipe");
-    w.style.transformOrigin = wOut > 0 ? "center top" : "center bottom";
-    w.style.transform = `scaleY(${wOut > 0 ? 1 - wOut : wIn})`; }
-  $("logoA").style.visibility = t >= 18.8 ? "visible" : "hidden";
-  assembleLogo($("logoA"), t, 19.3);
-  rise($("s4txt"), t, 21.0, .7, 30);
+  // 3 — compteur 00 → 20 (11,5 → 15,8 s), puis traversée vers le blanc
+  show($("s3"), t >= 11.5 && t < 15.8);
+  { const c = Math.round(20 * eOut(seg(t, 12.1, 13.2))); $("s3num").textContent = String(c).padStart(2, "0");
+    const p = eOutExpo(seg(t, 11.9, 12.4)); $("s3num").style.opacity = p;
+    const q = eIn(seg(t, 15.2, 15.75)); $("s3").style.transform = `scale(${1 + q * 1.4})`; $("s3").style.opacity = 1 - q; }
+  drop($("s3filet"), t, 13.15);
+  words($("s3a"), t, 13.2, Infinity, .12, .5);
+  words($("s3b"), t, 14.1, Infinity, .05, .45);
 
-  // 5 — le groupement + un réseau sous licence de marque
-  $("s5").style.opacity = win(t, ...T.s5, .2, 0);
-  drop($("s5filet"), t, 22.5, .7);
-  rise($("s5a"), t, 22.6, .7);
-  rise($("s5b"), t, 24.0, .7);
+  // 4 — ancien logo → bandes → nouveau bloc-marque
+  show($("s4"), t >= 15.45 && t < 21.45);
+  $("s4").style.opacity = eOut(seg(t, 15.45, 15.7));
+  { const p = eOutExpo(seg(t, 15.6, 16.2)), o = $("oldLogo2"); show(o, t < 17.15);
+    o.style.opacity = p; o.style.transform = `translate(-50%,-50%) scale(${1.1 - .1 * p})`; }
+  show($("logoA"), t >= 17.15);
+  assembleLogo($("logoA"), t, 17.4);
+  words($("s4txt"), t, 19.3, Infinity, .07, .45);
 
-  // 6 — carton de fin : logo, signature, un seul appel à l'action
-  $("s6").style.opacity = win(t, T.s6[0], T.s6[1] + 1, .2, 0);
-  assembleLogo($("logoB"), t, 27.3);
-  { const p = eOut(seg(t, 28.5, 29.3)); $("s6sign").style.opacity = p; $("s6sign").style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`; }
-  rise($("s6txt"), t, 28.8, .6, 20);
-  rise($("s6url"), t, 29.1, .6, 20);
+  // 5 — le groupement demeure et un réseau se lance
+  show($("s5"), t >= 21.3 && t < 26.4);
+  drop($("s5filet"), t, 21.5, .7);
+  words($("s5a"), t, 21.6, Infinity, .09, .5);
+  words($("s5b"), t, 22.9, Infinity, .09, .5);
+  { const p = eOutBack(seg(t, 23.55, 24.05)), c = $("s5c");
+    c.style.opacity = seg(t, 23.55, 23.65); c.style.transform = `scale(${.5 + .5 * p})`; }
+
+  // 6 — carton de fin
+  show($("s6"), t >= 26.3);
+  assembleLogo($("logoB"), t, 26.5, .8);
+  { const p = eOut(seg(t, 27.9, 28.7)); $("s6sign").style.opacity = p; $("s6sign").style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`; }
+  words($("s6txt"), t, 28.4, Infinity, .05, .45);
+  { const p = eOut(seg(t, 28.9, 29.4)); $("s6url").style.opacity = p; $("s6url").style.transform = `translateY(${(1 - p) * 20}px)`; }
 }
 
 /* ---------- Initialisation ---------- */
-$("s6txt").textContent = CONFIG.finTexte;
+kin($("s1a"), CONFIG.ouverture.annee);
+kin($("s1b"), CONFIG.ouverture.phrase);
+kin($("s3a"), CONFIG.vingtAns.titre);
+kin($("s3b"), CONFIG.vingtAns.suite);
+kin($("s4txt"), CONFIG.identite);
+kin($("s5a"), CONFIG.reseau.a);
+kin($("s5b"), CONFIG.reseau.b);
+$("s5c").textContent = CONFIG.reseau.c;
+kin($("s6txt"), CONFIG.finTexte);
 $("s6url").textContent = CONFIG.siteWeb;
+for (let i = 0; i < 5; i++) { const b = document.createElement("div"); b.className = "bar"; b.style.top = (i * 384) + "px"; b.style.height = "385px"; $("bars").appendChild(b); }
+
 window.ready = Promise.all([
   ...["800", "700", "500"].map(w => document.fonts.load(`${w} 100px "Montserrat"`)),
   document.fonts.load('400 100px "Allison"'),
