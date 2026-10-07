@@ -16,7 +16,7 @@ Reel 9:16 (1080 × 1920), 30 secondes, 30 i/s. Réalisé selon la charte graphiq
 
 | Temps | Plan | Texte |
 |---|---|---|
-| 0 – 3,9 s | Ancien logo sur blanc | « 2007. Des agences indépendantes réunies sous un même nom. » |
+| 0 – 3,9 s | Ancien logo sur blanc | « Des agences indépendantes réunies pour collaborer » |
 | 3,7 – 12,7 s | Flash-back : 5 photos d'événements, flash blanc à chaque coupe | Des conventions. / Des rencontres. / Des réussites partagées. / Près de 450 agences partenaires. / Un même collectif. |
 | 12,5 – 17 s | Fond bleu, « 20 » monumental | « ans, bientôt. Et le Groupe évolue. » |
 | 16,8 – 22,6 s | Ancien logo → volet bleu → montage du nouveau bloc-marque : le filet se trace, le texte se révèle, la barre dorée glisse dans le G (la clé dans la serrure) | « Notre nouvelle identité. » |
