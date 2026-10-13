@@ -17,7 +17,7 @@ export const Intro: React.FC = () => {
   const p = spring({ frame: frame - 3, fps, config: { damping: 200 }, durationInFrames: 22 });
   return (
     <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 4) + hit(frame, 28)})` }}>
-      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `blur(${(1 - p) * 12}px)` }} />
+      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `brightness(0) blur(${(1 - p) * 12}px)` }} />
       <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.encre }} />
       <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 102, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.encre }} />
     </AbsoluteFill>
@@ -137,12 +137,12 @@ export const Fin: React.FC = () => {
         <div style={{ position: "absolute", inset: 0, transformOrigin: `${GC.x}px ${GC.y}px`,
           transform: `translate(${(TARGET.x - GC.x) * z}px, ${(TARGET.y - GC.y) * z}px) scale(${scale})` }}>
           <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: LOGO_W, left: LOGO_X, top: LOGO_Y, opacity: pin,
-            filter: `blur(${(1 - pin) * 10}px)` }} />
+            filter: `brightness(0) blur(${(1 - pin) * 10}px)` }} />
         </div>
       )}
       {swap && (
         <svg viewBox={`0 0 ${G.w} ${G.h}`} style={{ position: "absolute", left: TARGET.x - gw / 2, top: TARGET.y - gh / 2, width: gw, height: gh, overflow: "visible" }}>
-          <path d={morph(m)} fill={interpolateColors(m, [0, 1], [G.oldColor, NOUVEAU.bleu])} />
+          <path d={morph(m)} fill={interpolateColors(m, [0, 1], [C.encre, NOUVEAU.bleu])} />
           <path d={G.barPath} fill={NOUVEAU.or} opacity={frame >= 88 ? 1 : 0} transform={`translate(${(1 - bar) * -70} 0)`} />
         </svg>
       )}

@@ -1,8 +1,8 @@
 import { staticFile } from "remotion";
 
-// Palette neutre de teasing : la couleur de l'ancien logo, du blanc et un accent clair.
-// La nouvelle charte (bleu / doré) n'apparaît qu'à la toute fin, dans le G.
-export const C = { encre: "#05384B", encreFonce: "#032733", accent: "#8DB6C4", blanc: "#FFFFFF" };
+// Palette monochrome de teasing : noir, blanc et un gris pour les mots mis en avant.
+// La seule couleur arrive à la toute fin : le G du nouveau logo (bleu + barre dorée).
+export const C = { encre: "#111111", encreFonce: "#000000", accent: "#9C9C9C", blanc: "#FFFFFF" };
 export const NOUVEAU = { bleu: "#2F4A71", or: "#D9AE57" };
 export const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
