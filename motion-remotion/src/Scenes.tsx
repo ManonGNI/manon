@@ -3,7 +3,6 @@ import { AbsoluteFill, Img, interpolate, spring, useCurrentFrame, useVideoConfig
 import { CameraMotionBlur } from "@remotion/motion-blur";
 import { C, FONT, MEDIA, PHOTOS, TEXTES, VIGNETTES } from "./theme";
 import { Filet, Words } from "./Words";
-import { NewLogo } from "./Logo";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 // petit « coup de caméra » qui retombe
@@ -102,7 +101,7 @@ export const Vingt: React.FC = () => {
   );
 };
 
-/* 4 — L'ancien logo est éjecté, un filet d'or tombe et devient le filet du nouveau logo */
+/* 4 — Teasing : l'ancien logo est éjecté, un filet d'or tombe… la nouvelle identité se prépare (sans la dévoiler) */
 export const Passage: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -110,9 +109,8 @@ export const Passage: React.FC = () => {
   const eject = interpolate(frame, [44, 54], [0, 1], { ...clamp, easing: Easing.in(Easing.exp) });
   const drop = interpolate(frame, [46, 56], [0, 1], { ...clamp, easing: Easing.out(Easing.exp) });
   const shrink = interpolate(frame, [57, 69], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
-  const LOGO = { left: 130, top: 640, width: 820 };
   return (
-    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 46) + hit(frame, 100)})` }}>
+    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 46) + hit(frame, 72)})` }}>
       {frame < 56 && (
         <CameraMotionBlur samples={8} shutterAngle={260}>
           <AbsoluteFill>
@@ -121,12 +119,11 @@ export const Passage: React.FC = () => {
           </AbsoluteFill>
         </CameraMotionBlur>
       )}
-      {frame >= 46 && frame < 72 && (
-        <div style={{ position: "absolute", left: 135, width: 9, background: C.or, transformOrigin: "center top",
-          top: interpolate(shrink, [0, 1], [0, 645]), height: interpolate(shrink, [0, 1], [1920, 439]), transform: `scaleY(${drop})` }} />
+      {frame >= 46 && (
+        <div style={{ position: "absolute", left: 110, width: 10, background: C.or, transformOrigin: "center top",
+          top: interpolate(shrink, [0, 1], [0, 640]), height: interpolate(shrink, [0, 1], [1920, 470]), transform: `scaleY(${drop})` }} />
       )}
-      {frame >= 66 && <NewLogo start={66} {...LOGO} />}
-      <Words text={TEXTES.identite} start={112} stagger={2} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1310, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.bleu }} />
+      <Words text={TEXTES.teasing} start={68} stagger={3} style={{ position: "absolute", left: 150, top: 630, fontSize: 132, color: C.bleu, whiteSpace: "nowrap" }} />
     </AbsoluteFill>
   );
 };
@@ -169,18 +166,17 @@ export const Chapitre: React.FC = () => {
   );
 };
 
-/* 7 — Carton de fin */
+/* 7 — Carton de fin : signature avec le logo actuel (la nouvelle identité reste secrète) */
 export const Fin: React.FC = () => {
   const frame = useCurrentFrame();
-  const sign = interpolate(frame, [42, 66], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const url = interpolate(frame, [74, 88], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const { fps } = useVideoConfig();
+  const p = spring({ frame: frame - 4, fps, config: { damping: 200 }, durationInFrames: 20 });
+  const url = interpolate(frame, [44, 58], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   return (
-    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 32)})` }}>
-      <NewLogo start={4} width={760} left={160} top={520} speed={1.25} />
-      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1060, fontFamily: "Allison, cursive", fontSize: 150, lineHeight: 1,
-        color: C.bleu, opacity: sign, clipPath: `inset(0 ${(1 - sign) * 100}% 0 0)` }}>Plus fortes ensemble.</div>
-      <Words text={TEXTES.fin} start={60} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1290, fontSize: 40, fontWeight: 700, letterSpacing: 0, color: C.bleu }} />
-      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1440, fontSize: 32, fontWeight: 500, color: C.bleu,
+    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT }}>
+      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 640, opacity: p, transform: `scale(${1.1 - 0.1 * p})`, filter: `blur(${(1 - p) * 10}px)` }} />
+      <Words text={TEXTES.fin} start={26} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1110, fontSize: 44, fontWeight: 700, letterSpacing: 0, color: C.bleu }} />
+      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1210, fontSize: 32, fontWeight: 500, color: C.bleu,
         opacity: url, transform: `translateY(${(1 - url) * 20}px)` }}>{TEXTES.site}</div>
     </AbsoluteFill>
   );

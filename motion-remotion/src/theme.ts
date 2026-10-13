@@ -7,9 +7,6 @@ export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 export const PHOTOS = [1, 2, 3, 4, 5].map((i) => staticFile(`medias/flashback-${i}.jpg`));
 export const MEDIA = {
   ancienLogo: staticFile("medias/ancien-logo.png"),
-  filet: staticFile("medias/logo-filet.png"),
-  texte: staticFile("medias/logo-texte-bleu.png"),
-  barre: staticFile("medias/logo-barre.png"),
 };
 
 // Textes : « | » = retour à la ligne, *mot* = mot en doré
@@ -25,7 +22,7 @@ export const TEXTES = {
   ],
   vingt: "ans,|*bientôt.*",
   evolue: "Et le Groupe évolue.",
-  identite: "Notre nouvelle identité.",
+  teasing: "Une nouvelle|identité|se prépare…",
   groupement: "Le groupement|demeure",
   reseau: "et un réseau|*se lance*",
   chapitre: "Un nouveau|chapitre|*s’ouvre…*",
