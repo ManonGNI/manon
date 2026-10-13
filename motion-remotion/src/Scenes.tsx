@@ -101,17 +101,17 @@ export const Vingt: React.FC = () => {
   );
 };
 
-/* 4 — Teasing : l'ancien logo est éjecté, un filet d'or tombe… la nouvelle identité se prépare (sans la dévoiler) */
+/* 4 — Teasing : l'ancien logo est éjecté, un filet d'or tombe et attend la suite */
 export const Passage: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const pin = spring({ frame: frame - 2, fps, config: { damping: 200 }, durationInFrames: 18 });
-  const eject = interpolate(frame, [44, 54], [0, 1], { ...clamp, easing: Easing.in(Easing.exp) });
-  const drop = interpolate(frame, [46, 56], [0, 1], { ...clamp, easing: Easing.out(Easing.exp) });
-  const shrink = interpolate(frame, [57, 69], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const eject = interpolate(frame, [34, 44], [0, 1], { ...clamp, easing: Easing.in(Easing.exp) });
+  const drop = interpolate(frame, [36, 46], [0, 1], { ...clamp, easing: Easing.out(Easing.exp) });
+  const shrink = interpolate(frame, [48, 62], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   return (
-    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 46) + hit(frame, 72)})` }}>
-      {frame < 56 && (
+    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 36)})` }}>
+      {frame < 46 && (
         <CameraMotionBlur samples={8} shutterAngle={260}>
           <AbsoluteFill>
             <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 700, opacity: pin,
@@ -119,35 +119,11 @@ export const Passage: React.FC = () => {
           </AbsoluteFill>
         </CameraMotionBlur>
       )}
-      {frame >= 46 && (
+      {/* le filet finit exactement à la place de celui de la scène suivante */}
+      {frame >= 36 && (
         <div style={{ position: "absolute", left: 110, width: 10, background: C.or, transformOrigin: "center top",
-          top: interpolate(shrink, [0, 1], [0, 640]), height: interpolate(shrink, [0, 1], [1920, 470]), transform: `scaleY(${drop})` }} />
+          top: interpolate(shrink, [0, 1], [0, 500]), height: interpolate(shrink, [0, 1], [1920, 720]), transform: `scaleY(${drop})` }} />
       )}
-      <Words text={TEXTES.teasing} start={68} stagger={3} style={{ position: "absolute", left: 150, top: 630, fontSize: 132, color: C.bleu, whiteSpace: "nowrap" }} />
-    </AbsoluteFill>
-  );
-};
-
-/* 5 — Le groupement demeure (photo convention) et un réseau se lance (photo de groupe qui glisse) */
-export const Reseau: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const reveal = interpolate(frame, [14, 32], [0, 1], { ...clamp, easing: Easing.out(Easing.exp) });
-  const slideB = spring({ frame: frame - 62, fps, config: { damping: 200 }, durationInFrames: 20 });
-  const photo = (src: string, from: number): React.CSSProperties => ({
-    position: "absolute", inset: 0, backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center",
-    transform: `scale(${1.12 - 0.1 * interpolate(frame, [from, from + 80], [0, 1], clamp)})`,
-  });
-  return (
-    <AbsoluteFill style={{ background: C.bleu, fontFamily: FONT, transform: `scale(${1 + hit(frame, 82)})` }}>
-      <Words text={TEXTES.groupement} start={4} stagger={3} style={{ position: "absolute", left: 90, top: 300, fontSize: 104, color: C.blanc, whiteSpace: "nowrap" }} />
-      <div style={{ position: "absolute", left: 0, top: 590, width: 1080, height: 720, overflow: "hidden", clipPath: `inset(0 ${50 * (1 - reveal)}% 0 ${50 * (1 - reveal)}%)` }}>
-        <div style={photo(PHOTOS[0], 14)} />
-        <div style={{ position: "absolute", inset: 0, overflow: "hidden", transform: `translateX(${(1 - slideB) * 1080}px)` }}>
-          <div style={photo(PHOTOS[4], 62)} />
-        </div>
-      </div>
-      <Words text={TEXTES.reseau} start={66} stagger={3} style={{ position: "absolute", left: 90, top: 1350, fontSize: 100, color: C.blanc, whiteSpace: "nowrap" }} />
     </AbsoluteFill>
   );
 };
@@ -157,7 +133,7 @@ export const Chapitre: React.FC = () => {
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: C.bleu, fontFamily: FONT, transform: `scale(${1 + hit(frame, 8) + hit(frame, 80)})` }}>
-      <Filet start={4} left={110} top={500} height={720} />
+      <Filet start={-30} left={110} top={500} height={720} />
       <Words text={TEXTES.chapitre} start={6} exit={60} stagger={3} style={{ position: "absolute", left: 150, top: 560, fontSize: 140, color: C.blanc, whiteSpace: "nowrap" }} />
       <Words text={TEXTES.rdv} start={68} stagger={1} style={{ position: "absolute", left: 152, top: 520, fontSize: 64, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
       <Words text={TEXTES.date} start={74} stagger={4} style={{ position: "absolute", left: 146, top: 640, fontSize: 150, color: C.blanc, whiteSpace: "nowrap" }} />
