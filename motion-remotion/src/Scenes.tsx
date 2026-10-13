@@ -4,7 +4,7 @@ import { interpolate as interpolatePath } from "flubber";
 import { CameraMotionBlur } from "@remotion/motion-blur";
 import { C, FONT, MEDIA, NOUVEAU, PHOTOS, TEXTES, VIGNETTES } from "./theme";
 import { G } from "./gShapes";
-import { Filet, Words } from "./Words";
+import { Words } from "./Words";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 // petit « coup de caméra » qui retombe
@@ -18,9 +18,8 @@ export const Intro: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 4) + hit(frame, 28)})` }}>
       <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `blur(${(1 - p) * 12}px)` }} />
-      <Filet start={26} left={110} top={1110} height={250} />
-      <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 150, top: 1100, fontSize: 150, color: C.encre }} />
-      <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 152, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.encre }} />
+      <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.encre }} />
+      <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 102, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.encre }} />
     </AbsoluteFill>
   );
 };
@@ -71,10 +70,9 @@ export const Souvenirs: React.FC = () => {
         </CameraMotionBlur>
       </AbsoluteFill>
       <div style={{ position: "absolute", left: 0, top: 735, width: 1080, height: 450, background: C.encre, transform: `scaleY(${open * (1 - close)})` }}>
-        <Filet start={18} left={110} top={70} height={310} />
         {TEXTES.phrases.map((txt, i) => (
           <Words key={i} text={txt} start={PHRASE_AT[i] + 3} exit={i < PHRASE_AT.length - 1 ? PHRASE_AT[i + 1] - 9 : durationInFrames - 40}
-            style={{ position: "absolute", left: 150, top: 60, fontSize: 104, color: C.blanc }} />
+            style={{ position: "absolute", left: 100, top: 60, fontSize: 104, color: C.blanc }} />
         ))}
       </div>
     </AbsoluteFill>
@@ -96,9 +94,8 @@ export const Vingt: React.FC = () => {
         opacity: p, transform: `scale(${1.35 - 0.35 * p})`, filter: `blur(${(1 - p) * 10}px)` }}>
         {String(count).padStart(2, "0")}
       </div>
-      <Filet start={40} left={110} top={1110} height={310} />
-      <Words text={TEXTES.vingt} start={42} stagger={4} style={{ position: "absolute", left: 150, top: 1100, fontSize: 150, color: C.blanc }} />
-      <Words text={TEXTES.evolue} start={72} stagger={1} style={{ position: "absolute", left: 152, top: 1465, fontSize: 44, fontWeight: 500, letterSpacing: 0, color: C.blanc }} />
+      <Words text={TEXTES.vingt} start={42} stagger={4} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.blanc }} />
+      <Words text={TEXTES.evolue} start={72} stagger={1} style={{ position: "absolute", left: 102, top: 1465, fontSize: 44, fontWeight: 500, letterSpacing: 0, color: C.blanc }} />
     </AbsoluteFill>
   );
 };
@@ -108,11 +105,10 @@ export const Chapitre: React.FC = () => {
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: C.encre, fontFamily: FONT, transform: `scale(${1 + hit(frame, 8) + hit(frame, 80)})` }}>
-      <Filet start={4} left={110} top={500} height={720} />
-      <Words text={TEXTES.chapitre} start={6} exit={60} stagger={3} style={{ position: "absolute", left: 150, top: 560, fontSize: 140, color: C.blanc, whiteSpace: "nowrap" }} />
-      <Words text={TEXTES.rdv} start={68} stagger={1} style={{ position: "absolute", left: 152, top: 520, fontSize: 64, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
-      <Words text={TEXTES.date} start={74} stagger={4} style={{ position: "absolute", left: 146, top: 640, fontSize: 150, color: C.blanc, whiteSpace: "nowrap" }} />
-      <Words text={TEXTES.savoirPlus} start={96} stagger={2} style={{ position: "absolute", left: 152, top: 1000, fontSize: 52, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
+      <Words text={TEXTES.chapitre} start={6} exit={60} stagger={3} style={{ position: "absolute", left: 100, top: 560, fontSize: 140, color: C.blanc, whiteSpace: "nowrap" }} />
+      <Words text={TEXTES.rdv} start={68} stagger={1} style={{ position: "absolute", left: 102, top: 520, fontSize: 64, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
+      <Words text={TEXTES.date} start={74} stagger={4} style={{ position: "absolute", left: 96, top: 640, fontSize: 150, color: C.blanc, whiteSpace: "nowrap" }} />
+      <Words text={TEXTES.savoirPlus} start={96} stagger={2} style={{ position: "absolute", left: 102, top: 1000, fontSize: 52, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
     </AbsoluteFill>
   );
 };

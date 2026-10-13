@@ -42,11 +42,3 @@ export const Words: React.FC<Props> = ({ text, start, exit, stagger = 2, style }
     </div>
   );
 };
-
-// Filet doré vertical qui se trace (signature graphique GNI)
-export const Filet: React.FC<{ start: number; left: number; top: number; height: number }> = ({ start, left, top, height }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const p = spring({ frame: frame - start, fps, config: { damping: 200 } });
-  return <div style={{ position: "absolute", left, top, width: 10, height, background: C.accent, transformOrigin: "center top", transform: `scaleY(${p})` }} />;
-};
