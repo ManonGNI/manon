@@ -1,9 +1,11 @@
 # Reel teasing nouvelle identité GNI — version Remotion
 
-Vidéo 1080 × 1920, 25 s, 30 i/s, construite avec Remotion (React).
+Vidéo 1080 × 1920, 24 s, 30 i/s, construite avec Remotion (React).
+Style volontairement neutre (couleur de l'ancien logo, police Inter) pour ne rien dévoiler de la nouvelle charte.
 
 - `src/theme.ts` : couleurs de la charte, textes, choix des vignettes du mur de photos
-- `src/Scenes.tsx` : les 6 scènes (2007 · mur de souvenirs · « 20 » photo · ancien logo éjecté et filet d’or · « Un nouveau chapitre s’ouvre… Rendez-vous lundi 19 octobre » · fin avec le logo actuel)
+- `src/Scenes.tsx` : les 5 scènes (2007 · mur de souvenirs · « 20 » photo · « Un nouveau chapitre s’ouvre… Rendez-vous lundi 19 octobre » · fin : zoom sur le G de l’ancien logo qui se transforme en G du nouveau logo)
+- `src/gShapes.ts` : contours vectorisés des deux G (morphing avec flubber)
 - `src/GniReel.tsx` : enchaînement et transitions (glissé, fondu, balayage circulaire, volet)
 
 Rendu :
