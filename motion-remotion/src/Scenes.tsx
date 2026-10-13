@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Img, interpolate, interpolateColors, spring, useCurrentFrame, useVideoConfig, Easing } from "remotion";
+import { AbsoluteFill, Img, interpolate, spring, useCurrentFrame, useVideoConfig, Easing } from "remotion";
 import { interpolate as interpolatePath } from "flubber";
 import { CameraMotionBlur } from "@remotion/motion-blur";
 import { C, FONT, MEDIA, NOUVEAU, PHOTOS, TEXTES, VIGNETTES } from "./theme";
@@ -16,10 +16,10 @@ export const Intro: React.FC = () => {
   const { fps } = useVideoConfig();
   const p = spring({ frame: frame - 3, fps, config: { damping: 200 }, durationInFrames: 22 });
   return (
-    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 4) + hit(frame, 28)})` }}>
-      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `brightness(0) blur(${(1 - p) * 12}px)` }} />
-      <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.encre }} />
-      <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 102, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.encre }} />
+    <AbsoluteFill style={{ background: C.encre, fontFamily: FONT, transform: `scale(${1 + hit(frame, 4) + hit(frame, 28)})` }}>
+      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `brightness(0) invert(1) blur(${(1 - p) * 12}px)` }} />
+      <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.blanc }} />
+      <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 102, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.blanc }} />
     </AbsoluteFill>
   );
 };
@@ -132,22 +132,22 @@ export const Fin: React.FC = () => {
   const bar = spring({ frame: frame - 88, fps, config: { damping: 12, stiffness: 150, mass: 0.6 } });
   const gw = G.w * K * ZOOM, gh = G.h * K * ZOOM;
   return (
-    <AbsoluteFill style={{ background: C.blanc, fontFamily: FONT, transform: `scale(${1 + hit(frame, 98)})` }}>
+    <AbsoluteFill style={{ background: C.encre, fontFamily: FONT, transform: `scale(${1 + hit(frame, 98)})` }}>
       {!swap && (
         <div style={{ position: "absolute", inset: 0, transformOrigin: `${GC.x}px ${GC.y}px`,
           transform: `translate(${(TARGET.x - GC.x) * z}px, ${(TARGET.y - GC.y) * z}px) scale(${scale})` }}>
           <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: LOGO_W, left: LOGO_X, top: LOGO_Y, opacity: pin,
-            filter: `brightness(0) blur(${(1 - pin) * 10}px)` }} />
+            filter: `brightness(0) invert(1) blur(${(1 - pin) * 10}px)` }} />
         </div>
       )}
       {swap && (
         <svg viewBox={`0 0 ${G.w} ${G.h}`} style={{ position: "absolute", left: TARGET.x - gw / 2, top: TARGET.y - gh / 2, width: gw, height: gh, overflow: "visible" }}>
-          <path d={morph(m)} fill={interpolateColors(m, [0, 1], [C.encre, NOUVEAU.bleu])} />
+          <path d={morph(m)} fill={C.blanc} />
           <path d={G.barPath} fill={NOUVEAU.or} opacity={frame >= 88 ? 1 : 0} transform={`translate(${(1 - bar) * -70} 0)`} />
         </svg>
       )}
-      <Words text={TEXTES.fin} start={104} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1330, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.encre }} />
-      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1420, fontSize: 32, fontWeight: 500, color: C.encre,
+      <Words text={TEXTES.fin} start={104} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1330, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
+      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1420, fontSize: 32, fontWeight: 500, color: C.blanc,
         opacity: interpolate(frame, [116, 130], [0, 1], clamp) }}>{TEXTES.site}</div>
     </AbsoluteFill>
   );

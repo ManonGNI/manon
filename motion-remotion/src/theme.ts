@@ -1,8 +1,8 @@
 import { staticFile } from "remotion";
 
-// Palette monochrome de teasing : noir, blanc et un gris pour les mots mis en avant.
-// La seule couleur arrive à la toute fin : le G du nouveau logo (bleu + barre dorée).
-export const C = { encre: "#111111", encreFonce: "#000000", accent: "#9C9C9C", blanc: "#FFFFFF" };
+// Teasing : un seul bleu (celui de l'ancien logo) et du blanc ; ancien logo passé en blanc.
+// Seule touche de couleur, à la toute fin : la barre dorée du nouveau G (logo blanc, barre dorée).
+export const C = { encre: "#05384B", encreFonce: "#05384B", accent: "#FFFFFF", blanc: "#FFFFFF" };
 export const NOUVEAU = { bleu: "#2F4A71", or: "#D9AE57" };
 export const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
