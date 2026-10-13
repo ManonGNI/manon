@@ -28,7 +28,11 @@ export const TEXTES = {
   identite: "Notre nouvelle identité.",
   groupement: "Le groupement|demeure",
   reseau: "et un réseau|*se lance*",
-  fin: "Bientôt 20 ans. Une nouvelle page.",
+  chapitre: "Un nouveau|chapitre|*s’ouvre…*",
+  rdv: "Rendez-vous",
+  date: "lundi|*19 octobre*",
+  savoirPlus: "pour en savoir plus.",
+  fin: "Rendez-vous le lundi 19 octobre.",
   site: "groupenationalimmobilier.fr",
 };
 

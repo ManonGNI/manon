@@ -26,7 +26,7 @@ export const Intro: React.FC = () => {
 
 /* 2 — Mur de souvenirs : rangées de photos (format d'origine, nettes) en sens alternés */
 const PER = 8, PITCH = 560, ROWS = 5;
-export const PHRASE_AT = [22, 68, 114, 160, 206];
+export const PHRASE_AT = [20, 58, 96, 134, 172];
 const Wall: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -155,7 +155,21 @@ export const Reseau: React.FC = () => {
   );
 };
 
-/* 6 — Carton de fin */
+/* 6 — Un nouveau chapitre s'ouvre… Rendez-vous lundi 19 octobre */
+export const Chapitre: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{ background: C.bleu, fontFamily: FONT, transform: `scale(${1 + hit(frame, 8) + hit(frame, 80)})` }}>
+      <Filet start={4} left={110} top={500} height={720} />
+      <Words text={TEXTES.chapitre} start={6} exit={60} stagger={3} style={{ position: "absolute", left: 150, top: 560, fontSize: 140, color: C.blanc, whiteSpace: "nowrap" }} />
+      <Words text={TEXTES.rdv} start={68} stagger={1} style={{ position: "absolute", left: 152, top: 520, fontSize: 64, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
+      <Words text={TEXTES.date} start={74} stagger={4} style={{ position: "absolute", left: 146, top: 640, fontSize: 150, color: C.blanc, whiteSpace: "nowrap" }} />
+      <Words text={TEXTES.savoirPlus} start={96} stagger={2} style={{ position: "absolute", left: 152, top: 1000, fontSize: 52, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
+    </AbsoluteFill>
+  );
+};
+
+/* 7 — Carton de fin */
 export const Fin: React.FC = () => {
   const frame = useCurrentFrame();
   const sign = interpolate(frame, [42, 66], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
