@@ -1,11 +1,10 @@
 import { continueRender, delayRender, staticFile } from "remotion";
 
-// Polices de la charte servies en local : Montserrat (marque) et Allison (phrase signature)
+// Police neutre servie en local (le teasing ne dévoile pas la typographie de la nouvelle charte)
 const FONTS: [string, string, string][] = [
-  ["Montserrat", "500", "fonts/montserrat-latin-500-normal.woff2"],
-  ["Montserrat", "700", "fonts/montserrat-latin-700-normal.woff2"],
-  ["Montserrat", "800", "fonts/montserrat-latin-800-normal.woff2"],
-  ["Allison", "400", "fonts/allison-latin-400-normal.woff2"],
+  ["Inter", "500", "fonts/inter-latin-500-normal.woff2"],
+  ["Inter", "700", "fonts/inter-latin-700-normal.woff2"],
+  ["Inter", "800", "fonts/inter-latin-800-normal.woff2"],
 ];
 
 const handle = delayRender("Chargement des polices");

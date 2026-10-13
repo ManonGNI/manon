@@ -30,7 +30,7 @@ export const Words: React.FC<Props> = ({ text, start, exit, stagger = 2, style }
               : interpolate(frame, [exit + k, exit + k + 9], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.cubic) });
             return (
               <React.Fragment key={wi}>
-                <span style={{ display: "inline-block", color: isGold ? C.or : undefined, transform: `translateY(${(1 - p) * 115 - q * 115}%)` }}>
+                <span style={{ display: "inline-block", color: isGold ? C.accent : undefined, transform: `translateY(${(1 - p) * 115 - q * 115}%)` }}>
                   {w.replace(/\*/g, "")}
                 </span>
                 {wi < line.split(" ").length - 1 ? " " : null}
@@ -48,5 +48,5 @@ export const Filet: React.FC<{ start: number; left: number; top: number; height:
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const p = spring({ frame: frame - start, fps, config: { damping: 200 } });
-  return <div style={{ position: "absolute", left, top, width: 10, height, background: C.or, transformOrigin: "center top", transform: `scaleY(${p})` }} />;
+  return <div style={{ position: "absolute", left, top, width: 10, height, background: C.accent, transformOrigin: "center top", transform: `scaleY(${p})` }} />;
 };

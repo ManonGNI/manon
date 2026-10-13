@@ -1,8 +1,10 @@
 import { staticFile } from "remotion";
 
-// Charte V4 : bleu dominant, blanc pour l'air, doré en accent
-export const C = { bleu: "#2F4A71", bleuFonce: "#1F314D", or: "#D9AE57", blanc: "#FFFFFF" };
-export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
+// Palette neutre de teasing : la couleur de l'ancien logo, du blanc et un accent clair.
+// La nouvelle charte (bleu / doré) n'apparaît qu'à la toute fin, dans le G.
+export const C = { encre: "#05384B", encreFonce: "#032733", accent: "#8DB6C4", blanc: "#FFFFFF" };
+export const NOUVEAU = { bleu: "#2F4A71", or: "#D9AE57" };
+export const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
 export const PHOTOS = [1, 2, 3, 4, 5].map((i) => staticFile(`medias/flashback-${i}.jpg`));
 export const MEDIA = {

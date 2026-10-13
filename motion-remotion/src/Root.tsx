@@ -1,3 +1,4 @@
+import React from "react";
 import { Composition } from "remotion";
 import "./fonts";
 import { GniReel, DURATION } from "./GniReel";
