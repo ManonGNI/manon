@@ -120,7 +120,8 @@ export const Chapitre: React.FC = () => {
   );
 };
 
-/* 7 — Fin : zoom sur le G de l'ancien logo, qui se transforme en G du nouveau logo */
+/* 7 — Fin : zoom sur le G de l'ancien logo, qui se transforme en G du nouveau logo,
+   puis la caméra recule : la barre dorée devient la capsule centrale d'un champ de capsules (« mille identités ») */
 const LOGO_W = 860, LOGO_X = 110, LOGO_Y = 700;
 const K = LOGO_W / G.logo[0];                                   // échelle du fichier logo à l'écran
 const GC = { x: LOGO_X + ((G.box[0] + G.box[2]) / 2) * K, y: LOGO_Y + ((G.box[1] + G.box[3]) / 2) * K };
@@ -128,42 +129,82 @@ const TARGET = { x: 540, y: 880, h: 720 };                       // G final : ce
 const ZOOM = TARGET.h / (G.h * K);
 const morph = interpolatePath(G.oldPath, G.newPath, { maxSegmentLength: 2 });
 
+// Boîte de la barre dorée (coordonnées locales du G)
+const BAR = (() => {
+  const n = (G.barPath.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  const xs = n.filter((_, i) => i % 2 === 0), ys = n.filter((_, i) => i % 2 === 1);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  return { x0, y0, w: x1 - x0, h: y1 - y0, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
+})();
+
+// Champ de capsules : grille en quinconce, la capsule centrale (dorée) est la barre du G
+const PILL = { w: 86, h: 23, px: 120, py: 59, cx: 540, cy: 900 };
+const hash = (a: number, b: number) => { const x = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return x - Math.floor(x); };
+const PILLS: { x: number; y: number; d: number; o: number; ph: number }[] = [];
+for (let r = -16; r <= 17; r++) {
+  for (let c = -6; c <= 6; c++) {
+    const x = PILL.cx + c * PILL.px + (Math.abs(r) % 2 ? PILL.px / 2 : 0), y = PILL.cy + r * PILL.py;
+    if (r === 0 && c === 0) continue;                            // place de la capsule dorée
+    if (y > 1250 && y < 1490) continue;                          // respiration pour le texte
+    if (x < -60 || x > 1140) continue;
+    PILLS.push({ x, y, d: Math.hypot(x - PILL.cx, (y - PILL.cy) * 1.4), o: 0.1 + 0.24 * hash(r, c), ph: hash(c, r) * 6.28 });
+  }
+}
+
 export const Fin: React.FC = () => {
   const bg = useBg();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const pin = spring({ frame: frame - 2, fps, config: { damping: 200 }, durationInFrames: 16 });
   const z = interpolate(frame, [22, 54], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
-  const scale = Math.exp(Math.log(ZOOM) * z);                   // zoom régulier (logarithmique)
   const m = interpolate(frame, [58, 84], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const bar = spring({ frame: frame - 88, fps, config: { damping: 12, stiffness: 150, mass: 0.6 } });
-  // Tout est vectoriel : le zoom se fait en changeant la viewBox du SVG, donc le tracé reste net à toutes les échelles
-  const s = K * scale;                                           // px du fichier logo -> px écran
+  const back = interpolate(frame, [124, 162], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });   // recul de caméra
+  // Tout est vectoriel : zoom et recul se font par la viewBox du SVG, le tracé reste net à toutes les échelles
+  const sG = K * Math.exp(Math.log(ZOOM) * z);                   // échelle pendant le zoom sur le G
+  const sEnd = PILL.w / BAR.w;                                   // échelle finale : la barre a la taille d'une capsule
+  const s = Math.exp(Math.log(sG) + (Math.log(sEnd) - Math.log(sG)) * back);
   const gc = { x: (G.box[0] + G.box[2]) / 2, y: (G.box[1] + G.box[3]) / 2 };
-  const sc = { x: GC.x + (TARGET.x - GC.x) * z, y: GC.y + (TARGET.y - GC.y) * z };
-  const viewBox = `${gc.x - sc.x / s} ${gc.y - sc.y / s} ${1080 / s} ${1920 / s}`;
+  const bc = { x: G.box[0] + BAR.cx, y: G.box[1] + BAR.cy };
+  const anchor = { x: gc.x + (bc.x - gc.x) * back, y: gc.y + (bc.y - gc.y) * back };
+  const sc0 = { x: GC.x + (TARGET.x - GC.x) * z, y: GC.y + (TARGET.y - GC.y) * z };
+  const sc = { x: sc0.x + (PILL.cx - sc0.x) * back, y: sc0.y + (PILL.cy - sc0.y) * back };
+  const viewBox = `${anchor.x - sc.x / s} ${anchor.y - sc.y / s} ${1080 / s} ${1920 / s}`;
   const rest = 1 - interpolate(frame, [48, 58], [0, 1], clamp);  // le reste du logo s'efface, seul le G reste
+  const gOut = 1 - interpolate(frame, [128, 150], [0, 1], clamp); // le G s'efface pendant le recul, la barre reste
+  const sh = interpolate(frame, [102, 120], [-0.3, 1.3], clamp);  // reflet sur la barre
+  const shx = G.box[0] + BAR.x0 + sh * BAR.w, sy0 = G.box[1] + BAR.y0, sy1 = sy0 + BAR.h, sk = BAR.h * 0.6;
   return (
     <AbsoluteFill style={{ background: bg, fontFamily: FONT, transform: `scale(${1 + hit(frame, 98)})` }}>
+      {/* champ de capsules, en coordonnées écran */}
+      <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+        {PILLS.map((p, i) => {
+          const a = interpolate(frame, [134 + p.d / 28, 146 + p.d / 28], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+          if (a <= 0) return null;
+          const tw = 0.05 * Math.sin(frame / 11 + p.ph);           // léger scintillement
+          const w = PILL.w * (0.6 + 0.4 * a);
+          return <rect key={i} x={p.x - w / 2} y={p.y - PILL.h / 2} width={w} height={PILL.h} rx={PILL.h / 2} fill="#FFFFFF" opacity={a * Math.max(0.04, p.o + tw)} />;
+        })}
+      </svg>
       <svg viewBox={viewBox} width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity: pin, filter: `blur(${(1 - pin) * 10}px)` }}>
-        <path d={G.restPath} fill={C.blanc} opacity={rest} />
         <defs>
-          <radialGradient id="haloG"><stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.28" /><stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" /></radialGradient>
+          <radialGradient id="haloG"><stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.16" /><stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" /></radialGradient>
           <linearGradient id="shine" x1="0" x2="1"><stop offset="0" stopColor="#FFFFFF" stopOpacity="0" /><stop offset="0.5" stopColor="#FFFFFF" stopOpacity="0.85" /><stop offset="1" stopColor="#FFFFFF" stopOpacity="0" /></linearGradient>
-          <clipPath id="barClip" transform={`translate(${G.box[0]} ${G.box[1]})`}><path d={G.barPath} /></clipPath>
+          <clipPath id="barClip"><path d={G.barPath} transform={`translate(${G.box[0]} ${G.box[1]})`} /></clipPath>
         </defs>
-        <circle cx={(G.box[0] + G.box[2]) / 2} cy={(G.box[1] + G.box[3]) / 2} r={G.h * 1.1} fill="url(#haloG)" opacity={interpolate(frame, [86, 110], [0, 1], clamp)} />
+        <path d={G.restPath} fill={C.blanc} opacity={rest} />
+        <circle cx={gc.x} cy={gc.y} r={G.h * 1.1} fill="url(#haloG)" opacity={interpolate(frame, [86, 110], [0, 1], clamp) * gOut} />
         <g transform={`translate(${G.box[0]} ${G.box[1]})`}>
-          <path d={morph(m)} fill={C.blanc} />
+          <path d={morph(m)} fill={C.blanc} opacity={gOut} />
           <path d={G.barPath} fill={NOUVEAU.or} opacity={frame >= 88 ? 1 : 0} transform={`translate(${(1 - bar) * -70} 0)`} />
         </g>
         <g clipPath="url(#barClip)">
-          <rect x={G.box[0] + interpolate(frame, [104, 122], [-40, G.w + 20], clamp)} y={G.box[1]} width={30} height={G.h} fill="url(#shine)" transform={`skewX(-20)`} />
+          <polygon points={`${shx + sk},${sy0} ${shx + sk + 9},${sy0} ${shx + 9},${sy1} ${shx},${sy1}`} fill="url(#shine)" />
         </g>
       </svg>
-      <Words text={TEXTES.fin} start={104} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1330, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
-      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1420, fontSize: 32, fontWeight: 500, color: C.blanc,
-        opacity: interpolate(frame, [116, 130], [0, 1], clamp) }}>{TEXTES.site}</div>
+      <Words text={TEXTES.fin} start={168} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1318, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
+      <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1400, fontSize: 32, fontWeight: 500, color: C.blanc,
+        opacity: interpolate(frame, [180, 194], [0, 1], clamp) }}>{TEXTES.site}</div>
     </AbsoluteFill>
   );
 };
