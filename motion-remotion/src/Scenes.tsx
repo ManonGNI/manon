@@ -134,25 +134,23 @@ export const Fin: React.FC = () => {
   const pin = spring({ frame: frame - 2, fps, config: { damping: 200 }, durationInFrames: 16 });
   const z = interpolate(frame, [22, 54], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const scale = Math.exp(Math.log(ZOOM) * z);                   // zoom régulier (logarithmique)
-  const swap = frame >= 52;                                      // le raster laisse place au tracé vectoriel net
   const m = interpolate(frame, [58, 84], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const bar = spring({ frame: frame - 88, fps, config: { damping: 12, stiffness: 150, mass: 0.6 } });
-  const gw = G.w * K * ZOOM, gh = G.h * K * ZOOM;
+  // Tout est vectoriel : le zoom se fait en changeant la viewBox du SVG, donc le tracé reste net à toutes les échelles
+  const s = K * scale;                                           // px du fichier logo -> px écran
+  const gc = { x: (G.box[0] + G.box[2]) / 2, y: (G.box[1] + G.box[3]) / 2 };
+  const sc = { x: GC.x + (TARGET.x - GC.x) * z, y: GC.y + (TARGET.y - GC.y) * z };
+  const viewBox = `${gc.x - sc.x / s} ${gc.y - sc.y / s} ${1080 / s} ${1920 / s}`;
+  const rest = 1 - interpolate(frame, [48, 58], [0, 1], clamp);  // le reste du logo s'efface, seul le G reste
   return (
     <AbsoluteFill style={{ background: bg, fontFamily: FONT, transform: `scale(${1 + hit(frame, 98)})` }}>
-      {!swap && (
-        <div style={{ position: "absolute", inset: 0, transformOrigin: `${GC.x}px ${GC.y}px`,
-          transform: `translate(${(TARGET.x - GC.x) * z}px, ${(TARGET.y - GC.y) * z}px) scale(${scale})` }}>
-          <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: LOGO_W, left: LOGO_X, top: LOGO_Y, opacity: pin,
-            filter: `brightness(0) invert(1) blur(${(1 - pin) * 10}px)` }} />
-        </div>
-      )}
-      {swap && (
-        <svg viewBox={`0 0 ${G.w} ${G.h}`} style={{ position: "absolute", left: TARGET.x - gw / 2, top: TARGET.y - gh / 2, width: gw, height: gh, overflow: "visible" }}>
+      <svg viewBox={viewBox} width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity: pin, filter: `blur(${(1 - pin) * 10}px)` }}>
+        <path d={G.restPath} fill={C.blanc} opacity={rest} />
+        <g transform={`translate(${G.box[0]} ${G.box[1]})`}>
           <path d={morph(m)} fill={C.blanc} />
           <path d={G.barPath} fill={NOUVEAU.or} opacity={frame >= 88 ? 1 : 0} transform={`translate(${(1 - bar) * -70} 0)`} />
-        </svg>
-      )}
+        </g>
+      </svg>
       <Words text={TEXTES.fin} start={104} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1330, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />
       <div style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1420, fontSize: 32, fontWeight: 500, color: C.blanc,
         opacity: interpolate(frame, [116, 130], [0, 1], clamp) }}>{TEXTES.site}</div>
