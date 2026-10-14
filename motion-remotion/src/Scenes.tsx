@@ -19,7 +19,7 @@ export const Intro: React.FC = () => {
   const p = spring({ frame: frame - 3, fps, config: { damping: 200 }, durationInFrames: 22 });
   return (
     <AbsoluteFill style={{ background: bg, fontFamily: FONT, transform: `scale(${1 + hit(frame, 4) + hit(frame, 28)})` }}>
-      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `brightness(0) invert(1) blur(${(1 - p) * 12}px)` }} />
+      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `blur(${(1 - p) * 12}px)` }} />
       <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.blanc }} />
       <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 102, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.blanc }} />
     </AbsoluteFill>

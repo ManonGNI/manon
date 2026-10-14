@@ -11,7 +11,7 @@ export const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
 export const PHOTOS = Array.from({ length: 23 }, (_, i) => staticFile(`medias/flashback-${i + 1}.jpg`));
 export const MEDIA = {
-  ancienLogo: staticFile("medias/ancien-logo.png"),
+  ancienLogo: staticFile("medias/ancien-logo-blanc.png"),   // version blanche officielle
 };
 
 // Textes : « | » = retour à la ligne, *mot* = mot en doré
