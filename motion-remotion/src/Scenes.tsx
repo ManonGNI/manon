@@ -19,7 +19,7 @@ export const Intro: React.FC = () => {
   const p = spring({ frame: frame - 3, fps, config: { damping: 200 }, durationInFrames: 22 });
   return (
     <AbsoluteFill style={{ background: bg, fontFamily: FONT, transform: `scale(${1 + hit(frame, 4) + hit(frame, 28)})` }}>
-      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `blur(${(1 - p) * 12}px)` }} />
+      <Img src={MEDIA.ancienLogo} style={{ position: "absolute", width: 800, left: 140, top: 560, opacity: p, transform: `scale(${1.15 - 0.15 * p})`, filter: `blur(${(1 - p) * 12}px) drop-shadow(0 0 ${40 * p}px rgba(255,255,255,${0.35 * Math.max(0, 1 - Math.abs(frame - 24) / 30)}))` }} />
       <Words text={TEXTES.annee} start={28} style={{ position: "absolute", left: 100, top: 1100, fontSize: 150, color: C.blanc }} />
       <Words text={TEXTES.ouverture} start={40} stagger={1} style={{ position: "absolute", left: 102, top: 1265, fontSize: 44, fontWeight: 500, letterSpacing: 0, lineHeight: 1.25, color: C.blanc }} />
     </AbsoluteFill>
@@ -66,9 +66,10 @@ export const Souvenirs: React.FC = () => {
   const open = spring({ frame: frame - 14, fps, config: { damping: 200 }, durationInFrames: 14 });
   const close = interpolate(frame, [durationInFrames - 30, durationInFrames - 20], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const zoom = interpolate(frame, [durationInFrames - 26, durationInFrames], [1, 3.2], { ...clamp, easing: Easing.in(Easing.exp) });
+  const drift = 1 + 0.06 * (frame / durationInFrames);
   return (
     <AbsoluteFill style={{ background: bg, fontFamily: FONT }}>
-      <AbsoluteFill style={{ transform: `scale(${zoom})` }}>
+      <AbsoluteFill style={{ transform: `scale(${zoom * drift})` }}>
         <CameraMotionBlur samples={6} shutterAngle={200}>
           <Wall />
         </CameraMotionBlur>
@@ -146,9 +147,18 @@ export const Fin: React.FC = () => {
     <AbsoluteFill style={{ background: bg, fontFamily: FONT, transform: `scale(${1 + hit(frame, 98)})` }}>
       <svg viewBox={viewBox} width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity: pin, filter: `blur(${(1 - pin) * 10}px)` }}>
         <path d={G.restPath} fill={C.blanc} opacity={rest} />
+        <defs>
+          <radialGradient id="haloG"><stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.28" /><stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" /></radialGradient>
+          <linearGradient id="shine" x1="0" x2="1"><stop offset="0" stopColor="#FFFFFF" stopOpacity="0" /><stop offset="0.5" stopColor="#FFFFFF" stopOpacity="0.85" /><stop offset="1" stopColor="#FFFFFF" stopOpacity="0" /></linearGradient>
+          <clipPath id="barClip" transform={`translate(${G.box[0]} ${G.box[1]})`}><path d={G.barPath} /></clipPath>
+        </defs>
+        <circle cx={(G.box[0] + G.box[2]) / 2} cy={(G.box[1] + G.box[3]) / 2} r={G.h * 1.1} fill="url(#haloG)" opacity={interpolate(frame, [86, 110], [0, 1], clamp)} />
         <g transform={`translate(${G.box[0]} ${G.box[1]})`}>
           <path d={morph(m)} fill={C.blanc} />
           <path d={G.barPath} fill={NOUVEAU.or} opacity={frame >= 88 ? 1 : 0} transform={`translate(${(1 - bar) * -70} 0)`} />
+        </g>
+        <g clipPath="url(#barClip)">
+          <rect x={G.box[0] + interpolate(frame, [104, 122], [-40, G.w + 20], clamp)} y={G.box[1]} width={30} height={G.h} fill="url(#shine)" transform={`skewX(-20)`} />
         </g>
       </svg>
       <Words text={TEXTES.fin} start={104} stagger={1} style={{ position: "absolute", left: 0, width: 1080, textAlign: "center", top: 1330, fontSize: 46, fontWeight: 700, letterSpacing: 0, color: C.blanc }} />

@@ -30,7 +30,7 @@ export const Words: React.FC<Props> = ({ text, start, exit, stagger = 2, style }
               : interpolate(frame, [exit + k, exit + k + 9], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.in(Easing.cubic) });
             return (
               <React.Fragment key={wi}>
-                <span style={{ display: "inline-block", color: isGold ? C.accent : undefined, transform: `translateY(${(1 - p) * 115 - q * 115}%)` }}>
+                <span style={{ display: "inline-block", color: isGold ? C.accent : undefined, transform: `translateY(${(1 - p) * 115 - q * 115}%)`, filter: `blur(${Math.max(0, 1 - p) * 9 + q * 6}px)` }}>
                   {w.replace(/\*/g, "")}
                 </span>
                 {wi < line.split(" ").length - 1 ? " " : null}

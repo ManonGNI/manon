@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolateColors, useCurrentFrame } from "remotion";
 import { BgContext } from "./bg";
+import { Grain, Halo, Reflets } from "./Effects";
 import { BLEU_ANCIEN, BLEU_NOUVEAU } from "./theme";
 import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
 import { slide } from "@remotion/transitions/slide";
@@ -30,6 +31,9 @@ export const GniReel: React.FC = () => {
     <TransitionSeries.Transition presentation={slide({ direction: "from-right" })} timing={springTiming({ config: { damping: 200 }, durationInFrames: T.f })} />
     <TransitionSeries.Sequence durationInFrames={S.fin}><Fin /></TransitionSeries.Sequence>
   </TransitionSeries>
+  <Halo />
+  <Reflets at={[90, 315, 441, 573]} />
+  <Grain />
   </BgContext.Provider>
   </AbsoluteFill>
   );
