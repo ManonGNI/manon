@@ -4,6 +4,9 @@ import { staticFile } from "remotion";
 // Seule touche de couleur, à la toute fin : la barre dorée du nouveau G (logo blanc, barre dorée).
 export const C = { encre: "#05384B", encreFonce: "#05384B", accent: "#FFFFFF", blanc: "#FFFFFF" };
 export const NOUVEAU = { bleu: "#2F4A71", or: "#D9AE57" };
+// Le fond passe progressivement de l'ancien bleu (logo actuel) au nouveau bleu (charte V4) au fil de la vidéo
+export const BLEU_ANCIEN = "#05384B";
+export const BLEU_NOUVEAU = NOUVEAU.bleu;
 export const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
 export const PHOTOS = Array.from({ length: 23 }, (_, i) => staticFile(`medias/flashback-${i + 1}.jpg`));
