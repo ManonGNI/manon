@@ -6,7 +6,7 @@ export const C = { encre: "#05384B", encreFonce: "#05384B", accent: "#FFFFFF", b
 export const NOUVEAU = { bleu: "#2F4A71", or: "#D9AE57" };
 export const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
-export const PHOTOS = [1, 2, 3, 4, 5].map((i) => staticFile(`medias/flashback-${i}.jpg`));
+export const PHOTOS = Array.from({ length: 23 }, (_, i) => staticFile(`medias/flashback-${i + 1}.jpg`));
 export const MEDIA = {
   ancienLogo: staticFile("medias/ancien-logo.png"),
 };
@@ -32,9 +32,14 @@ export const TEXTES = {
   site: "groupenationalimmobilier.fr",
 };
 
-// Vignettes du mur : [photo, zoom, cadrage X %, cadrage Y %]
+// Vignettes du mur : [photo, zoom, cadrage X %, cadrage Y %] — 5 rangées × 8 vignettes, toutes différentes
+// (index des photos : 0 convention · 4 photo de groupe · 10 plénière · 12 coupe · 17 déco · 20 équipe · 22 public…)
 export const VIGNETTES: [number, number, number, number][] = [
-  [0, 1, 50, 50], [4, 2, 22, 40], [2, 1.8, 42, 30], [3, 1, 50, 50], [1, 1, 50, 50], [0, 2.6, 96, 52],
-  [4, 1, 50, 50], [2, 2.2, 62, 66], [1, 2, 45, 62], [3, 2, 50, 78], [0, 2, 14, 62], [4, 2, 80, 40],
-  [2, 1, 50, 50], [1, 2.4, 60, 88], [3, 2.6, 95, 45], [4, 2, 50, 55],
+  [0, 1, 50, 50], [11, 1, 50, 50], [16, 1, 50, 50], [2, 1.8, 42, 30], [9, 1, 50, 50], [14, 1, 50, 50], [21, 1, 50, 50], [5, 1, 50, 50],
+  [12, 1, 50, 50], [1, 1, 50, 50], [19, 1, 50, 50], [10, 2, 40, 50], [6, 1, 50, 50], [22, 1.8, 55, 45], [3, 1, 50, 50], [13, 1, 50, 50],
+  [4, 1, 50, 50], [18, 1, 50, 50], [0, 2.6, 96, 52], [15, 1, 50, 50], [8, 1, 50, 50], [11, 1.8, 50, 45], [20, 1, 50, 50], [7, 1, 50, 50],
+  [22, 1, 50, 50], [13, 2, 30, 50], [17, 1, 50, 50], [4, 2, 22, 40], [10, 1, 50, 50], [12, 1.8, 40, 35], [2, 1, 50, 50], [16, 2, 50, 70],
+  [20, 1.8, 50, 35], [5, 1.6, 30, 30], [14, 2, 30, 60], [19, 1.8, 45, 50], [21, 1.8, 85, 60], [15, 1.8, 40, 45], [4, 2, 80, 40], [3, 2, 50, 78],
 ];
+// Photos qui défilent dans le « 20 » (visages bien visibles)
+export const PHOTOS_20 = [12, 4, 22, 11, 14, 19, 5, 20];

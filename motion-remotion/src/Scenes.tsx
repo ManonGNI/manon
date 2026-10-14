@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, Img, interpolate, spring, useCurrentFrame, useVideoConfig, Easing } from "remotion";
 import { interpolate as interpolatePath } from "flubber";
 import { CameraMotionBlur } from "@remotion/motion-blur";
-import { C, FONT, MEDIA, NOUVEAU, PHOTOS, TEXTES, VIGNETTES } from "./theme";
+import { C, FONT, MEDIA, NOUVEAU, PHOTOS, PHOTOS_20, TEXTES, VIGNETTES } from "./theme";
 import { G } from "./gShapes";
 import { Words } from "./Words";
 
@@ -44,7 +44,7 @@ const Wall: React.FC = () => {
         return (
           <div key={r} style={{ position: "absolute", top: -10 + r * 385, left: 0, height: 360, width: period * 2, transform: `translateX(${dir < 0 ? -x : x - period}px)` }}>
             {Array.from({ length: PER * 2 }).map((__, k) => {
-              const [ph, z, px, py] = VIGNETTES[(r * 5 + k) % VIGNETTES.length];
+              const [ph, z, px, py] = VIGNETTES[(r * PER + (k % PER)) % VIGNETTES.length];
               return (
                 <div key={k} style={{ position: "absolute", left: k * PITCH, width: 540, height: 360, backgroundColor: C.encreFonce,
                   backgroundImage: `url(${PHOTOS[ph]})`, backgroundSize: `${z * 100}% auto`, backgroundPosition: `${px}% ${py}%`, backgroundRepeat: "no-repeat" }} />
@@ -85,7 +85,7 @@ export const Vingt: React.FC = () => {
   const { fps } = useVideoConfig();
   const p = spring({ frame, fps, config: { damping: 200 }, durationInFrames: 18 });
   const count = Math.round(interpolate(frame, [4, 36], [0, 20], { ...clamp, easing: Easing.out(Easing.cubic) }));
-  const ph = [4, 0, 3, 2, 1][Math.floor(frame / 11) % 5];
+  const ph = PHOTOS_20[Math.floor(frame / 9) % PHOTOS_20.length];
   return (
     <AbsoluteFill style={{ background: C.encre, fontFamily: FONT, transform: `scale(${1 + hit(frame, 36)})` }}>
       <div style={{ position: "absolute", left: 30, top: 300, padding: "0 20px", fontWeight: 800, fontSize: 840, lineHeight: 0.86, letterSpacing: "-0.07em",
