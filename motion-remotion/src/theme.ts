@@ -31,7 +31,7 @@ export const TEXTES = {
   rdv: "Rendez-vous",
   date: "lundi|*19 octobre*",
   savoirPlus: "pour en savoir plus.",
-  fin: "Rendez-vous le lundi 19 octobre.",
+  fin: "Restez connectés…",
   site: "groupenationalimmobilier.fr",
 };
 
