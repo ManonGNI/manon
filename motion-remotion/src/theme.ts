@@ -17,7 +17,7 @@ export const MEDIA = {
 // Textes : « | » = retour à la ligne, *mot* = mot en doré
 export const TEXTES = {
   annee: "2007.",
-  ouverture: "Des agences indépendantes|réunies pour collaborer",
+  ouverture: "Des agences indépendantes,|une même ambition.",
   phrases: [
     "Des|conventions.",
     "Des|rencontres.",
