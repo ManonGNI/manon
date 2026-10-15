@@ -28,7 +28,7 @@ export const Intro: React.FC = () => {
 
 /* 2 — Mur de souvenirs : rangées de photos (format d'origine, nettes) en sens alternés */
 const PER = 8, PITCH = 560, ROWS = 5;
-export const PHRASE_AT = [20, 58, 96, 134, 172];
+export const PHRASE_AT = [20, 58, 96, 134, 194]; // « Près de 450 agences partenaires » reste plus longtemps
 const Wall: React.FC = () => {
   const bg = useBg();
   const frame = useCurrentFrame();

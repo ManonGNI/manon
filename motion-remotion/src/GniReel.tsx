@@ -9,7 +9,7 @@ import { fade } from "@remotion/transitions/fade";
 import { Intro, Souvenirs, Vingt, Chapitre, Fin } from "./Scenes";
 
 // Durées des scènes (images à 30 i/s) et des transitions qui se chevauchent
-const S = { intro: 100, souvenirs: 240, vingt: 140, chapitre: 150, fin: 235 };
+const S = { intro: 100, souvenirs: 262, vingt: 140, chapitre: 150, fin: 235 };
 const T = { a: 20, b: 10, c: 18, f: 18 };
 export const DURATION = Object.values(S).reduce((a, b) => a + b, 0) - Object.values(T).reduce((a, b) => a + b, 0);
 
