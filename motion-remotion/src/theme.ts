@@ -26,7 +26,7 @@ export const TEXTES = {
     "Un même|collectif.",
   ],
   vingt: "ans,|*bientôt.*",
-  evolue: "Et le Groupe évolue.",
+  evolue: "Et le Groupe évolue…",
   chapitre: "Un nouveau|chapitre|*s’ouvre…*",
   rdv: "Rendez-vous",
   date: "lundi|*19 octobre*",
