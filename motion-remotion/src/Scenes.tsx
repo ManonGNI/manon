@@ -91,12 +91,13 @@ export const Vingt: React.FC = () => {
   const { fps } = useVideoConfig();
   const p = spring({ frame, fps, config: { damping: 200 }, durationInFrames: 18 });
   const count = Math.round(interpolate(frame, [4, 36], [0, 20], { ...clamp, easing: Easing.out(Easing.cubic) }));
-  const ph = PHOTOS_20[Math.floor(frame / 9) % PHOTOS_20.length];
+  // les photos défilent pendant le compteur, puis se figent sur la photo de groupe une fois « 20 » atteint
+  const ph = frame < 36 ? PHOTOS_20[Math.floor(frame / 9) % PHOTOS_20.length] : 4;
   return (
     <AbsoluteFill style={{ background: bg, fontFamily: FONT, transform: `scale(${1 + hit(frame, 36)})` }}>
       <div style={{ position: "absolute", left: 30, top: 300, padding: "0 20px", fontWeight: 800, fontSize: 840, lineHeight: 0.86, letterSpacing: "-0.07em",
         color: "transparent", WebkitBackgroundClip: "text", backgroundClip: "text", backgroundImage: `url(${PHOTOS[ph]})`, backgroundSize: "cover",
-        backgroundPosition: `${50 + 10 * Math.sin(frame / 20)}% 50%`, fontVariantNumeric: "tabular-nums",
+        backgroundPosition: `${50 + 10 * Math.sin(Math.min(frame, 36) / 20)}% 50%`, fontVariantNumeric: "tabular-nums",
         opacity: p, transform: `scale(${1.35 - 0.35 * p})`, filter: `blur(${(1 - p) * 10}px)` }}>
         {String(count).padStart(2, "0")}
       </div>
