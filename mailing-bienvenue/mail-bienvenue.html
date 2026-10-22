@@ -19,8 +19,7 @@
   @media only screen and (max-width: 620px) {
     .container { width: 100% !important; }
     .px { padding-left: 24px !important; padding-right: 24px !important; }
-    .h1 { font-size: 34px !important; line-height: 38px !important; }
-    .btn a { display: block !important; }
+    .fluid { width: 100% !important; height: auto !important; }
   }
 </style>
 </head>
@@ -28,7 +27,7 @@
 
 <!-- Pré-header (aperçu affiché dans la boîte de réception) -->
 <div style="display:none; max-height:0; overflow:hidden; mso-hide:all; font-size:1px; line-height:1px; color:#EEF1F4;">
-  Vos accès, vos services inclus et la seule démarche à faire dès maintenant.&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;
+  Toute l'équipe est ravie de vous accueillir. Voici vos premiers pas dans le Groupement.&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;
 </div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#EEF1F4" style="background-color:#EEF1F4;">
@@ -36,121 +35,72 @@
 
 <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px;">
 
-  <!-- ============ EN-TÊTE + ACCROCHE (marine) ============ -->
+  <!-- En-tête : logo -->
+  <tr><td bgcolor="#2B4258" class="px" style="background-color:#2B4258; padding:24px 48px;">
+    <!-- Logo officiel : remplacer src par l'URL de l'image importée dans Zoho Campaigns -->
+    <img src="images/logo-gni-blanc.png" width="110" height="60" alt="Groupe National Immobilier" style="width:110px; height:60px;">
+  </td></tr>
+
+  <!-- Photo de l'équipe : remplacer src par l'URL de l'image importée dans Zoho Campaigns -->
   <tr><td bgcolor="#2B4258" style="background-color:#2B4258;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-      <tr><td class="px" style="padding:40px 48px 0 48px;">
-        <!-- Logo officiel : remplacer src par l'URL de l'image importée dans Zoho Campaigns -->
-        <img src="images/logo-gni-blanc.png" width="150" height="82" alt="Groupe National Immobilier" style="width:150px; height:82px;">
-      </td></tr>
-      <tr><td class="px" style="padding:64px 48px 0 48px;">
-        <!-- Signature graphique : le trait or du G -->
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td width="56" height="6" bgcolor="#D9AE57" style="width:56px; height:6px; background-color:#D9AE57; border-radius:3px; font-size:0; line-height:0;">&nbsp;</td>
-        </tr></table>
-      </td></tr>
-      <tr><td class="px h1" style="padding:20px 48px 0 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:44px; line-height:48px; font-weight:800; color:#FFFFFF; letter-spacing:-0.5px;">
-        Bienvenue<br>dans le Groupe.
-      </td></tr>
-      <tr><td class="px" style="padding:20px 48px 56px 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:16px; line-height:25px; font-weight:500; color:#C9D2DC;">
-        Votre agence rejoint un réseau de près de 450&nbsp;agences indépendantes. Voici l'essentiel pour bien démarrer.
-      </td></tr>
-    </table>
+    <img class="fluid" src="images/photo-equipe.jpg" width="600" height="312" alt="L'équipe du Groupe National Immobilier" style="width:600px; height:312px;">
   </td></tr>
 
-  <!-- ============ LETTRE (blanc) ============ -->
-  <tr><td bgcolor="#FFFFFF" style="background-color:#FFFFFF;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-      <tr><td class="px" style="padding:48px 48px 0 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:25px; color:#2B4258;">
-        <p style="margin:0 0 16px 0;">Chère adhérente, cher adhérent,</p>
-        <p style="margin:0 0 16px 0;">Toute l'équipe se joint à moi pour vous souhaiter la bienvenue et vous remercier de votre confiance.</p>
-        <p style="margin:0 0 16px 0;">En rejoignant le Groupe National Immobilier, vous faites le choix de la <strong>force d'un collectif</strong> tout en conservant <strong>votre indépendance</strong>.</p>
-        <p style="margin:0;">Dès aujourd'hui, votre adhésion vous donne accès aux services détaillés ci-dessous. <strong>Une seule démarche vous attend&nbsp;: activer votre service de médiation.</strong></p>
-      </td></tr>
+  <!-- Lettre -->
+  <tr><td bgcolor="#FFFFFF" class="px" style="background-color:#FFFFFF; padding:44px 48px 40px 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:25px; color:#2B4258;">
 
-      <!-- ===== À FAIRE DÈS MAINTENANT : médiation ===== -->
-      <tr><td class="px" style="padding:40px 48px 0 48px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td width="4" bgcolor="#2B4258" style="width:4px; background-color:#2B4258; font-size:0; line-height:0;">&nbsp;</td>
-            <td bgcolor="#F4F6F8" style="background-color:#F4F6F8; padding:28px 28px 28px 24px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#2B4258;">
-              <p style="margin:0 0 6px 0; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#2B4258;">À faire dès maintenant</p>
-              <p style="margin:0 0 12px 0; font-size:21px; line-height:27px; font-weight:800;">Activez votre médiation de la consommation</p>
-              <p style="margin:0 0 20px 0; font-size:15px; line-height:24px;">Elle est comprise dans votre adhésion, mais son activation se fait par vos soins, via un formulaire en ligne. Pour rappel, tout professionnel doit permettre à ses clients consommateurs de recourir gratuitement à un médiateur (art.&nbsp;L612-1 du Code de la consommation).</p>
-              <!-- Bouton principal (or) -->
-              <table role="presentation" class="btn" cellpadding="0" cellspacing="0" border="0"><tr>
-                <td bgcolor="#D9AE57" style="background-color:#D9AE57; border-radius:4px;">
-                  <a href="https://www.mediateur-consommation-smp.fr/groupement-gn-immo-adherer-au-service-de-mediation-de-la-consommation/" target="_blank" style="display:inline-block; padding:14px 26px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:18px; font-weight:700; color:#2B4258; text-decoration:none; text-align:center;">Activer ma médiation&nbsp;&rarr;</a>
-                </td>
-              </tr></table>
-              <p style="margin:20px 0 0 0; font-size:13px; line-height:21px; color:#5B6B7B;">
-                <strong style="color:#2B4258;">Jérôme Messinguiral</strong>, médiateur professionnel<br>
-                <a href="tel:+33672909692" style="color:#5B6B7B; text-decoration:none;">06&nbsp;72&nbsp;90&nbsp;96&nbsp;92</a> &nbsp;·&nbsp; <a href="mailto:[À VÉRIFIER]" style="color:#5B6B7B;">[ADRESSE MAIL À VÉRIFIER]</a>
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td></tr>
+    <!-- Signature graphique : le trait or du G -->
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td width="40" height="5" bgcolor="#D9AE57" style="width:40px; height:5px; background-color:#D9AE57; border-radius:3px; font-size:0; line-height:0;">&nbsp;</td>
+    </tr></table>
 
-      <!-- ===== VOS SERVICES INCLUS ===== -->
-      <tr><td class="px" style="padding:48px 48px 8px 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:24px; line-height:30px; font-weight:800; color:#2B4258;">
-        Vos services inclus
-      </td></tr>
+    <p style="margin:16px 0 24px 0; font-size:28px; line-height:34px; font-weight:800; color:#2B4258;">Bienvenue parmi nous&nbsp;!</p>
 
-      <!-- GNI Connect -->
-      <tr><td class="px" style="padding:0 48px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr><td style="padding:24px 0; border-bottom:1px solid #DDE3E9; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#2B4258;">
-            <p style="margin:0 0 8px 0; font-size:17px; line-height:23px; font-weight:700;">GNI Connect</p>
-            <p style="margin:0 0 16px 0; font-size:15px; line-height:24px;">L'outil collaboratif, simple et sécurisé, du Groupement. Retrouvez toutes les agences GNI, sélectionnez-les par secteur géographique, identifiez les adhérents concernés et choisissez vos collaborateurs inter-cabinets.</p>
-            <table role="presentation" class="btn" cellpadding="0" cellspacing="0" border="0"><tr>
-              <td style="border:2px solid #2B4258; border-radius:4px;">
-                <a href="https://app.gniconnect.com/" target="_blank" style="display:inline-block; padding:11px 22px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:14px; line-height:18px; font-weight:700; color:#2B4258; text-decoration:none; text-align:center;">Accéder à GNI Connect</a>
-              </td>
-            </tr></table>
-          </td></tr>
+    <p style="margin:0 0 16px 0;">Bonjour $[LF:FIRSTNAME]$,</p>
 
-          <!-- Campus by Immo2 -->
-          <tr><td style="padding:24px 0; border-bottom:1px solid #DDE3E9; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#2B4258;">
-            <p style="margin:0 0 8px 0; font-size:17px; line-height:23px; font-weight:700;">Campus by Immo2</p>
-            <p style="margin:0; font-size:15px; line-height:24px;">La plateforme de formation pour vous former et répondre à vos obligations professionnelles. <strong>Vos identifiants vous seront envoyés directement par Immo2</strong> dans les prochains jours.</p>
-          </td></tr>
+    <p style="margin:0 0 16px 0;">Votre agence fait désormais partie du Groupe National Immobilier, et toute l'équipe, celle que vous voyez sur la photo, est ravie de vous accueillir. Merci pour votre confiance.</p>
 
-          <!-- Service juridique -->
-          <tr><td style="padding:24px 0; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#2B4258;">
-            <p style="margin:0 0 8px 0; font-size:17px; line-height:23px; font-weight:700;">Service juridique</p>
-            <p style="margin:0 0 12px 0; font-size:15px; line-height:24px;">Une question en droit du travail, droit social ou droit immobilier&nbsp;? Maître Cédric Beutier, avocat au barreau de Nantes, vous répond.</p>
-            <p style="margin:0; font-size:13px; line-height:21px; color:#5B6B7B;">
-              <strong style="color:#2B4258;">Cédric Beutier</strong>, avocat au barreau de Nantes<br>
-              <a href="tel:+33240489580" style="color:#5B6B7B; text-decoration:none;">02&nbsp;40&nbsp;48&nbsp;95&nbsp;80</a> &nbsp;·&nbsp; <a href="mailto:cedric.beutier@avocatnantes.com" style="color:#5B6B7B;">cedric.beutier@avocatnantes.com</a>
-            </p>
-          </td></tr>
-        </table>
-      </td></tr>
+    <p style="margin:0 0 32px 0;">Rejoindre le Groupement, c'est garder votre indépendance tout en profitant de la force d'un réseau. Pour bien démarrer, voici ce qui vous attend dans les prochains jours.</p>
 
-      <!-- Support + signature -->
-      <tr><td class="px" style="padding:24px 48px 48px 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:24px; color:#2B4258;">
-        <p style="margin:0 0 28px 0; font-size:13px; line-height:21px; color:#5B6B7B;">Un problème pour vous connecter à l'un de ces services&nbsp;? Écrivez-nous à <a href="mailto:support@gnimmo.com" style="color:#2B4258; font-weight:700;">support@gnimmo.com</a>.</p>
-        <p style="margin:0 0 4px 0;">Au plaisir d'échanger très vite avec vous,</p>
-        <p style="margin:0; font-weight:700;">[PRÉNOM NOM]</p>
-        <p style="margin:0; font-size:13px; line-height:21px; color:#5B6B7B;">[FONCTION], Groupe National Immobilier</p>
-      </td></tr>
-    </table>
+    <!-- 1. Médiation : la seule action demandée -->
+    <p style="margin:0 0 16px 0;"><strong>D'abord, une petite démarche de votre côté.</strong> La médiation de la consommation est incluse dans votre adhésion, mais c'est à vous de l'activer en remplissant un court formulaire en ligne. C'est la seule chose que nous ne pouvons pas faire à votre place.</p>
+
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;"><tr>
+      <td bgcolor="#D9AE57" style="background-color:#D9AE57; border-radius:4px;">
+        <a href="https://www.mediateur-consommation-smp.fr/groupement-gn-immo-adherer-au-service-de-mediation-de-la-consommation/" target="_blank" style="display:inline-block; padding:13px 24px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:18px; font-weight:700; color:#2B4258; text-decoration:none;">Activer ma médiation</a>
+      </td>
+    </tr></table>
+
+    <p style="margin:0 0 32px 0; font-size:13px; line-height:21px; color:#5B6B7B;">Une question sur la médiation&nbsp;? Jérôme Messinguiral, notre médiateur, est joignable au <a href="tel:+33672909692" style="color:#5B6B7B; text-decoration:none;">06&nbsp;72&nbsp;90&nbsp;96&nbsp;92</a> ou à <a href="mailto:[À VÉRIFIER]" style="color:#5B6B7B;">[ADRESSE MAIL À VÉRIFIER]</a>.</p>
+
+    <!-- 2. GNI Connect -->
+    <p style="margin:0 0 32px 0;"><strong>Ensuite, prenez vos marques sur GNI Connect.</strong> C'est notre outil collaboratif&nbsp;: vous y retrouverez toutes les agences du Groupement, secteur par secteur, pour travailler en inter-cabinets avec les confrères de votre choix.<br>
+    <a href="https://app.gniconnect.com/" target="_blank" style="color:#2B4258; font-weight:700; text-decoration:underline;">Accéder à GNI Connect&nbsp;&rarr;</a></p>
+
+    <!-- 3. Campus by Immo2 -->
+    <p style="margin:0 0 32px 0;"><strong>Côté formation,</strong> vous allez recevoir un mail d'Immo2 avec vos accès au Campus by Immo2, pour vous former et répondre à vos obligations professionnelles.</p>
+
+    <!-- 4. Service juridique -->
+    <p style="margin:0 0 32px 0;"><strong>Et si une question juridique se pose,</strong> Maître Cédric Beutier, avocat au barreau de Nantes, vous répond en droit du travail, droit social et droit immobilier&nbsp;: <a href="tel:+33240489580" style="color:#2B4258; text-decoration:none; white-space:nowrap;">02&nbsp;40&nbsp;48&nbsp;95&nbsp;80</a> ou <a href="mailto:cedric.beutier@avocatnantes.com" style="color:#2B4258;">cedric.beutier@avocatnantes.com</a>.</p>
+
+    <p style="margin:0 0 16px 0;">Un souci pour vous connecter&nbsp;? Écrivez-nous à <a href="mailto:support@gnimmo.com" style="color:#2B4258; font-weight:700;">support@gnimmo.com</a>, nous nous en occupons.</p>
+
+    <p style="margin:0 0 28px 0;">Et pour toute autre question, n'hésitez surtout pas à m'appeler. Je suis là pour ça.</p>
+
+    <p style="margin:0 0 20px 0;">À très bientôt,</p>
+
+    <!-- Signature -->
+    <p style="margin:0; font-weight:700;">[PRÉNOM NOM]</p>
+    <p style="margin:0; font-size:13px; line-height:21px; color:#5B6B7B;">[FONCTION] · Groupe National Immobilier<br>[TÉLÉPHONE DIRECT]</p>
+
+    <p style="margin:32px 0 0 0; font-size:13px; line-height:21px; color:#5B6B7B;"><strong style="color:#2B4258;">P.S.</strong> Pour suivre la vie du réseau et découvrir les autres agences, rejoignez-nous sur <a href="https://www.linkedin.com/company/69384063/" target="_blank" style="color:#2B4258;">LinkedIn</a>, <a href="https://www.facebook.com/groupenationalimmobilier" target="_blank" style="color:#2B4258;">Facebook</a> et <a href="https://www.instagram.com/groupenationalimmobilier/" target="_blank" style="color:#2B4258;">Instagram</a>.</p>
   </td></tr>
 
-  <!-- ============ PIED DE PAGE (marine) ============ -->
-  <tr><td bgcolor="#2B4258" class="px" style="background-color:#2B4258; padding:32px 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-    <p style="margin:0 0 16px 0; font-size:14px; line-height:20px; font-weight:700; color:#FFFFFF;">
-      Suivez-nous&nbsp;:&nbsp;
-      <a href="https://www.linkedin.com/company/69384063/" target="_blank" style="color:#FFFFFF; text-decoration:underline;">LinkedIn</a> &nbsp;·&nbsp;
-      <a href="https://www.facebook.com/groupenationalimmobilier" target="_blank" style="color:#FFFFFF; text-decoration:underline;">Facebook</a> &nbsp;·&nbsp;
-      <a href="https://www.instagram.com/groupenationalimmobilier/" target="_blank" style="color:#FFFFFF; text-decoration:underline;">Instagram</a>
-    </p>
-    <p style="margin:0; font-size:11px; line-height:18px; color:#AEB9C5;">
-      SASU GN IMMO – 453 route Nationale 7, 13670 Verquières – RCS Tarascon 494&nbsp;380&nbsp;686<br>
-      Vous recevez cet e-mail en tant qu'adhérent du Groupe National Immobilier.<br>
-      <a href="http://$[LI:UNSUBSCRIBE]$" target="_blank" style="color:#AEB9C5; text-decoration:underline;">Se désabonner</a> &nbsp;·&nbsp; <a href="http://$[LI:SUB_PREF]$" target="_blank" style="color:#AEB9C5; text-decoration:underline;">Gérer mes préférences</a>
-    </p>
+  <!-- Pied de page -->
+  <tr><td bgcolor="#2B4258" class="px" style="background-color:#2B4258; padding:24px 48px; font-family:Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:11px; line-height:18px; color:#AEB9C5;">
+    SASU GN IMMO – 453 route Nationale 7, 13670 Verquières – RCS Tarascon 494&nbsp;380&nbsp;686<br>
+    Vous recevez cet e-mail en tant qu'adhérent du Groupe National Immobilier.<br>
+    <a href="http://$[LI:UNSUBSCRIBE]$" target="_blank" style="color:#AEB9C5; text-decoration:underline;">Se désabonner</a> &nbsp;·&nbsp; <a href="http://$[LI:SUB_PREF]$" target="_blank" style="color:#AEB9C5; text-decoration:underline;">Gérer mes préférences</a>
   </td></tr>
 
 </table>
