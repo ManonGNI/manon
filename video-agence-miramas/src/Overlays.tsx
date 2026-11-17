@@ -181,7 +181,8 @@ export const TitreAgence: React.FC<{ duration: number }> = ({ duration }) => {
   );
 };
 
-// Écran de fin marine
+// Écran de fin marine, reprenant la disposition de la carte agence GNI
+const FONT_ENSEIGNE = "Inter, 'Helvetica Neue', Arial, sans-serif";
 export const EcranFin: React.FC = () => {
   const frame = useCurrentFrame();
   const bg = interpolate(frame, [0, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -208,19 +209,15 @@ export const EcranFin: React.FC = () => {
         <path d={SIGLE.gPath} fill={C.blanc} fillOpacity={0.08} />
         <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.35} />
       </svg>
-      <Img src={MEDIA.logoBlanc} style={{ position: "absolute", left: 96, top: 470, width: 600, ...rise(6) }} />
-      <div style={{ position: "absolute", left: 96, top: 1010, right: 96 }}>
-        <div style={{ fontWeight: 500, fontSize: 40, marginBottom: 14, ...rise(18) }}>Bienvenue à l'agence</div>
-        <div style={{ fontWeight: 800, fontSize: 80, lineHeight: 1.02, letterSpacing: -1.5, ...rise(24) }}>
-          SG Conseil
-          <br />& Patrimoine
-        </div>
-        <div style={{ fontWeight: 700, fontSize: 40, color: C.or, marginTop: 26, ...rise(30) }}>Miramas</div>
-        <div style={{ fontWeight: 500, fontSize: 30, marginTop: 70, opacity: 0.8, ...rise(38) }}>
-          Première agence sous licence de marque
+      {/* Disposition de la carte agence : nom en Light, ville en or, logo aligné à gauche dessous */}
+      <div style={{ position: "absolute", left: 104, top: 650, right: 60, fontFamily: FONT_ENSEIGNE }}>
+        <div style={{ fontWeight: 300, fontSize: 82, lineHeight: 1.1, letterSpacing: -1.5, ...rise(6) }}>
+          Agence SG
           <br />
-          Groupe National Immobilier
+          Conseil & Patrimoine
         </div>
+        <div style={{ fontWeight: 400, fontSize: 46, color: C.or, marginTop: 16, ...rise(14) }}>Miramas</div>
+        <Img src={MEDIA.logoBlanc} style={{ display: "block", width: 540, marginTop: 90, ...rise(24) }} />
       </div>
     </AbsoluteFill>
   );
