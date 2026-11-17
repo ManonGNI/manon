@@ -76,12 +76,11 @@ export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, 
 };
 
 // Bandeau nom / fonction, style « Journal de l'Agence » :
-// sur-titre or en capitales espacées, nom blanc sur bloc marine avec filet or vertical, cartouche blanc pour la fonction
-export const LowerThird: React.FC<{ nom: string; role: string; structure: string; surtitre: string; duration: number }> = ({
+// nom blanc sur bloc marine avec filet or vertical, cartouche blanc pour la fonction
+export const LowerThird: React.FC<{ nom: string; role: string; structure: string; duration: number }> = ({
   nom,
   role,
   structure,
-  surtitre,
   duration,
 }) => {
   const frame = useCurrentFrame();
@@ -89,27 +88,10 @@ export const LowerThird: React.FC<{ nom: string; role: string; structure: string
   const rule = interpolate(frame, [0, 10], [0, 1], { ...clamp, easing: ease });
   const name = interpolate(frame, [4, 18], [0, 1], { ...clamp, easing: ease });
   const card = interpolate(frame, [12, 26], [0, 1], { ...clamp, easing: ease });
-  const kicker = interpolate(frame, [8, 22], [0, 1], { ...clamp, easing: ease });
   const out = interpolate(frame, [duration - 10, duration], [1, 0], clamp);
   return (
     <AbsoluteFill style={{ opacity: out, fontFamily: FONT }}>
-      <div style={{ position: "absolute", left: 76, top: 990 }}>
-        <div
-          style={{
-            fontWeight: 700,
-            fontSize: 25,
-            letterSpacing: 5,
-            textTransform: "uppercase",
-            color: C.or,
-            textShadow: "0 2px 4px rgba(0, 0, 0, 0.85), 0 0 16px rgba(0, 0, 0, 0.55)",
-            marginBottom: 18,
-            marginLeft: 6,
-            opacity: kicker,
-            transform: `translateY(${(1 - kicker) * 10}px)`,
-          }}
-        >
-          {surtitre}
-        </div>
+      <div style={{ position: "absolute", left: 76, top: 1030 }}>
         <div style={{ display: "flex" }}>
           <div style={{ width: 7, background: C.or, transform: `scaleY(${rule})`, transformOrigin: "top" }} />
           <div
