@@ -221,11 +221,11 @@ export const EcranFin: React.FC = () => {
         </g>
       </svg>
 
-      <div style={{ position: "absolute", left: 104, top: 480, right: 40 }}>
+      <div style={{ position: "absolute", left: 104, top: 540, right: 40 }}>
         <div
           style={{
             fontFamily: "Allison, cursive",
-            fontSize: 175,
+            fontSize: 118,
             lineHeight: 1,
             color: C.or,
             marginLeft: -6,

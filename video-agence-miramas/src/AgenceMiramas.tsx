@@ -1,7 +1,7 @@
 import React from "react";
-import { AbsoluteFill, Easing, Img, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import { Audio, Video } from "@remotion/media";
-import { Captions, EcranFin, LogoSignature, LowerThird, TitreAgence } from "./Overlays";
+import { Captions, EcranFin, LogoSignature, LowerThird } from "./Overlays";
 import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 
 const cover: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
@@ -32,35 +32,6 @@ const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, 
   );
 };
 
-// Photo de face de l'agence : panoramique horizontal de l'enseigne SG vers le panneau GNI
-const FacadePhoto: React.FC<{ duration: number }> = ({ duration }) => {
-  const frame = useCurrentFrame();
-  const p = interpolate(frame, [0, duration], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.45, 0, 0.25, 1),
-  });
-  const left = interpolate(p, [0, 1], [600, 1772]);
-  const scale = interpolate(p, [0, 1], [1.0, 1.04]);
-  return (
-    <AbsoluteFill style={{ overflow: "hidden", background: "#000" }}>
-      <Img
-        src={MEDIA.facadePhoto}
-        style={{
-          position: "absolute",
-          width: 3072,
-          height: 2304,
-          left: -left,
-          top: -192,
-          maxWidth: "none",
-          transform: `scale(${scale})`,
-          transformOrigin: `${left + 540}px 1152px`,
-        }}
-      />
-    </AbsoluteFill>
-  );
-};
-
 // Durées (images à 30 i/s)
 const D = { intro: 393, miramas: 124, services: 222, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 135 };
 const FIN_START = D.intro + D.miramas + D.services + D.cap + D.fierte + D.independant + D.merci; // 1395
@@ -76,9 +47,9 @@ export const AgenceMiramas: React.FC = () => {
           <Sequence name="Bandeau Nans" from={30} durationInFrames={110}>
             <LowerThird {...PERSONNES.nans} duration={110} />
           </Sequence>
-          <Sequence name="Façade" from={285} durationInFrames={108} premountFor={fps}>
-            <FacadePhoto duration={108} />
-            <TitreAgence duration={108} />
+          {/* gros plan vidéo sur l'enseigne (IMG_5065) : « Agence SG – Miramas » → « Conseil & Patrimoine » */}
+          <Sequence name="Enseigne" from={285} durationInFrames={108} premountFor={fps}>
+            <Video src={MEDIA.enseigne} trimBefore={Math.round(0.6 * fps)} muted style={cover} />
           </Sequence>
           <Captions items={SOUS_TITRES.intro} offset={0} />
         </Series.Sequence>
@@ -98,12 +69,9 @@ export const AgenceMiramas: React.FC = () => {
           <Captions items={SOUS_TITRES.services} offset={22.85} />
         </Series.Sequence>
 
-        {/* 4. Stephan : le passage sous licence, sur le gros plan de l'enseigne */}
+        {/* 4. Stephan : le passage sous licence */}
         <Series.Sequence name="Interview licence" durationInFrames={200} premountFor={fps}>
           <Video src={MEDIA.interview} trimBefore={Math.round(30.55 * fps)} style={cover} volume={fades(200)} />
-          <Sequence name="Enseigne" from={40} durationInFrames={146} premountFor={fps}>
-            <Video src={MEDIA.enseigne} trimBefore={0} muted style={cover} />
-          </Sequence>
           <Captions items={SOUS_TITRES.cap} offset={30.55} />
         </Series.Sequence>
 
@@ -131,15 +99,12 @@ export const AgenceMiramas: React.FC = () => {
         </Series.Sequence>
       </Series>
 
-      {/* Logo signature, masqué sur les plans façade et enseigne (déjà marqués, fond peu contrasté) */}
+      {/* Logo signature, masqué sur le gros plan de l'enseigne (fond bleu peu contrasté) */}
       <Sequence name="Logo signature 1" durationInFrames={285}>
         <LogoSignature duration={285} />
       </Sequence>
-      <Sequence name="Logo signature 2" from={393} durationInFrames={386}>
-        <LogoSignature duration={386} />
-      </Sequence>
-      <Sequence name="Logo signature 4" from={925} durationInFrames={FIN_START - 925}>
-        <LogoSignature duration={FIN_START - 925} />
+      <Sequence name="Logo signature 2" from={393} durationInFrames={FIN_START - 393}>
+        <LogoSignature duration={FIN_START - 393} />
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
