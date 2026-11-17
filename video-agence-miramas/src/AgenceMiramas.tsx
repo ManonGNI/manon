@@ -63,11 +63,9 @@ export const AgenceMiramas: React.FC = () => {
           <Captions items={SOUS_TITRES.miramas} offset={18.15} />
         </Series.Sequence>
 
-        {/* 3. Stephan : le métier de l'agence, avec zoom avant sur lui */}
+        {/* 3. Stephan : le métier de l'agence */}
         <Series.Sequence name="Interview services" durationInFrames={222} premountFor={fps}>
-          <ZoomStephan at={56}>
-            <Video src={MEDIA.interview} trimBefore={Math.round(22.85 * fps)} style={cover} volume={fades(222)} />
-          </ZoomStephan>
+          <Video src={MEDIA.interview} trimBefore={Math.round(22.85 * fps)} style={cover} volume={fades(222)} />
           <Captions items={SOUS_TITRES.services} offset={22.85} />
         </Series.Sequence>
 
@@ -82,13 +80,16 @@ export const AgenceMiramas: React.FC = () => {
 
         {/* 5. Conclusion : la fierté */}
         <Series.Sequence name="Fierté" durationInFrames={171} premountFor={fps}>
-          <Video src={MEDIA.conclusion} trimBefore={Math.round(3.85 * fps)} style={cover} volume={fades(171)} />
+          {/* zoom avant unique sur « Une véritable fierté… », tenu jusqu'à la fin de sa réponse */}
+          <ZoomStephan at={2}>
+            <Video src={MEDIA.conclusion} trimBefore={Math.round(3.85 * fps)} style={cover} volume={fades(171)} />
+          </ZoomStephan>
           <Captions items={SOUS_TITRES.fierte} offset={3.85} />
         </Series.Sequence>
 
         <Series.Sequence name="Indépendant" durationInFrames={210} premountFor={fps}>
-          {/* zoom avant juste avant « indépendant » */}
-          <ZoomStephan at={44}>
+          {/* suite de la réponse : le zoom reste tenu */}
+          <ZoomStephan at={-100}>
             <Video src={MEDIA.conclusion} trimBefore={Math.round(10.6 * fps)} style={cover} volume={fades(210)} />
           </ZoomStephan>
           <Captions items={SOUS_TITRES.independant} offset={10.6} />
