@@ -11,8 +11,8 @@ const fades = (duration: number) => (f: number) =>
   interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
 // Durées (images à 30 i/s)
-const D = { intro: 393, miramas: 124, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 105 };
-const FIN_START = D.intro + D.miramas + D.cap + D.fierte + D.independant + D.merci; // 1173
+const D = { intro: 393, miramas: 124, services: 222, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 105 };
+const FIN_START = D.intro + D.miramas + D.services + D.cap + D.fierte + D.independant + D.merci; // 1395
 
 export const AgenceMiramas: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -41,7 +41,16 @@ export const AgenceMiramas: React.FC = () => {
           <Captions items={SOUS_TITRES.miramas} offset={18.15} />
         </Series.Sequence>
 
-        {/* 3. Stephan : le passage sous licence, sur le gros plan de l'enseigne */}
+        {/* 3. Stephan : le métier de l'agence, illustré par la plaque des services */}
+        <Series.Sequence name="Interview services" durationInFrames={222} premountFor={fps}>
+          <Video src={MEDIA.interview} trimBefore={Math.round(22.85 * fps)} style={cover} volume={fades(222)} />
+          <Sequence name="Plaque services" from={60} durationInFrames={129} premountFor={fps}>
+            <Video src={MEDIA.plaque} trimBefore={0} muted style={cover} />
+          </Sequence>
+          <Captions items={SOUS_TITRES.services} offset={22.85} />
+        </Series.Sequence>
+
+        {/* 4. Stephan : le passage sous licence, sur le gros plan de l'enseigne */}
         <Series.Sequence name="Interview licence" durationInFrames={200} premountFor={fps}>
           <Video src={MEDIA.interview} trimBefore={Math.round(30.55 * fps)} style={cover} volume={fades(200)} />
           <Sequence name="Enseigne" from={40} durationInFrames={146} premountFor={fps}>
@@ -50,7 +59,7 @@ export const AgenceMiramas: React.FC = () => {
           <Captions items={SOUS_TITRES.cap} offset={30.55} />
         </Series.Sequence>
 
-        {/* 4. Conclusion : la fierté */}
+        {/* 5. Conclusion : la fierté */}
         <Series.Sequence name="Fierté" durationInFrames={171} premountFor={fps}>
           <Video src={MEDIA.conclusion} trimBefore={Math.round(3.85 * fps)} style={cover} volume={fades(171)} />
           <Captions items={SOUS_TITRES.fierte} offset={3.85} />
@@ -61,22 +70,25 @@ export const AgenceMiramas: React.FC = () => {
           <Captions items={SOUS_TITRES.independant} offset={10.6} />
         </Series.Sequence>
 
-        {/* 5. Remerciements et poignée de main */}
+        {/* 6. Remerciements et poignée de main */}
         <Series.Sequence name="Merci" durationInFrames={75} premountFor={fps}>
           <Video src={MEDIA.conclusion} trimBefore={Math.round(23.25 * fps)} style={cover} volume={fades(75)} />
           <Captions items={SOUS_TITRES.merci} offset={23.25} />
         </Series.Sequence>
       </Series>
 
-      {/* Logo signature, masqué sur les plans façade et enseigne (déjà marqués GNI, fond peu contrasté) */}
+      {/* Logo signature, masqué sur les plans façade, plaque et enseigne (déjà marqués, fond peu contrasté) */}
       <Sequence name="Logo signature 1" durationInFrames={285}>
         <LogoSignature duration={285} />
       </Sequence>
-      <Sequence name="Logo signature 2" from={393} durationInFrames={164}>
-        <LogoSignature duration={164} />
+      <Sequence name="Logo signature 2" from={393} durationInFrames={184}>
+        <LogoSignature duration={184} />
       </Sequence>
-      <Sequence name="Logo signature 3" from={703} durationInFrames={FIN_START - 703}>
-        <LogoSignature duration={FIN_START - 703} />
+      <Sequence name="Logo signature 3" from={706} durationInFrames={73}>
+        <LogoSignature duration={73} />
+      </Sequence>
+      <Sequence name="Logo signature 4" from={925} durationInFrames={FIN_START - 925}>
+        <LogoSignature duration={FIN_START - 925} />
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
@@ -87,7 +99,7 @@ export const AgenceMiramas: React.FC = () => {
       <Audio
         src={MEDIA.musique}
         volume={(f) =>
-          interpolate(f, [0, 15, FIN_START - 10, FIN_START + 10, 1278 - 30, 1278], [0, 0.13, 0.13, 0.6, 0.6, 0], {
+          interpolate(f, [0, 15, FIN_START - 10, FIN_START + 10, 1500 - 30, 1500], [0, 0.13, 0.13, 0.6, 0.6, 0], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           })

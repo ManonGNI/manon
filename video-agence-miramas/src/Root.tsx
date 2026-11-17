@@ -4,5 +4,5 @@ import "./fonts";
 import { AgenceMiramas } from "./AgenceMiramas";
 
 export const RemotionRoot: React.FC = () => (
-  <Composition id="AgenceMiramas" component={AgenceMiramas} durationInFrames={1278} fps={30} width={1080} height={1920} />
+  <Composition id="AgenceMiramas" component={AgenceMiramas} durationInFrames={1500} fps={30} width={1080} height={1920} />
 );

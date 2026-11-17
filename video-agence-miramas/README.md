@@ -1,7 +1,7 @@
 # Vidéo de présentation — Agence SG Conseil & Patrimoine (Miramas)
 
 Première agence passée sous licence de marque Groupe National Immobilier.
-Reel vertical 1080 × 1920, 30 i/s, environ 43 s, construit avec Remotion.
+Reel vertical 1080 × 1920, 30 i/s, environ 50 s, construit avec Remotion.
 
 ## Déroulé
 
@@ -9,7 +9,8 @@ Reel vertical 1080 × 1920, 30 i/s, environ 43 s, construit avec Remotion.
 |---|---|---|
 | 1 | Nans Bellanger face caméra, puis plan façade | Présentation du tournage, titre « Agence SG Conseil & Patrimoine · Miramas » |
 | 2 | Interview Stephan Garcin | « Une agence basée sur Miramas depuis 15 ans » |
-| 3 | Interview + gros plan enseigne | « Nous passons le cap de rejoindre le Groupe National Immobilier sous licence » |
+| 3 | Interview + plaque des services | « Nous continuons à accompagner avec un interlocuteur unique sur la gestion de patrimoine, y compris immobilière » |
+| 4 | Interview + gros plan enseigne | « Nous passons le cap de rejoindre le Groupe National Immobilier sous licence » |
 | 4 | Interview | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
 | 5 | Poignée de main | « Merci, à bientôt. » |
 | 6 | Écran de fin marine | Logo GNI blanc, « Bienvenue à l'agence SG Conseil & Patrimoine · Miramas » |
