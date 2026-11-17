@@ -19,12 +19,12 @@ const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, 
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.45, 0, 0.35, 1), // départ et arrivée en douceur
   });
-  const scale = 1 + 0.35 * p;
+  const scale = 1 + 0.45 * p;
   return (
     <AbsoluteFill
       style={{
         transformOrigin: "28% 43%",
-        transform: `translate(${95 * p}px, ${-35 * p}px) scale(${scale})`,
+        transform: `translate(${125 * p}px, ${-45 * p}px) scale(${scale})`,
       }}
     >
       {children}
