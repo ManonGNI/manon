@@ -11,13 +11,13 @@ Reel vertical 1080 × 1920, 30 i/s, environ 50 s, construit avec Remotion.
 | 2 | Interview Stephan Garcin | « Une agence basée sur Miramas depuis 15 ans » |
 | 3 | Interview + plaque des services | « Nous continuons à accompagner avec un interlocuteur unique sur la gestion de patrimoine, y compris immobilière » |
 | 4 | Interview + gros plan enseigne | « Nous passons le cap de rejoindre le Groupe National Immobilier sous licence » |
-| 4 | Interview | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
-| 5 | Poignée de main | « Merci, à bientôt. » |
-| 6 | Écran de fin marine | Logo GNI blanc, « Bienvenue à l'agence SG Conseil & Patrimoine · Miramas » |
+| 5 | Interview | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
+| 6 | Poignée de main | « Merci, à bientôt. » |
+| 7 | Écran de fin marine | Logo GNI blanc, « Bienvenue à l'agence SG Conseil & Patrimoine · Miramas » |
 
 ## Fichiers
 
-- `src/theme.ts` : couleurs, noms et fonctions, sous-titres (texte modifiable, `*mot*` = mot en or)
+- `src/theme.ts` : couleurs, noms et fonctions, sous-titres mot à mot (texte et timing modifiables)
 - `src/AgenceMiramas.tsx` : montage (points d'entrée/sortie de chaque plan, musique)
 - `src/Overlays.tsx` : sous-titres, bandeaux nom/fonction, titre agence, écran de fin
 - `public/clips/` : rushs remis à la verticale 1080 × 1920, voix normalisées
