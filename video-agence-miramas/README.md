@@ -9,9 +9,9 @@ Reel vertical 1080 × 1920, 30 i/s, environ 50 s, construit avec Remotion.
 |---|---|---|
 | 1 | Nans Bellanger face caméra, puis plan façade | Présentation du tournage, titre « Agence SG Conseil & Patrimoine · Miramas » |
 | 2 | Interview Stephan Garcin | « Une agence basée sur Miramas depuis 15 ans » |
-| 3 | Interview + plaque des services | « Nous continuons à accompagner avec un interlocuteur unique sur la gestion de patrimoine, y compris immobilière » |
+| 3 | Interview, zoom avant sur Stephan | « Nous continuons à accompagner avec un interlocuteur unique sur la gestion de patrimoine, y compris immobilière » |
 | 4 | Interview + gros plan enseigne | « Nous passons le cap de rejoindre le Groupe National Immobilier sous licence » |
-| 5 | Interview | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
+| 5 | Interview, zoom avant sur « indépendant » | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
 | 6 | Poignée de main | « Merci, à bientôt. » |
 | 7 | Écran de fin marine | Logo GNI blanc, « Bienvenue à l'agence SG Conseil & Patrimoine · Miramas » |
 

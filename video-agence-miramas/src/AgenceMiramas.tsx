@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, interpolate, Sequence, Series, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import { Audio, Video } from "@remotion/media";
 import { Captions, EcranFin, LogoSignature, LowerThird, TitreAgence } from "./Overlays";
 import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
@@ -9,6 +9,28 @@ const cover: React.CSSProperties = { width: "100%", height: "100%", objectFit: "
 // Fondu de 4 images en entrée / sortie de chaque coupe pour éviter les clics audio
 const fades = (duration: number) => (f: number) =>
   interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+// Zoom avant sur Stephan (visage ≈ 28 % de la largeur, 43 % de la hauteur du cadre),
+// déclenché à l'image `at` de la séquence, puis tenu jusqu'à la coupe
+const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, children }) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [at, at + 14], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.33, 1, 0.68, 1),
+  });
+  const scale = 1 + 0.55 * p;
+  return (
+    <AbsoluteFill
+      style={{
+        transformOrigin: "28% 43%",
+        transform: `translate(${170 * p}px, ${-60 * p}px) scale(${scale})`,
+      }}
+    >
+      {children}
+    </AbsoluteFill>
+  );
+};
 
 // Durées (images à 30 i/s)
 const D = { intro: 393, miramas: 124, services: 222, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 105 };
@@ -41,12 +63,11 @@ export const AgenceMiramas: React.FC = () => {
           <Captions items={SOUS_TITRES.miramas} offset={18.15} />
         </Series.Sequence>
 
-        {/* 3. Stephan : le métier de l'agence, illustré par la plaque des services */}
+        {/* 3. Stephan : le métier de l'agence, avec zoom avant sur lui */}
         <Series.Sequence name="Interview services" durationInFrames={222} premountFor={fps}>
-          <Video src={MEDIA.interview} trimBefore={Math.round(22.85 * fps)} style={cover} volume={fades(222)} />
-          <Sequence name="Plaque services" from={60} durationInFrames={129} premountFor={fps}>
-            <Video src={MEDIA.plaque} trimBefore={0} muted style={cover} />
-          </Sequence>
+          <ZoomStephan at={56}>
+            <Video src={MEDIA.interview} trimBefore={Math.round(22.85 * fps)} style={cover} volume={fades(222)} />
+          </ZoomStephan>
           <Captions items={SOUS_TITRES.services} offset={22.85} />
         </Series.Sequence>
 
@@ -66,7 +87,10 @@ export const AgenceMiramas: React.FC = () => {
         </Series.Sequence>
 
         <Series.Sequence name="Indépendant" durationInFrames={210} premountFor={fps}>
-          <Video src={MEDIA.conclusion} trimBefore={Math.round(10.6 * fps)} style={cover} volume={fades(210)} />
+          {/* zoom avant juste avant « indépendant » */}
+          <ZoomStephan at={44}>
+            <Video src={MEDIA.conclusion} trimBefore={Math.round(10.6 * fps)} style={cover} volume={fades(210)} />
+          </ZoomStephan>
           <Captions items={SOUS_TITRES.independant} offset={10.6} />
         </Series.Sequence>
 
@@ -77,15 +101,12 @@ export const AgenceMiramas: React.FC = () => {
         </Series.Sequence>
       </Series>
 
-      {/* Logo signature, masqué sur les plans façade, plaque et enseigne (déjà marqués, fond peu contrasté) */}
+      {/* Logo signature, masqué sur les plans façade et enseigne (déjà marqués, fond peu contrasté) */}
       <Sequence name="Logo signature 1" durationInFrames={285}>
         <LogoSignature duration={285} />
       </Sequence>
-      <Sequence name="Logo signature 2" from={393} durationInFrames={184}>
-        <LogoSignature duration={184} />
-      </Sequence>
-      <Sequence name="Logo signature 3" from={706} durationInFrames={73}>
-        <LogoSignature duration={73} />
+      <Sequence name="Logo signature 2" from={393} durationInFrames={386}>
+        <LogoSignature duration={386} />
       </Sequence>
       <Sequence name="Logo signature 4" from={925} durationInFrames={FIN_START - 925}>
         <LogoSignature duration={FIN_START - 925} />
