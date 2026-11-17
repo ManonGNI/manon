@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
-import { Audio, Video } from "@remotion/media";
+import { Video } from "@remotion/media";
 import { Captions, EcranFin, LogoSignature, LowerThird } from "./Overlays";
 import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 
@@ -10,8 +10,9 @@ const cover: React.CSSProperties = { width: "100%", height: "100%", objectFit: "
 const fades = (duration: number) => (f: number) =>
   interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-// Zoom avant sur Stephan (visage ≈ 28 % de la largeur, 43 % de la hauteur du cadre),
-// zoom doux sur 2 s à partir de l'image `at` de la séquence, puis tenu jusqu'à la coupe
+// Zoom avant sur Stephan seul : le cadre passe en douceur (2 s) de l'image entière
+// à une fenêtre 540 × 960 centrée sur lui (Nans sort du champ), puis reste tenu jusqu'à la coupe
+const ZOOM_CIBLE = { x: 20, y: 470, w: 540 }; // fenêtre finale, en pixels de la composition 1080 × 1920
 const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, children }) => {
   const frame = useCurrentFrame();
   const p = interpolate(frame, [at, at + 60], [0, 1], {
@@ -19,14 +20,12 @@ const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, 
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.45, 0, 0.35, 1), // départ et arrivée en douceur
   });
-  const scale = 1 + 0.45 * p;
+  const w = interpolate(p, [0, 1], [1080, ZOOM_CIBLE.w]);
+  const x = interpolate(p, [0, 1], [0, ZOOM_CIBLE.x]);
+  const y = interpolate(p, [0, 1], [0, ZOOM_CIBLE.y]);
+  const s = 1080 / w;
   return (
-    <AbsoluteFill
-      style={{
-        transformOrigin: "28% 43%",
-        transform: `translate(${125 * p}px, ${-45 * p}px) scale(${scale})`,
-      }}
-    >
+    <AbsoluteFill style={{ transformOrigin: "0 0", transform: `scale(${s}) translate(${-x}px, ${-y}px)` }}>
       {children}
     </AbsoluteFill>
   );
@@ -111,16 +110,6 @@ export const AgenceMiramas: React.FC = () => {
         <EcranFin />
       </Sequence>
 
-      {/* Musique légère sous les voix, remonte sur l'écran de fin */}
-      <Audio
-        src={MEDIA.musique}
-        volume={(f) =>
-          interpolate(f, [0, 15, FIN_START - 10, FIN_START + 10, 1530 - 30, 1530], [0, 0.13, 0.13, 0.6, 0.6, 0], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          })
-        }
-      />
     </AbsoluteFill>
   );
 };

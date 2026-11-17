@@ -18,10 +18,10 @@ Reel vertical 1080 × 1920, 30 i/s, environ 50 s, construit avec Remotion.
 ## Fichiers
 
 - `src/theme.ts` : couleurs, noms et fonctions, sous-titres mot à mot (texte et timing modifiables)
-- `src/AgenceMiramas.tsx` : montage (points d'entrée/sortie de chaque plan, musique)
+- `src/AgenceMiramas.tsx` : montage (points d'entrée/sortie de chaque plan, zoom)
 - `src/Overlays.tsx` : sous-titres, bandeaux nom/fonction, titre agence, écran de fin
 - `public/clips/` : rushs remis à la verticale 1080 × 1920, voix normalisées
-- `public/medias/musique.m4a` : musique de fond composée pour la vidéo (libre de droits)
+- Pas de musique : uniquement les voix
 
 ## Rendu
 

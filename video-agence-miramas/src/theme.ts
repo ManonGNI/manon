@@ -12,7 +12,6 @@ export const MEDIA = {
   plaque: staticFile("clips/plaque.mp4"),
   interview: staticFile("clips/interview.mp4"),
   conclusion: staticFile("clips/conclusion.mp4"),
-  musique: staticFile("medias/musique.m4a"),
   logoBlanc: staticFile("medias/logo-gni-blanc.png"),
 };
 
