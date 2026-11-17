@@ -11,20 +11,20 @@ const fades = (duration: number) => (f: number) =>
   interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
 // Zoom avant sur Stephan (visage ≈ 28 % de la largeur, 43 % de la hauteur du cadre),
-// déclenché à l'image `at` de la séquence, puis tenu jusqu'à la coupe
+// zoom doux sur 2 s à partir de l'image `at` de la séquence, puis tenu jusqu'à la coupe
 const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, children }) => {
   const frame = useCurrentFrame();
-  const p = interpolate(frame, [at, at + 14], [0, 1], {
+  const p = interpolate(frame, [at, at + 60], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
-    easing: Easing.bezier(0.33, 1, 0.68, 1),
+    easing: Easing.bezier(0.45, 0, 0.35, 1), // départ et arrivée en douceur
   });
-  const scale = 1 + 0.55 * p;
+  const scale = 1 + 0.35 * p;
   return (
     <AbsoluteFill
       style={{
         transformOrigin: "28% 43%",
-        transform: `translate(${170 * p}px, ${-60 * p}px) scale(${scale})`,
+        transform: `translate(${95 * p}px, ${-35 * p}px) scale(${scale})`,
       }}
     >
       {children}
