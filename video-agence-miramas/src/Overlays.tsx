@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Easing, Img, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, FONT, MEDIA, Mot } from "./theme";
+import { SIGLE } from "./sigle";
 
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
 
@@ -189,7 +190,24 @@ export const EcranFin: React.FC = () => {
     return { opacity: p, transform: `translateY(${(1 - p) * 30}px)` };
   };
   return (
-    <AbsoluteFill style={{ background: C.marine, opacity: bg, fontFamily: FONT, color: C.blanc }}>
+    <AbsoluteFill style={{ background: C.marine, opacity: bg, fontFamily: FONT, color: C.blanc, overflow: "hidden" }}>
+      {/* Sigle G en transparence, grand, débordant à droite ; léger recul pendant l'écran */}
+      <svg
+        viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
+        width={1000}
+        height={(1000 * SIGLE.h) / SIGLE.w}
+        style={{
+          position: "absolute",
+          left: 250,
+          top: 560,
+          opacity: interpolate(frame, [4, 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+          transform: `scale(${interpolate(frame, [0, 113], [1.08, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
+          transformOrigin: "40% 50%",
+        }}
+      >
+        <path d={SIGLE.gPath} fill={C.blanc} fillOpacity={0.08} />
+        <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.35} />
+      </svg>
       <Img src={MEDIA.logoBlanc} style={{ position: "absolute", left: 96, top: 470, width: 600, ...rise(6) }} />
       <div style={{ position: "absolute", left: 96, top: 1010, right: 96 }}>
         <div style={{ fontWeight: 500, fontSize: 40, marginBottom: 14, ...rise(18) }}>Bienvenue à l'agence</div>
