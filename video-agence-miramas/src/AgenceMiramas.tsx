@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, Img, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import { Audio, Video } from "@remotion/media";
 import { Captions, EcranFin, LogoSignature, LowerThird, TitreAgence } from "./Overlays";
 import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
@@ -32,6 +32,35 @@ const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, 
   );
 };
 
+// Photo de face de l'agence : panoramique horizontal de l'enseigne SG vers le panneau GNI
+const FacadePhoto: React.FC<{ duration: number }> = ({ duration }) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [0, duration], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.45, 0, 0.25, 1),
+  });
+  const left = interpolate(p, [0, 1], [600, 1772]);
+  const scale = interpolate(p, [0, 1], [1.0, 1.04]);
+  return (
+    <AbsoluteFill style={{ overflow: "hidden", background: "#000" }}>
+      <Img
+        src={MEDIA.facadePhoto}
+        style={{
+          position: "absolute",
+          width: 3072,
+          height: 2304,
+          left: -left,
+          top: -192,
+          maxWidth: "none",
+          transform: `scale(${scale})`,
+          transformOrigin: `${left + 540}px 1152px`,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
 // Durées (images à 30 i/s)
 const D = { intro: 393, miramas: 124, services: 222, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 105 };
 const FIN_START = D.intro + D.miramas + D.services + D.cap + D.fierte + D.independant + D.merci; // 1395
@@ -48,7 +77,7 @@ export const AgenceMiramas: React.FC = () => {
             <LowerThird {...PERSONNES.nans} duration={110} />
           </Sequence>
           <Sequence name="Façade" from={285} durationInFrames={108} premountFor={fps}>
-            <Video src={MEDIA.facade} trimBefore={Math.round(1.8 * fps)} muted style={cover} />
+            <FacadePhoto duration={108} />
             <TitreAgence duration={108} />
           </Sequence>
           <Captions items={SOUS_TITRES.intro} offset={0} />

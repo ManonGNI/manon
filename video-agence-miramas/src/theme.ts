@@ -7,6 +7,7 @@ export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 export const MEDIA = {
   intro: staticFile("clips/intro-nans.mp4"),
   facade: staticFile("clips/facade.mp4"),
+  facadePhoto: staticFile("medias/facade-photo.jpg"), // photo de face IMG_5023 (3072 × 2304)
   enseigne: staticFile("clips/enseigne.mp4"),
   plaque: staticFile("clips/plaque.mp4"),
   interview: staticFile("clips/interview.mp4"),
