@@ -11,7 +11,7 @@ Reel vertical 1080 × 1920, 30 i/s, environ 50 s, construit avec Remotion.
 | 2 | Interview Stephan Garcin | « Une agence basée sur Miramas depuis 15 ans » |
 | 3 | Interview | « Nous continuons à accompagner avec un interlocuteur unique sur la gestion de patrimoine, y compris immobilière » |
 | 4 | Interview | « Nous passons le cap de rejoindre le Groupe National Immobilier sous licence » |
-| 5 | Interview, zoom avant unique sur Stephan | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
+| 5 | Fondu enchaîné vers un plan serré sur Stephan seul | « Une véritable fierté… indépendant tout en rejoignant un réseau national » |
 | 6 | Poignée de main | « Merci, à bientôt. » |
 | 7 | Écran de fin marine (disposition carte agence) | « Agence SG Conseil & Patrimoine », Miramas en or, logo GNI blanc, sigle G en transparence |
 

@@ -10,8 +10,8 @@ const cover: React.CSSProperties = { width: "100%", height: "100%", objectFit: "
 const fades = (duration: number) => (f: number) =>
   interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-// Zoom avant sur Stephan seul : le cadre passe en douceur (2 s) de l'image entière
-// à une fenêtre 540 × 960 centrée sur lui (Nans sort du champ), puis reste tenu jusqu'à la coupe
+// Cadrage serré sur Stephan seul : fenêtre 540 × 960 centrée sur lui (Nans hors champ).
+// Avec at < 0, le cadrage est appliqué d'emblée (plan déjà zoomé).
 const ZOOM_CIBLE = { x: 20, y: 470, w: 540 }; // fenêtre finale, en pixels de la composition 1080 × 1920
 const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, children }) => {
   const frame = useCurrentFrame();
@@ -26,6 +26,22 @@ const ZoomStephan: React.FC<{ at: number; children: React.ReactNode }> = ({ at, 
   const s = 1080 / w;
   return (
     <AbsoluteFill style={{ transformOrigin: "0 0", transform: `scale(${s}) translate(${-x}px, ${-y}px)` }}>
+      {children}
+    </AbsoluteFill>
+  );
+};
+
+// Fondu enchaîné vers le plan serré : la vidéo de conclusion, déjà cadrée sur Stephan,
+// apparaît par-dessus la fin du plan précédent (opacité 0 → 1, léger recul d'échelle 1,06 → 1)
+const FonduPlanSerre: React.FC<{ duration: number; children: React.ReactNode }> = ({ duration, children }) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [0, duration], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.33, 0, 0.2, 1),
+  });
+  return (
+    <AbsoluteFill style={{ opacity: p, transform: `scale(${1.06 - 0.06 * p})` }}>
       {children}
     </AbsoluteFill>
   );
@@ -71,13 +87,21 @@ export const AgenceMiramas: React.FC = () => {
         {/* 4. Stephan : le passage sous licence */}
         <Series.Sequence name="Interview licence" durationInFrames={200} premountFor={fps}>
           <Video src={MEDIA.interview} trimBefore={Math.round(30.55 * fps)} style={cover} volume={fades(200)} />
+          {/* transition : fondu enchaîné sur les 12 dernières images vers Stephan déjà zoomé */}
+          <Sequence name="Fondu vers plan serré" from={188} durationInFrames={12} premountFor={fps}>
+            <FonduPlanSerre duration={12}>
+              <ZoomStephan at={-100}>
+                <Video src={MEDIA.conclusion} trimBefore={Math.round(3.85 * fps) - 12} muted style={cover} />
+              </ZoomStephan>
+            </FonduPlanSerre>
+          </Sequence>
           <Captions items={SOUS_TITRES.cap} offset={30.55} />
         </Series.Sequence>
 
         {/* 5. Conclusion : la fierté */}
         <Series.Sequence name="Fierté" durationInFrames={171} premountFor={fps}>
-          {/* zoom avant unique sur « Une véritable fierté… », tenu jusqu'à la fin de sa réponse */}
-          <ZoomStephan at={2}>
+          {/* plan serré sur Stephan, déjà zoomé (arrivé par le fondu), tenu jusqu'à la fin de sa réponse */}
+          <ZoomStephan at={-100}>
             <Video src={MEDIA.conclusion} trimBefore={Math.round(3.85 * fps)} style={cover} volume={fades(171)} />
           </ZoomStephan>
           <Captions items={SOUS_TITRES.fierte} offset={3.85} />
