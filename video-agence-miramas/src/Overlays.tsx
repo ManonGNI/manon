@@ -183,16 +183,25 @@ export const TitreAgence: React.FC<{ duration: number }> = ({ duration }) => {
 
 // Écran de fin marine, reprenant la disposition de la carte agence GNI
 const FONT_ENSEIGNE = "Inter, 'Helvetica Neue', Arial, sans-serif";
+
 export const EcranFin: React.FC = () => {
   const frame = useCurrentFrame();
-  const bg = interpolate(frame, [0, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const rise = (d: number) => {
-    const p = interpolate(frame, [d, d + 16], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
-    return { opacity: p, transform: `translateY(${(1 - p) * 30}px)` };
-  };
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const bg = interpolate(frame, [0, 10], [0, 1], clamp);
+  const prog = (d: number, len = 16) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
+  // ligne qui monte derrière un masque
+  const maskRise = (d: number): React.CSSProperties => ({ transform: `translateY(${(1 - prog(d, 18)) * 110}%)` });
+
+  // Sigle : arrive en grand puis se pose ; la barre or glisse depuis la droite
+  const gIn = prog(2, 34);
+  const barIn = prog(14, 26);
+  // « Bienvenue à l'agence » : écrit de gauche à droite
+  const ecrit = interpolate(frame, [10, 42], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
+  // reflet doré qui balaie le texte manuscrit une fois écrit
+  const reflet = interpolate(frame, [48, 78], [-30, 130], clamp);
+
   return (
-    <AbsoluteFill style={{ background: C.marine, opacity: bg, fontFamily: FONT, color: C.blanc, overflow: "hidden" }}>
-      {/* Sigle G en transparence, grand, débordant à droite ; léger recul pendant l'écran */}
+    <AbsoluteFill style={{ background: C.marine, opacity: bg, color: C.blanc, overflow: "hidden" }}>
       <svg
         viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
         width={1000}
@@ -201,23 +210,57 @@ export const EcranFin: React.FC = () => {
           position: "absolute",
           left: 250,
           top: 560,
-          opacity: interpolate(frame, [4, 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
-          transform: `scale(${interpolate(frame, [0, 113], [1.08, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
-          transformOrigin: "40% 50%",
+          opacity: gIn,
+          transform: `scale(${1.35 - 0.35 * gIn}) rotate(${(1 - gIn) * -12}deg) scale(${1 + 0.03 * prog(40, 95)})`,
+          transformOrigin: "50% 50%",
         }}
       >
         <path d={SIGLE.gPath} fill={C.blanc} fillOpacity={0.08} />
-        <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.35} />
+        <g transform={`translate(${(1 - barIn) * 90} 0)`} opacity={barIn}>
+          <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.4} />
+        </g>
       </svg>
-      {/* Disposition de la carte agence : nom en Light, ville en or, logo aligné à gauche dessous */}
-      <div style={{ position: "absolute", left: 104, top: 650, right: 60, fontFamily: FONT_ENSEIGNE }}>
-        <div style={{ fontWeight: 300, fontSize: 82, lineHeight: 1.1, letterSpacing: -1.5, ...rise(6) }}>
-          Agence SG
-          <br />
-          Conseil & Patrimoine
+
+      <div style={{ position: "absolute", left: 104, top: 480, right: 40 }}>
+        <div
+          style={{
+            fontFamily: "Allison, cursive",
+            fontSize: 175,
+            lineHeight: 1,
+            color: C.or,
+            marginLeft: -6,
+            marginBottom: 6,
+            clipPath: `inset(-20% ${(1 - ecrit) * 100}% -20% -5%)`,
+            backgroundImage: `linear-gradient(100deg, ${C.or} ${reflet - 12}%, #F6E2B3 ${reflet}%, ${C.or} ${reflet + 12}%)`,
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Bienvenue à l'agence
         </div>
-        <div style={{ fontWeight: 400, fontSize: 46, color: C.or, marginTop: 16, ...rise(14) }}>Miramas</div>
-        <Img src={MEDIA.logoBlanc} style={{ display: "block", width: 540, marginTop: 90, ...rise(24) }} />
+        <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 300, fontSize: 82, lineHeight: 1.12, letterSpacing: -1.5 }}>
+          <div style={{ overflow: "hidden" }}>
+            <div style={maskRise(26)}>Agence SG</div>
+          </div>
+          <div style={{ overflow: "hidden" }}>
+            <div style={maskRise(31)}>Conseil & Patrimoine</div>
+          </div>
+        </div>
+        <div style={{ overflow: "hidden", marginTop: 14 }}>
+          <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 400, fontSize: 46, color: C.or, ...maskRise(38) }}>Miramas</div>
+        </div>
+        <div style={{ position: "relative", marginTop: 90, width: 540 }}>
+          <Img
+            src={MEDIA.logoBlanc}
+            style={{
+              display: "block",
+              width: 540,
+              opacity: prog(48),
+              transform: `translateX(${(1 - prog(48, 20)) * -40}px)`,
+            }}
+          />
+        </div>
       </div>
     </AbsoluteFill>
   );

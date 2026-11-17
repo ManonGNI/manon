@@ -62,7 +62,7 @@ const FacadePhoto: React.FC<{ duration: number }> = ({ duration }) => {
 };
 
 // Durées (images à 30 i/s)
-const D = { intro: 393, miramas: 124, services: 222, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 105 };
+const D = { intro: 393, miramas: 124, services: 222, cap: 200, fierte: 171, independant: 210, merci: 75, fin: 135 };
 const FIN_START = D.intro + D.miramas + D.services + D.cap + D.fierte + D.independant + D.merci; // 1395
 
 export const AgenceMiramas: React.FC = () => {
@@ -150,7 +150,7 @@ export const AgenceMiramas: React.FC = () => {
       <Audio
         src={MEDIA.musique}
         volume={(f) =>
-          interpolate(f, [0, 15, FIN_START - 10, FIN_START + 10, 1500 - 30, 1500], [0, 0.13, 0.13, 0.6, 0.6, 0], {
+          interpolate(f, [0, 15, FIN_START - 10, FIN_START + 10, 1530 - 30, 1530], [0, 0.13, 0.13, 0.6, 0.6, 0], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           })
