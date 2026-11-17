@@ -1,57 +1,75 @@
 import React from "react";
 import { AbsoluteFill, Easing, Img, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { C, Caption, FONT, MEDIA } from "./theme";
+import { C, FONT, MEDIA, Mot } from "./theme";
 
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
 
-// Texte avec *mot* en or
-const Rich: React.FC<{ text: string }> = ({ text }) => (
-  <>
-    {text.split(/(\*[^*]+\*)/).map((part, i) =>
-      part.startsWith("*") ? (
-        <span key={i} style={{ color: C.or }}>
-          {part.slice(1, -1)}
-        </span>
-      ) : (
-        <span key={i}>{part}</span>
-      ),
-    )}
-  </>
-);
-
-// Sous-titres synchronisés : `offset` = temps (s) du fichier source au début de la séquence
-export const Captions: React.FC<{ items: Caption[]; offset: number }> = ({ items, offset }) => {
+// Sous-titres synchronisés : texte blanc épais, surlignage or qui passe sous le mot prononcé.
+// `offset` = temps (s) du fichier source au début de la séquence
+export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, offset }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = offset + frame / fps;
-  const idx = items.findIndex(([s, e], i) => {
+  const idx = items.findIndex((line, i) => {
     const next = items[i + 1];
-    const end = next && next[0] - e < 0.6 ? next[0] : e + 0.25;
-    return t >= s && t < end;
+    const lastEnd = line[line.length - 1][2];
+    const end = next && next[0][1] - lastEnd < 0.6 ? next[0][1] : lastEnd + 0.3;
+    return t >= line[0][1] - 0.05 && t < end;
   });
   if (idx < 0) return null;
-  const [start, , text] = items[idx];
-  const local = (t - start) * fps;
-  const appear = interpolate(local, [0, 5], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const line = items[idx];
+  const appear = interpolate((t - line[0][1]) * fps, [-1.5, 3], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: ease,
+  });
+  // mot actif = dernier mot commencé ; le surlignage reste sur le dernier mot jusqu'à la ligne suivante
+  let active = -1;
+  line.forEach(([, s], i) => {
+    if (t >= s - 0.03) active = i;
+  });
   return (
-    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 470 }}>
+    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 460 }}>
       <div
         style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          maxWidth: 940,
+          rowGap: 6,
           fontFamily: FONT,
-          fontWeight: 700,
-          fontSize: 50,
-          lineHeight: 1.2,
+          fontWeight: 800,
+          fontSize: 64,
+          lineHeight: 1.15,
+          letterSpacing: -0.5,
           color: C.blanc,
-          background: "rgba(43, 66, 88, 0.9)",
-          padding: "16px 30px 18px",
-          borderRadius: 6,
-          maxWidth: 920,
-          textAlign: "center",
+          textShadow: "0 2px 10px rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.35)",
           opacity: appear,
-          transform: `translateY(${(1 - appear) * 14}px)`,
+          transform: `translateY(${(1 - appear) * 12}px)`,
         }}
       >
-        <Rich text={text} />
+        {line.map(([mot, s], i) => {
+          const on = i === active;
+          const p = on
+            ? interpolate((t - s) * fps, [-1, 3], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease })
+            : 0;
+          return (
+            <span key={i} style={{ position: "relative", padding: "2px 12px 6px", margin: "0 1px" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: C.or,
+                  borderRadius: 8,
+                  transform: `scaleX(${p})`,
+                  transformOrigin: "left center",
+                  opacity: on ? 1 : 0,
+                }}
+              />
+              <span style={{ position: "relative" }}>{mot}</span>
+            </span>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );
