@@ -17,8 +17,8 @@ export const MEDIA = {
 };
 
 export const PERSONNES = {
-  nans: { nom: "Nans Bellanger", role: "Responsable développement", structure: "Groupe National Immobilier" },
-  stephan: { nom: "Stephan Garcin", role: "Co-gérant", structure: "Agence SG Conseil & Patrimoine" },
+  nans: { surtitre: "Reportage · Miramas", nom: "Nans Bellanger", role: "Responsable développement", structure: "Groupe National Immobilier" },
+  stephan: { surtitre: "Interview · Première agence sous licence", nom: "Stephan Garcin", role: "Co-gérant", structure: "Agence SG Conseil & Patrimoine" },
 };
 
 // Sous-titres mot à mot : [mot, début s, fin s] en temps du fichier source.

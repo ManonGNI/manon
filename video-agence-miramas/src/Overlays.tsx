@@ -75,35 +75,74 @@ export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, 
   );
 };
 
-// Bandeau nom / fonction, ancré à gauche, avec le trait or du G en repère
-export const LowerThird: React.FC<{ nom: string; role: string; structure: string; duration: number }> = ({
+// Bandeau nom / fonction, style « Journal de l'Agence » :
+// sur-titre or en capitales espacées, nom blanc sur bloc marine avec filet or vertical, cartouche blanc pour la fonction
+export const LowerThird: React.FC<{ nom: string; role: string; structure: string; surtitre: string; duration: number }> = ({
   nom,
   role,
   structure,
+  surtitre,
   duration,
 }) => {
   const frame = useCurrentFrame();
-  const inP = interpolate(frame, [0, 14], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
-  const out = interpolate(frame, [duration - 10, duration], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const bar = interpolate(frame, [6, 20], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const rule = interpolate(frame, [0, 10], [0, 1], { ...clamp, easing: ease });
+  const name = interpolate(frame, [4, 18], [0, 1], { ...clamp, easing: ease });
+  const card = interpolate(frame, [12, 26], [0, 1], { ...clamp, easing: ease });
+  const kicker = interpolate(frame, [8, 22], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(frame, [duration - 10, duration], [1, 0], clamp);
   return (
-    <AbsoluteFill style={{ opacity: out }}>
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 1050,
-          background: C.marine,
-          padding: "30px 56px 32px 72px",
-          clipPath: `inset(0 ${(1 - inP) * 100}% 0 0)`,
-          fontFamily: FONT,
-          color: C.blanc,
-        }}
-      >
-        <div style={{ width: 72 * bar, height: 10, borderRadius: 5, background: C.or, marginBottom: 18 }} />
-        <div style={{ fontWeight: 800, fontSize: 56, lineHeight: 1.05, letterSpacing: -0.5 }}>{nom}</div>
-        <div style={{ fontWeight: 500, fontSize: 32, marginTop: 10 }}>{role}</div>
-        <div style={{ fontWeight: 500, fontSize: 28, marginTop: 4, opacity: 0.75 }}>{structure}</div>
+    <AbsoluteFill style={{ opacity: out, fontFamily: FONT }}>
+      <div style={{ position: "absolute", left: 76, top: 990 }}>
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: 25,
+            letterSpacing: 5,
+            textTransform: "uppercase",
+            color: C.or,
+            textShadow: "0 2px 4px rgba(0, 0, 0, 0.85), 0 0 16px rgba(0, 0, 0, 0.55)",
+            marginBottom: 18,
+            marginLeft: 6,
+            opacity: kicker,
+            transform: `translateY(${(1 - kicker) * 10}px)`,
+          }}
+        >
+          {surtitre}
+        </div>
+        <div style={{ display: "flex" }}>
+          <div style={{ width: 7, background: C.or, transform: `scaleY(${rule})`, transformOrigin: "top" }} />
+          <div
+            style={{
+              background: C.marine,
+              color: C.blanc,
+              fontWeight: 700,
+              fontSize: 60,
+              letterSpacing: -0.5,
+              padding: "12px 44px 16px 20px",
+              clipPath: `inset(0 ${(1 - name) * 100}% 0 0)`,
+            }}
+          >
+            {nom}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "inline-block",
+            marginLeft: 13,
+            background: C.blanc,
+            color: C.marine,
+            fontWeight: 500,
+            fontSize: 33,
+            lineHeight: 1.45,
+            padding: "10px 40px 12px 16px",
+            clipPath: `inset(0 ${(1 - card) * 100}% 0 0)`,
+          }}
+        >
+          {role}
+          <br />
+          {structure}
+        </div>
       </div>
     </AbsoluteFill>
   );
