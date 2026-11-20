@@ -1,0 +1,16 @@
+{
+  "name": "video-agence-alexandra",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@fontsource/allison": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/montserrat": "^5.2.5",
+    "@remotion/cli": "4.0.534",
+    "@remotion/media": "4.0.534",
+    "@remotion/transitions": "4.0.534",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remotion": "4.0.534"
+  }
+}
