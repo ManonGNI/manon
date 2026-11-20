@@ -131,60 +131,24 @@ export const LowerThird: React.FC<{ nom: string; role: string; structure: string
   );
 };
 
-// Logo blanc officiel en signature, en haut à gauche
-export const LogoSignature: React.FC<{ duration: number }> = ({ duration }) => {
+// Logo officiel en signature : blanc en haut à gauche (extérieur), bleu en haut à droite (intérieur, mur clair)
+export const LogoSignature: React.FC<{ duration: number; variante?: "blanc" | "bleu" }> = ({ duration, variante = "blanc" }) => {
   const frame = useCurrentFrame();
   const o = interpolate(frame, [0, 12, duration - 12, duration], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  return <Img src={MEDIA.logoBlanc} style={{ position: "absolute", left: 64, top: 110, width: 230, opacity: o * 0.95 }} />;
-};
-
-// Titre de l'agence sur le plan de façade
-export const TitreAgence: React.FC<{ duration: number }> = ({ duration }) => {
-  const frame = useCurrentFrame();
-  const inP = interpolate(frame, [4, 20], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
-  const sub = interpolate(frame, [14, 28], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
-  const out = interpolate(frame, [duration - 8, duration], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  return (
-    <AbsoluteFill style={{ opacity: out }}>
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 330,
-          background: C.marine,
-          padding: "34px 64px 38px 72px",
-          clipPath: `inset(0 ${(1 - inP) * 100}% 0 0)`,
-          fontFamily: FONT,
-          color: C.blanc,
-        }}
-      >
-        <div style={{ fontWeight: 800, fontSize: 82, lineHeight: 1.0, letterSpacing: -1.5 }}>Agence SG</div>
-        <div style={{ fontWeight: 800, fontSize: 58, lineHeight: 1.1, letterSpacing: -0.8 }}>Conseil & Patrimoine</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            marginTop: 18,
-            opacity: sub,
-            transform: `translateY(${(1 - sub) * 10}px)`,
-          }}
-        >
-          <div style={{ width: 56, height: 9, borderRadius: 5, background: C.or }} />
-          <div style={{ fontWeight: 500, fontSize: 36 }}>Miramas</div>
-        </div>
-      </div>
-    </AbsoluteFill>
+  return variante === "blanc" ? (
+    <Img src={MEDIA.logoBlanc} style={{ position: "absolute", left: 64, top: 110, width: 230, opacity: o * 0.95 }} />
+  ) : (
+    <Img src={MEDIA.logoBleu} style={{ position: "absolute", right: 60, top: 110, width: 230, opacity: o }} />
   );
 };
 
 // Écran de fin marine, reprenant la disposition de la carte agence GNI
 const FONT_ENSEIGNE = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
-export const EcranFin: React.FC = () => {
+export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: number }> = ({ nom, villes, tailleNom = 82 }) => {
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const bg = interpolate(frame, [0, 10], [0, 1], clamp);
@@ -239,16 +203,21 @@ export const EcranFin: React.FC = () => {
         >
           Bienvenue à l'agence
         </div>
-        <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 300, fontSize: 82, lineHeight: 1.12, letterSpacing: -1.5 }}>
-          <div style={{ overflow: "hidden" }}>
-            <div style={maskRise(26)}>Agence SG</div>
-          </div>
-          <div style={{ overflow: "hidden" }}>
-            <div style={maskRise(31)}>Conseil & Patrimoine</div>
-          </div>
+        <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 300, fontSize: tailleNom, lineHeight: 1.12, letterSpacing: -1.5 }}>
+          {nom.map((ligne, i) => (
+            <div key={i} style={{ overflow: "hidden" }}>
+              <div style={maskRise(26 + i * 5)}>{ligne}</div>
+            </div>
+          ))}
         </div>
-        <div style={{ overflow: "hidden", marginTop: 14 }}>
-          <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 400, fontSize: 46, color: C.or, ...maskRise(38) }}>Miramas</div>
+        <div style={{ marginTop: 14 }}>
+          {villes.map((ville, i) => (
+            <div key={i} style={{ overflow: "hidden" }}>
+              <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 400, fontSize: 44, lineHeight: 1.25, color: C.or, ...maskRise(36 + i * 4) }}>
+                {ville}
+              </div>
+            </div>
+          ))}
         </div>
         <div style={{ position: "relative", marginTop: 90, width: 540 }}>
           <Img
