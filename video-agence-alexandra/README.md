@@ -7,7 +7,7 @@ Reel vertical 1080 × 1920, 30 i/s, environ 50 s, construit avec Remotion, même
 
 | # | Plan | Contenu |
 |---|---|---|
-| 1 | Loïc Fauchet devant l'agence | Présentation de l'agence et de ses deux sites |
+| 1 | Loïc Fauchet devant l'agence (recadré, éclairci) | Présentation de l'agence et de ses deux sites |
 | 2 | Interview, plan large | « J'ai commencé l'immobilier il y a 25 ans », « connaître le projet… et la personne en face de soi » |
 | 3 | Interview, plan large | « La proximité, j'aime bien avoir le contact humain » |
 | 4 | Fondu enchaîné vers un plan serré sur Alexandra | « Une agence isolée, seule dans son coin, ce n'est plus d'actualité » |

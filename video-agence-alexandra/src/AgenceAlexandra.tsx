@@ -109,12 +109,9 @@ export const AgenceAlexandra: React.FC = () => {
         <LowerThird {...PERSONNES.alexandra} duration={150} />
       </Sequence>
 
-      {/* Logo signature : blanc à l'extérieur, bleu dans l'agence (mur clair) */}
-      <Sequence name="Logo extérieur" durationInFrames={D.intro}>
-        <LogoSignature duration={D.intro} />
-      </Sequence>
-      <Sequence name="Logo intérieur" from={D.intro} durationInFrames={FIN_START - D.intro}>
-        <LogoSignature duration={FIN_START - D.intro} variante="bleu" />
+      {/* Logo signature bleu en haut à droite (façade jaune puis mur clair de l'agence) */}
+      <Sequence name="Logo signature" durationInFrames={FIN_START}>
+        <LogoSignature duration={FIN_START} variante="bleu" />
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>

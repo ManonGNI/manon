@@ -5,7 +5,7 @@ export const C = { marine: "#2B4258", or: "#D9AE57", blanc: "#FFFFFF" };
 export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 
 // Passages découpés dans les rushs (fichier source, début en s) :
-// intro-loic = 20261119_105523 à 7,60 s ; les autres = 20261119_113537 (interview) à l'instant indiqué
+// intro-loic = 20261119_105523 à 7,60 s, recadré sur Loïc (crop 720 × 1280 à 158,560) et éclairci ; les autres = 20261119_113537 (interview) à l'instant indiqué
 export const MEDIA = {
   intro: staticFile("clips/intro-loic.mp4"), // 7.60
   debut: staticFile("clips/debut.mp4"), // 48.70
