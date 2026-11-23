@@ -106,7 +106,8 @@ export const AgenceAlexandra: React.FC = () => {
         <LowerThird {...PERSONNES.loic} duration={110} />
       </Sequence>
       <Sequence name="Bandeau Alexandra" from={DEBUT_INTERVIEW + 4} durationInFrames={150}>
-        <LowerThird {...PERSONNES.alexandra} duration={150} />
+        {/* au-dessus des têtes, devant le bas du tableau, pour ne pas couvrir les visages */}
+        <LowerThird {...PERSONNES.alexandra} duration={150} top={690} />
       </Sequence>
 
       {/* Logo signature bleu en haut à droite (façade jaune puis mur clair de l'agence) */}

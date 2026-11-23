@@ -78,11 +78,12 @@ export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, 
 
 // Bandeau nom / fonction, style « Journal de l'Agence » :
 // nom blanc sur bloc marine avec filet or vertical, cartouche blanc pour la fonction
-export const LowerThird: React.FC<{ nom: string; role: string; structure: string; duration: number }> = ({
+export const LowerThird: React.FC<{ nom: string; role: string; structure: string; duration: number; top?: number }> = ({
   nom,
   role,
   structure,
   duration,
+  top = 1030,
 }) => {
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -92,7 +93,7 @@ export const LowerThird: React.FC<{ nom: string; role: string; structure: string
   const out = interpolate(frame, [duration - 10, duration], [1, 0], clamp);
   return (
     <AbsoluteFill style={{ opacity: out, fontFamily: FONT }}>
-      <div style={{ position: "absolute", left: 76, top: 1030 }}>
+      <div style={{ position: "absolute", left: 76, top }}>
         <div style={{ display: "flex" }}>
           <div style={{ width: 7, background: C.or, transform: `scaleY(${rule})`, transformOrigin: "top" }} />
           <div
