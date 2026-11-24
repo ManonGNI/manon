@@ -113,7 +113,11 @@ export const AgenceAlexandra: React.FC = () => {
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
-        <EcranFin accroche="Bienvenue à" nom={AGENCE.nom} villes={AGENCE.villes} tailleNom={74} partenaire={{ mention: "Agence partenaire du" }} />
+        <EcranFin
+          accroche="Bienvenue à"
+          nom={AGENCE.nom} villes={AGENCE.villes} tailleNom={74} partenaire={{ mention: "Agence partenaire du" }}
+          logoAgence={MEDIA.logoAlexandra}
+        />
       </Sequence>
     </AbsoluteFill>
   );

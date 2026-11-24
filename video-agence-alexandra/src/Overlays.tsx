@@ -191,7 +191,8 @@ export const EcranFin: React.FC<{
   tailleNom?: number;
   accroche?: string;
   partenaire?: { mention: string };
-}> = ({ nom, villes, tailleNom = 82, accroche = "Bienvenue à l'agence", partenaire }) => {
+  logoAgence?: string; // logo officiel de l'agence, affiché tel quel dans son cartouche (à la place du nom en texte)
+}> = ({ nom, villes, tailleNom = 82, accroche = "Bienvenue à l'agence", partenaire, logoAgence }) => {
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const bg = interpolate(frame, [0, 10], [0, 1], clamp);
@@ -246,6 +247,21 @@ export const EcranFin: React.FC<{
         >
           {accroche}
         </div>
+        {logoAgence ? (
+          <div style={{ overflow: "hidden", width: 700, marginTop: 10 }}>
+            <Img
+              src={logoAgence}
+              style={{
+                display: "block",
+                width: 700,
+                borderRadius: 4,
+                clipPath: `inset(0 0 ${(1 - prog(24, 20)) * 100}% 0)`,
+                transform: `scale(${1.04 - 0.04 * prog(24, 30)})`,
+                transformOrigin: "left top",
+              }}
+            />
+          </div>
+        ) : (
         <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 300, fontSize: tailleNom, lineHeight: 1.12, letterSpacing: -1.5 }}>
           {nom.map((ligne, i) => (
             <div key={i} style={{ overflow: "hidden", fontSize: partenaire ? (i === 0 ? tailleNom * 1.5 : tailleNom * 0.82) : undefined }}>
@@ -253,6 +269,7 @@ export const EcranFin: React.FC<{
             </div>
           ))}
         </div>
+        )}
         <div style={{ marginTop: 14 }}>
           {villes.map((ville, i) => (
             <div key={i} style={{ overflow: "hidden" }}>
