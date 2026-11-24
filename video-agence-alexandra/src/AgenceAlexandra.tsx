@@ -113,7 +113,7 @@ export const AgenceAlexandra: React.FC = () => {
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
-        <EcranFinPartenaire logoAgence={MEDIA.logoAlexandra} ratioLogo={1082 / 785} />
+        <EcranFinPartenaire variante="ivoire" logoAgence={MEDIA.logoAlexandra} ratioLogo={1082 / 785} />
       </Sequence>
     </AbsoluteFill>
   );

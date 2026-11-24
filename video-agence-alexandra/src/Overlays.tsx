@@ -323,8 +323,13 @@ export const EcranFin: React.FC<{
   );
 };
 
-// Signature « Agence partenaire du » (italique) + logo GNI, sur une ligne
-const SignaturePartenaire: React.FC<{ p: number; mention: string; largeurLogo?: number }> = ({ p, mention, largeurLogo = 300 }) => (
+// Signature « Agence partenaire du » (italique) + logo GNI, sur une ligne (blanc sur fond sombre, bleu sur fond clair)
+const SignaturePartenaire: React.FC<{ p: number; mention: string; largeurLogo?: number; clair?: boolean }> = ({
+  p,
+  mention,
+  largeurLogo = 300,
+  clair = false,
+}) => (
   <div
     style={{
       display: "flex",
@@ -335,8 +340,10 @@ const SignaturePartenaire: React.FC<{ p: number; mention: string; largeurLogo?: 
       transform: `translateY(${(1 - p) * 16}px)`,
     }}
   >
-    <div style={{ fontFamily: FONT, fontStyle: "italic", fontWeight: 500, fontSize: 34, color: C.blanc, opacity: 0.9 }}>{mention}</div>
-    <Img src={MEDIA.logoBlanc} style={{ width: largeurLogo }} />
+    <div style={{ fontFamily: FONT, fontStyle: "italic", fontWeight: 500, fontSize: 34, color: clair ? C.marine : C.blanc, opacity: 0.9 }}>
+      {mention}
+    </div>
+    <Img src={clair ? MEDIA.logoBleu : MEDIA.logoBlanc} style={{ width: largeurLogo }} />
   </div>
 );
 
@@ -375,12 +382,14 @@ const Manuscrit: React.FC<{ texte: string; couleur: string; reflet: string; top:
 };
 
 const CREME = "#FDFCF5"; // couleur du fond du logo Alexandra
+export const IVOIRE = "#F7F3EA"; // fond ivoire (à ajuster au code exact de la charte)
 
 // Écran de fin « agence partenaire » — 3 variantes :
 // bandeau : bandeau crème pleine largeur avec le logo, sur fond marine
 // split   : écran partagé, moitié haute crème (logo en grand), moitié basse marine (signature), filet or
 // photo   : photo d'Alexandra en fond, dégradé marine, carte crème avec le logo
-export type VarianteFin = "bandeau" | "split" | "photo";
+// ivoire  : fond ivoire uni, logo de l'agence posé directement, filet or, signature avec le logo GNI bleu
+export type VarianteFin = "bandeau" | "split" | "photo" | "ivoire";
 export const EcranFinPartenaire: React.FC<{
   logoAgence: string;
   ratioLogo: number;
@@ -393,6 +402,43 @@ export const EcranFinPartenaire: React.FC<{
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const prog = (d: number, len = 16) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
   const bg = interpolate(frame, [0, 10], [0, 1], clamp);
+
+  if (variante === "ivoire") {
+    const logo = prog(18, 24);
+    const filet = prog(36, 18);
+    const LARGEUR = 800;
+    const TOP_LOGO = 600;
+    const BAS_LOGO = TOP_LOGO + LARGEUR / ratioLogo;
+    return (
+      <AbsoluteFill style={{ background: IVOIRE, opacity: bg, overflow: "hidden" }}>
+        <svg
+          viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
+          width={760}
+          height={(760 * SIGLE.h) / SIGLE.w}
+          style={{ position: "absolute", left: 600, top: 1320, opacity: prog(44, 30) }}
+        >
+          <path d={SIGLE.gPath} fill={C.marine} fillOpacity={0.05} />
+          <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.35} />
+        </svg>
+        <Manuscrit texte={accroche} couleur={C.marine} reflet="#6C86A3" top={TOP_LOGO - 150} frame={frame} />
+        <Img
+          src={logoAgence}
+          style={{
+            position: "absolute",
+            top: TOP_LOGO,
+            left: (1080 - LARGEUR) / 2,
+            width: LARGEUR,
+            opacity: logo,
+            transform: `translateY(${(1 - logo) * 24}px) scale(${0.97 + 0.03 * logo})`,
+          }}
+        />
+        <div style={{ position: "absolute", top: BAS_LOGO + 70, left: 540 - 70 * filet, width: 140 * filet, height: 3, background: C.or }} />
+        <div style={{ position: "absolute", top: BAS_LOGO + 140, width: "100%" }}>
+          <SignaturePartenaire p={prog(44)} mention={mention} largeurLogo={320} clair />
+        </div>
+      </AbsoluteFill>
+    );
+  }
 
   if (variante === "split") {
     const volet = prog(4, 22); // le panneau crème descend du haut

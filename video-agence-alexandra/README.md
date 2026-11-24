@@ -15,7 +15,7 @@ Alexandra, son parcours et sa vision du métier (aucun passage d'interview commu
 | 4 | Plan large | « Connaître le projet… et la personne en face de soi » |
 | 5 | Plan large, puis fondu vers plan serré | « Renforcer ce lien pour se démarquer de la technologie, avec Google, l'IA » |
 | 6 | Plan large | « Merci au groupement, merci à tous les adhérents » |
-| 7 | Écran de fin « agence partenaire », centré | « Bienvenue à », logo d'Alexandra sur bandeau crème pleine largeur, puis « Agence partenaire du » + logo GNI |
+| 7 | Écran de fin « agence partenaire » sur fond ivoire | « Bienvenue à », logo d'Alexandra, filet or, « Agence partenaire du » (italique) + logo GNI bleu |
 
 ## Vidéo 2 — Témoignage « Pourquoi rejoindre un groupement ? » (`TemoignageAlexandra`, ~40 s)
 
