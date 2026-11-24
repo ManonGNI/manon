@@ -322,3 +322,98 @@ export const EcranFin: React.FC<{
     </AbsoluteFill>
   );
 };
+
+// Écran de fin « agence partenaire » : composition centrée, logo de l'agence sur un bandeau crème
+// pleine largeur (sa couleur de fond d'origine), puis « Agence partenaire du » et le logo GNI en signature
+export const EcranFinPartenaire: React.FC<{ logoAgence: string; ratioLogo: number; accroche?: string; mention?: string }> = ({
+  logoAgence,
+  ratioLogo,
+  accroche = "Bienvenue à",
+  mention = "Agence partenaire du",
+}) => {
+  const frame = useCurrentFrame();
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const prog = (d: number, len = 16) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
+  const bg = interpolate(frame, [0, 10], [0, 1], clamp);
+  const ecrit = interpolate(frame, [8, 38], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
+  const reflet = interpolate(frame, [44, 74], [-30, 130], clamp);
+  const bandeau = prog(16, 18); // le bandeau crème s'ouvre depuis le centre
+  const logo = prog(26, 20);
+  const gIn = prog(40, 40);
+  const LARGEUR_LOGO = 660;
+  const HAUT_BANDEAU = Math.round((LARGEUR_LOGO / ratioLogo) + 110);
+  const TOP_BANDEAU = 640;
+  return (
+    <AbsoluteFill style={{ background: C.marine, opacity: bg, color: C.blanc, overflow: "hidden" }}>
+      {/* sigle G discret, en bas à droite, derrière la signature GNI */}
+      <svg
+        viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
+        width={820}
+        height={(820 * SIGLE.h) / SIGLE.w}
+        style={{ position: "absolute", left: 520, top: 1180, opacity: gIn, transform: `scale(${1.15 - 0.15 * gIn})` }}
+      >
+        <path d={SIGLE.gPath} fill={C.blanc} fillOpacity={0.07} />
+        <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.3} />
+      </svg>
+
+      <div
+        style={{
+          position: "absolute",
+          top: TOP_BANDEAU - 150,
+          width: "100%",
+          textAlign: "center",
+          fontFamily: "Allison, cursive",
+          fontSize: 118,
+          lineHeight: 1,
+          clipPath: `inset(-20% ${(1 - ecrit) * 100}% -20% -5%)`,
+          backgroundImage: `linear-gradient(100deg, ${C.or} ${reflet - 12}%, #F6E2B3 ${reflet}%, ${C.or} ${reflet + 12}%)`,
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        {accroche}
+      </div>
+
+      {/* bandeau crème pleine largeur, couleur du fond du logo */}
+      <div
+        style={{
+          position: "absolute",
+          top: TOP_BANDEAU,
+          left: 0,
+          width: 1080,
+          height: HAUT_BANDEAU,
+          background: "#FDFCF5",
+          transform: `scaleX(${bandeau})`,
+        }}
+      />
+      <Img
+        src={logoAgence}
+        style={{
+          position: "absolute",
+          top: TOP_BANDEAU + 55,
+          left: (1080 - LARGEUR_LOGO) / 2,
+          width: LARGEUR_LOGO,
+          opacity: logo,
+          transform: `translateY(${(1 - logo) * 18}px) scale(${0.97 + 0.03 * logo})`,
+        }}
+      />
+
+      <div style={{ position: "absolute", top: TOP_BANDEAU + HAUT_BANDEAU + 90, width: "100%", textAlign: "center" }}>
+        <div style={{ fontFamily: FONT, fontWeight: 500, fontSize: 32, opacity: 0.85 * prog(46), transform: `translateY(${(1 - prog(46)) * 14}px)` }}>
+          {mention}
+        </div>
+        <Img
+          src={MEDIA.logoBlanc}
+          style={{
+            display: "inline-block",
+            width: 380,
+            marginTop: 26,
+            opacity: prog(52),
+            transform: `translateY(${(1 - prog(52, 20)) * 18}px)`,
+          }}
+        />
+      </div>
+    </AbsoluteFill>
+  );
+};

@@ -30,7 +30,7 @@ export const MEDIA = {
   communaute2: staticFile("clips/communaute2.mp4"), // 307.45
   logoBlanc: staticFile("medias/logo-gni-blanc.png"),
   logoBleu: staticFile("medias/logo-gni-bleu.png"),
-  logoAlexandra: staticFile("medias/logo-alexandra.png"), // logo officiel de l'agence (fond crème)
+  logoAlexandra: staticFile("medias/logo-alexandra-recadre.png"), // logo officiel de l'agence, recadré (fond crème), 1082 × 785
 };
 
 export const PERSONNES = {

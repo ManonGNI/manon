@@ -1,8 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { Captions, EcranFin, LogoSignature, LowerThird } from "./Overlays";
-import { AGENCE, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
+import { Captions, EcranFinPartenaire, LogoSignature, LowerThird } from "./Overlays";
+import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
 // Vidéo 1 — Bienvenue à l'agence : Alexandra, son parcours et sa vision du métier
@@ -113,11 +113,7 @@ export const AgenceAlexandra: React.FC = () => {
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
-        <EcranFin
-          accroche="Bienvenue à"
-          nom={AGENCE.nom} villes={AGENCE.villes} tailleNom={74} partenaire={{ mention: "Agence partenaire du" }}
-          logoAgence={MEDIA.logoAlexandra}
-        />
+        <EcranFinPartenaire logoAgence={MEDIA.logoAlexandra} ratioLogo={1082 / 785} />
       </Sequence>
     </AbsoluteFill>
   );
