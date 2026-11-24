@@ -6,10 +6,10 @@ import { AGENCE, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
 // Durées (images à 30 i/s)
-const D = { intro: 454, debut: 75, conseil: 222, proximite: 44, humain: 81, accompagne: 79, avantgarde: 136, merci: 89, fin: 135 };
+const D = { intro: 454, debut: 75, conseil: 222, technologie: 287, google: 49, journee: 130, merci: 89, fin: 135 };
 const DEBUT_INTERVIEW = D.intro;
-const FIN_START = D.intro + D.debut + D.conseil + D.proximite + D.humain + D.accompagne + D.avantgarde + D.merci; // 1180
-export const DUREE_TOTALE = FIN_START + D.fin; // 1315
+const FIN_START = D.intro + D.debut + D.conseil + D.technologie + D.google + D.journee + D.merci; // 1306
+export const DUREE_TOTALE = FIN_START + D.fin; // 1441
 
 export const AgenceAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -22,7 +22,7 @@ export const AgenceAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.intro} offset={7.6} />
         </Series.Sequence>
 
-        {/* 2. Alexandra : son parcours et sa vision du métier (plan large) */}
+        {/* 2. Alexandra : son parcours et sa vision du conseil (plan large) */}
         <Series.Sequence name="25 ans" durationInFrames={75} premountFor={fps}>
           <Video src={MEDIA.debut} style={cover} volume={fades(75)} />
           <Captions items={SOUS_TITRES.debut} offset={48.7} />
@@ -32,36 +32,31 @@ export const AgenceAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.conseil} offset={136.05} />
         </Series.Sequence>
 
-        {/* 3. Pourquoi le groupement : la proximité, le contact humain */}
-        <Series.Sequence name="Proximité" durationInFrames={44} premountFor={fps}>
-          <Video src={MEDIA.proximite} style={cover} volume={fades(44)} />
-          <Captions items={SOUS_TITRES.proximite} offset={257.62} />
-        </Series.Sequence>
-        <Series.Sequence name="Contact humain" durationInFrames={81} premountFor={fps}>
-          <Video src={MEDIA.humain} style={cover} volume={fades(81)} />
-          {/* transition : fondu enchaîné sur les 12 dernières images vers Alexandra en plan serré */}
-          <Sequence name="Fondu vers plan serré" from={69} durationInFrames={12} premountFor={fps}>
+        {/* 3. L'humain face à la technologie (plan large), fondu vers le plan serré */}
+        <Series.Sequence name="Technologie" durationInFrames={287} premountFor={fps}>
+          <Video src={MEDIA.technologie} style={cover} volume={fades(287)} />
+          <Sequence name="Fondu vers plan serré" from={275} durationInFrames={12} premountFor={fps}>
             <FonduPlanSerre duration={12}>
               <PlanSerre>
-                <Video src={MEDIA.accompagne} muted style={cover} />
+                <Video src={MEDIA.google} muted style={cover} />
               </PlanSerre>
             </FonduPlanSerre>
           </Sequence>
-          <Captions items={SOUS_TITRES.humain} offset={263.22} />
+          <Captions items={SOUS_TITRES.technologie} offset={150.28} />
         </Series.Sequence>
 
-        {/* 4. Plan serré : « on se sent vraiment accompagné », « esprit avant-gardiste » */}
-        <Series.Sequence name="Accompagnée" durationInFrames={79} premountFor={fps}>
+        {/* 4. Plan serré : « avec Google, l'IA », puis le quotidien du métier */}
+        <Series.Sequence name="Google, l'IA" durationInFrames={49} premountFor={fps}>
           <PlanSerre>
-            <Video src={MEDIA.accompagne} trimBefore={12} style={cover} volume={fades(79)} />
+            <Video src={MEDIA.google} trimBefore={12} style={cover} volume={fades(49)} />
           </PlanSerre>
-          <Captions items={SOUS_TITRES.accompagne} offset={385.5} />
+          <Captions items={SOUS_TITRES.google} offset={161.0} />
         </Series.Sequence>
-        <Series.Sequence name="Avant-gardiste" durationInFrames={136} premountFor={fps}>
+        <Series.Sequence name="Journée" durationInFrames={130} premountFor={fps}>
           <PlanSerre>
-            <Video src={MEDIA.avantgarde} style={cover} volume={fades(136)} />
+            <Video src={MEDIA.journee} style={cover} volume={fades(130)} />
           </PlanSerre>
-          <Captions items={SOUS_TITRES.avantgarde} offset={389.5} />
+          <Captions items={SOUS_TITRES.journee} offset={179.35} />
         </Series.Sequence>
 
         {/* 5. Remerciements (plan large) */}

@@ -3,14 +3,16 @@
 Agence partenaire du Groupe National Immobilier (Pernes-les-Fontaines et Beaumes-de-Venise).
 Deux reels verticaux 1080 × 1920, 30 i/s, construit avec Remotion, même style que `video-agence-miramas`.
 
-## Vidéo 1 — Bienvenue à l'agence (`AgenceAlexandra`, ~44 s)
+## Vidéo 1 — Bienvenue à l'agence (`AgenceAlexandra`, ~48 s)
+
+Centrée sur Alexandra et sa vision du métier (aucun passage commun avec la vidéo 2).
 
 | # | Plan | Contenu |
 |---|---|---|
 | 1 | Loïc Fauchet devant l'agence (recadré, éclairci) | Présentation de l'agence et de ses deux sites |
 | 2 | Interview, plan large | « J'ai commencé l'immobilier il y a 25 ans », « connaître le projet… et la personne en face de soi » |
-| 3 | Interview, plan large | « La proximité, j'aime bien avoir le contact humain » |
-| 4 | Fondu enchaîné vers un plan serré sur Alexandra | « On se sent vraiment accompagné… esprit avant-gardiste » |
+| 3 | Plan large, puis fondu vers plan serré | « Renforcer ce lien pour se démarquer de la technologie, avec Google, l'IA » |
+| 4 | Plan serré | « On sait à quelle heure on se lève le matin, pas à quelle heure on termine le soir » |
 | 5 | Plan large | « Merci au groupement, merci à tous les adhérents » |
 | 6 | Écran de fin marine animé | « Bienvenue à l'agence », Alexandra l'Immobilier en Provence, villes, logo GNI |
 

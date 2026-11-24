@@ -16,6 +16,9 @@ export const MEDIA = {
   accompagne: staticFile("clips/accompagne.mp4"), // 385.10 (0,4 s d'amorce pour le fondu)
   avantgarde: staticFile("clips/avantgarde.mp4"), // 389.50
   merci: staticFile("clips/merci.mp4"), // 412.40
+  technologie: staticFile("clips/technologie.mp4"), // 150.28
+  google: staticFile("clips/google.mp4"), // 160.60 (0,4 s d'amorce pour le fondu)
+  journee: staticFile("clips/journee.mp4"), // 179.35
   // témoignage
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
   communaute1: staticFile("clips/communaute1.mp4"), // 299.10
@@ -123,5 +126,21 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
     [["Merci", 412.45, 412.73], ["à", 412.73, 412.91], ["vous", 412.91, 413.15], ["et", 413.15, 413.27], ["merci", 413.27, 413.49], ["au", 413.49, 413.67]],
     [["groupement.", 413.67, 414.07]],
     [["Merci", 414.23, 414.51], ["à", 414.51, 414.67], ["tous", 414.67, 414.73], ["les", 414.73, 414.93], ["adhérents.", 414.93, 415.31]],
+  ],
+  technologie: [
+    [["C’est", 150.31, 150.47], ["primordial", 150.47, 151.19], ["aujourd’hui", 151.19, 151.61]],
+    [["de", 151.61, 152.43], ["renforcer", 152.43, 152.93], ["encore", 152.93, 153.29], ["ce", 153.29, 153.41], ["lien-là", 153.41, 154.17]],
+    [["pour", 154.17, 154.49], ["pouvoir", 154.49, 154.79], ["vraiment", 154.79, 155.21], ["se", 155.21, 155.45]],
+    [["démarquer", 155.45, 156.39], ["de", 156.39, 156.83], ["l’évolution", 156.83, 157.59]],
+    [["de", 157.59, 158.01], ["la", 158.01, 158.21], ["technologie,", 158.21, 159.15], ["notamment", 159.39, 159.81]],
+  ],
+  google: [
+    [["avec", 161.07, 161.55], ["Google,", 161.55, 162.03], ["l’IA", 162.33, 162.59]],
+  ],
+  journee: [
+    [["C’est", 179.39, 179.55], ["un", 179.55, 179.59], ["métier", 179.59, 180.03], ["où", 180.03, 180.37], ["on", 180.37, 180.59], ["sait", 180.59, 180.73]],
+    [["à", 180.73, 180.89], ["quelle", 180.89, 180.97], ["heure", 180.97, 181.07], ["on", 181.07, 181.15], ["se", 181.15, 181.29], ["lève", 181.29, 181.41]],
+    [["le", 181.41, 181.63], ["matin", 181.63, 181.81], ["mais", 181.81, 181.97], ["on", 181.97, 182.09], ["ne", 182.09, 182.25], ["sait", 182.25, 182.25]],
+    [["pas", 182.25, 182.41], ["à", 182.41, 182.53], ["quelle", 182.53, 182.55], ["heure", 182.55, 182.69], ["on", 182.69, 182.89], ["termine", 182.89, 183.17], ["le", 183.17, 183.43], ["soir.", 183.43, 183.63]],
   ],
 };
