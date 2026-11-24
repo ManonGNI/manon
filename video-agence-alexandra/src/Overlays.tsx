@@ -146,10 +146,48 @@ export const LogoSignature: React.FC<{ duration: number; variante?: "blanc" | "b
   );
 };
 
+// Accroche du témoignage : bloc marine en haut, filet or, texte blanc
+export const TitreAccroche: React.FC<{ lignes: string[]; duration: number }> = ({ lignes, duration }) => {
+  const frame = useCurrentFrame();
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const inP = interpolate(frame, [2, 16], [0, 1], { ...clamp, easing: ease });
+  const rule = interpolate(frame, [0, 10], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(frame, [duration - 10, duration], [1, 0], clamp);
+  return (
+    <AbsoluteFill style={{ opacity: out }}>
+      <div style={{ position: "absolute", left: 76, top: 210, display: "flex" }}>
+        <div style={{ width: 9, background: C.or, transform: `scaleY(${rule})`, transformOrigin: "top" }} />
+        <div
+          style={{
+            background: C.marine,
+            color: C.blanc,
+            fontFamily: FONT,
+            fontWeight: 800,
+            fontSize: 66,
+            lineHeight: 1.1,
+            letterSpacing: -1,
+            padding: "22px 48px 26px 26px",
+            clipPath: `inset(0 ${(1 - inP) * 100}% 0 0)`,
+          }}
+        >
+          {lignes.map((l, i) => (
+            <div key={i}>{l}</div>
+          ))}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 // Écran de fin marine, reprenant la disposition de la carte agence GNI
 const FONT_ENSEIGNE = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
-export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: number }> = ({ nom, villes, tailleNom = 82 }) => {
+export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: number; accroche?: string }> = ({
+  nom,
+  villes,
+  tailleNom = 82,
+  accroche = "Bienvenue à l'agence",
+}) => {
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const bg = interpolate(frame, [0, 10], [0, 1], clamp);
@@ -202,7 +240,7 @@ export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: n
             WebkitTextFillColor: "transparent",
           }}
         >
-          Bienvenue à l'agence
+          {accroche}
         </div>
         <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 300, fontSize: tailleNom, lineHeight: 1.12, letterSpacing: -1.5 }}>
           {nom.map((ligne, i) => (

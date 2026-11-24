@@ -13,9 +13,13 @@ export const MEDIA = {
   proximite: staticFile("clips/proximite.mp4"), // 257.62
   humain: staticFile("clips/humain.mp4"), // 263.22
   isolee: staticFile("clips/isolee.mp4"), // 291.40 (0,4 s d'amorce pour le fondu)
-  accompagne: staticFile("clips/accompagne.mp4"), // 385.50
+  accompagne: staticFile("clips/accompagne.mp4"), // 385.10 (0,4 s d'amorce pour le fondu)
   avantgarde: staticFile("clips/avantgarde.mp4"), // 389.50
   merci: staticFile("clips/merci.mp4"), // 412.40
+  // témoignage
+  valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
+  communaute1: staticFile("clips/communaute1.mp4"), // 299.10
+  communaute2: staticFile("clips/communaute2.mp4"), // 307.45
   logoBlanc: staticFile("medias/logo-gni-blanc.png"),
   logoBleu: staticFile("medias/logo-gni-bleu.png"),
 };
@@ -23,6 +27,13 @@ export const MEDIA = {
 export const PERSONNES = {
   loic: { nom: "Loïc Fauchet", role: "Commercial Vaucluse & Bouches-du-Rhône", structure: "Groupe National Immobilier" },
   alexandra: { nom: "Alexandra Gameiro", role: "Dirigeante", structure: "Alexandra l’Immobilier en Provence" },
+};
+
+// Écran de fin du témoignage
+export const GROUPEMENT = {
+  accroche: "Rejoignez le groupement",
+  lignes: ["Agences immobilières", "indépendantes"],
+  site: "groupenationalimmobilier.fr",
 };
 
 export const AGENCE = {
@@ -75,6 +86,28 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
     [["seule", 294.53, 294.53], ["dans", 294.53, 294.73], ["son", 294.73, 294.93], ["coin,", 294.93, 295.23]],
     [["ce", 295.95, 296.03], ["n’est", 296.03, 296.03], ["plus", 296.03, 296.19], ["d’actualité", 296.19, 296.73]],
     [["aujourd’hui.", 296.73, 297.99]],
+  ],
+  isoleeAccroche: [
+    [["Je", 292.27, 292.61], ["suis", 292.61, 292.65], ["persuadée", 292.65, 292.99], ["qu’une", 292.99, 293.27]],
+    [["agence", 293.27, 293.77], ["isolée,", 293.77, 294.35]],
+    [["seule", 294.53, 294.53], ["dans", 294.53, 294.73], ["son", 294.73, 294.93], ["coin,", 294.93, 295.23]],
+    [["ce", 295.95, 296.03], ["n’est", 296.03, 296.03], ["plus", 296.03, 296.19], ["d’actualité", 296.19, 296.73]],
+    [["aujourd’hui.", 296.73, 297.99]],
+  ],
+  valeurs: [
+    [["On", 272.47, 272.47], ["sent", 272.47, 272.61], ["vraiment", 272.61, 272.99], ["cet", 272.99, 273.17], ["élément,", 273.17, 273.73]],
+    [["mes", 274.51, 274.67], ["valeurs", 274.67, 274.97], ["en", 274.97, 275.11], ["fait,", 275.11, 275.35]],
+    [["l’humanité,", 275.65, 276.23], ["qui", 276.81, 277.11], ["est", 277.11, 277.25], ["là,", 277.25, 277.49]],
+    [["l’écoute.", 277.81, 278.27]],
+  ],
+  communaute1: [
+    [["On", 299.11, 299.49], ["a", 299.49, 299.59], ["un", 299.59, 299.75], ["métier", 299.75, 299.93], ["qui", 299.93, 300.17], ["a", 300.17, 300.27], ["énormément", 300.27, 300.67]],
+    [["évolué,", 300.67, 301.01], ["comme", 301.09, 301.25], ["beaucoup", 301.25, 301.63], ["de", 301.63, 301.85]],
+    [["métiers,", 301.85, 302.59], ["et", 302.93, 303.17], ["qu’il", 303.17, 303.39], ["vaut", 303.39, 303.51], ["mieux", 303.51, 303.77]],
+    [["être", 303.77, 304.77], ["en", 304.77, 305.43], ["communauté", 305.43, 306.09]],
+  ],
+  communaute2: [
+    [["pour", 307.53, 307.93], ["faire", 307.93, 308.11], ["nos", 308.11, 308.31], ["forces", 308.31, 308.53], ["entre", 308.53, 310.91], ["nous.", 310.91, 311.33]],
   ],
   accompagne: [
     [["Dans", 385.55, 385.69], ["le", 385.69, 385.81], ["Groupe", 385.81, 386.05], ["National", 386.05, 386.43]],

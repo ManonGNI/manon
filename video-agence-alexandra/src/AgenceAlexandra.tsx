@@ -1,39 +1,15 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
 import { Captions, EcranFin, LogoSignature, LowerThird } from "./Overlays";
 import { AGENCE, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
-
-const cover: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
-
-// Fondu de 4 images en entrée / sortie de chaque coupe pour éviter les clics audio
-const fades = (duration: number) => (f: number) =>
-  interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-
-// Plan serré sur Alexandra seule : fenêtre 540 × 960 de l'image 1080 × 1920 (Loïc hors champ)
-const CADRE = { x: 540, y: 740, w: 540 };
-const PlanSerre: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <AbsoluteFill style={{ transformOrigin: "0 0", transform: `scale(${1080 / CADRE.w}) translate(${-CADRE.x}px, ${-CADRE.y}px)` }}>
-    {children}
-  </AbsoluteFill>
-);
-
-// Fondu enchaîné vers le plan serré (opacité 0 → 1, léger recul d'échelle 1,06 → 1)
-const FonduPlanSerre: React.FC<{ duration: number; children: React.ReactNode }> = ({ duration, children }) => {
-  const frame = useCurrentFrame();
-  const p = interpolate(frame, [0, duration], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.33, 0, 0.2, 1),
-  });
-  return <AbsoluteFill style={{ opacity: p, transform: `scale(${1.06 - 0.06 * p})` }}>{children}</AbsoluteFill>;
-};
+import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
 // Durées (images à 30 i/s)
-const D = { intro: 454, debut: 75, conseil: 222, proximite: 44, humain: 81, isolee: 186, accompagne: 79, avantgarde: 136, merci: 89, fin: 135 };
+const D = { intro: 454, debut: 75, conseil: 222, proximite: 44, humain: 81, accompagne: 79, avantgarde: 136, merci: 89, fin: 135 };
 const DEBUT_INTERVIEW = D.intro;
-const FIN_START = D.intro + D.debut + D.conseil + D.proximite + D.humain + D.isolee + D.accompagne + D.avantgarde + D.merci; // 1366
-export const DUREE_TOTALE = FIN_START + D.fin; // 1501
+const FIN_START = D.intro + D.debut + D.conseil + D.proximite + D.humain + D.accompagne + D.avantgarde + D.merci; // 1180
+export const DUREE_TOTALE = FIN_START + D.fin; // 1315
 
 export const AgenceAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -67,23 +43,17 @@ export const AgenceAlexandra: React.FC = () => {
           <Sequence name="Fondu vers plan serré" from={69} durationInFrames={12} premountFor={fps}>
             <FonduPlanSerre duration={12}>
               <PlanSerre>
-                <Video src={MEDIA.isolee} muted style={cover} />
+                <Video src={MEDIA.accompagne} muted style={cover} />
               </PlanSerre>
             </FonduPlanSerre>
           </Sequence>
           <Captions items={SOUS_TITRES.humain} offset={263.22} />
         </Series.Sequence>
 
-        {/* 4. Plan serré : « une agence isolée… », « on se sent vraiment accompagné » */}
-        <Series.Sequence name="Agence isolée" durationInFrames={186} premountFor={fps}>
-          <PlanSerre>
-            <Video src={MEDIA.isolee} trimBefore={12} style={cover} volume={fades(186)} />
-          </PlanSerre>
-          <Captions items={SOUS_TITRES.isolee} offset={291.8} />
-        </Series.Sequence>
+        {/* 4. Plan serré : « on se sent vraiment accompagné », « esprit avant-gardiste » */}
         <Series.Sequence name="Accompagnée" durationInFrames={79} premountFor={fps}>
           <PlanSerre>
-            <Video src={MEDIA.accompagne} style={cover} volume={fades(79)} />
+            <Video src={MEDIA.accompagne} trimBefore={12} style={cover} volume={fades(79)} />
           </PlanSerre>
           <Captions items={SOUS_TITRES.accompagne} offset={385.5} />
         </Series.Sequence>
