@@ -323,70 +323,169 @@ export const EcranFin: React.FC<{
   );
 };
 
-// Écran de fin « agence partenaire » : composition centrée, logo de l'agence sur un bandeau crème
-// pleine largeur (sa couleur de fond d'origine), puis « Agence partenaire du » et le logo GNI en signature
-export const EcranFinPartenaire: React.FC<{ logoAgence: string; ratioLogo: number; accroche?: string; mention?: string }> = ({
-  logoAgence,
-  ratioLogo,
-  accroche = "Bienvenue à",
-  mention = "Agence partenaire du",
+// Signature « Agence partenaire du » (italique) + logo GNI, sur une ligne
+const SignaturePartenaire: React.FC<{ p: number; mention: string; largeurLogo?: number }> = ({ p, mention, largeurLogo = 300 }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 26,
+      opacity: p,
+      transform: `translateY(${(1 - p) * 16}px)`,
+    }}
+  >
+    <div style={{ fontFamily: FONT, fontStyle: "italic", fontWeight: 500, fontSize: 34, color: C.blanc, opacity: 0.9 }}>{mention}</div>
+    <Img src={MEDIA.logoBlanc} style={{ width: largeurLogo }} />
+  </div>
+);
+
+// « Bienvenue à » manuscrit, écrit de gauche à droite avec un reflet
+const Manuscrit: React.FC<{ texte: string; couleur: string; reflet: string; top: number; frame: number; taille?: number }> = ({
+  texte,
+  couleur,
+  reflet,
+  top,
+  frame,
+  taille = 118,
 }) => {
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const ecrit = interpolate(frame, [8, 38], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
+  const r = interpolate(frame, [44, 74], [-30, 130], clamp);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top,
+        width: "100%",
+        textAlign: "center",
+        fontFamily: "Allison, cursive",
+        fontSize: taille,
+        lineHeight: 1,
+        clipPath: `inset(-20% ${(1 - ecrit) * 100}% -20% -5%)`,
+        backgroundImage: `linear-gradient(100deg, ${couleur} ${r - 12}%, ${reflet} ${r}%, ${couleur} ${r + 12}%)`,
+        WebkitBackgroundClip: "text",
+        backgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
+      {texte}
+    </div>
+  );
+};
+
+const CREME = "#FDFCF5"; // couleur du fond du logo Alexandra
+
+// Écran de fin « agence partenaire » — 3 variantes :
+// bandeau : bandeau crème pleine largeur avec le logo, sur fond marine
+// split   : écran partagé, moitié haute crème (logo en grand), moitié basse marine (signature), filet or
+// photo   : photo d'Alexandra en fond, dégradé marine, carte crème avec le logo
+export type VarianteFin = "bandeau" | "split" | "photo";
+export const EcranFinPartenaire: React.FC<{
+  logoAgence: string;
+  ratioLogo: number;
+  variante?: VarianteFin;
+  fond?: string;
+  accroche?: string;
+  mention?: string;
+}> = ({ logoAgence, ratioLogo, variante = "bandeau", fond, accroche = "Bienvenue à", mention = "Agence partenaire du" }) => {
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const prog = (d: number, len = 16) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
   const bg = interpolate(frame, [0, 10], [0, 1], clamp);
-  const ecrit = interpolate(frame, [8, 38], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
-  const reflet = interpolate(frame, [44, 74], [-30, 130], clamp);
-  const bandeau = prog(16, 18); // le bandeau crème s'ouvre depuis le centre
+
+  if (variante === "split") {
+    const volet = prog(4, 22); // le panneau crème descend du haut
+    const filet = prog(22, 20);
+    const logo = prog(18, 22);
+    const LARGEUR = 820;
+    return (
+      <AbsoluteFill style={{ background: C.marine, opacity: bg, overflow: "hidden" }}>
+        <svg
+          viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
+          width={760}
+          height={(760 * SIGLE.h) / SIGLE.w}
+          style={{ position: "absolute", left: 560, top: 1240, opacity: prog(40, 30) }}
+        >
+          <path d={SIGLE.gPath} fill={C.blanc} fillOpacity={0.07} />
+          <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.3} />
+        </svg>
+        <div style={{ position: "absolute", top: 0, left: 0, width: 1080, height: 1100, background: CREME, transform: `translateY(${(volet - 1) * 100}%)` }} />
+        <Manuscrit texte={accroche} couleur={C.marine} reflet="#6C86A3" top={250} frame={frame} />
+        <Img
+          src={logoAgence}
+          style={{
+            position: "absolute",
+            top: 420,
+            left: (1080 - LARGEUR) / 2,
+            width: LARGEUR,
+            height: LARGEUR / ratioLogo,
+            opacity: logo,
+            transform: `translateY(${(1 - logo) * 24}px)`,
+          }}
+        />
+        <div style={{ position: "absolute", top: 1098, left: 540 - 540 * filet, width: 1080 * filet, height: 6, background: C.or }} />
+        <div style={{ position: "absolute", top: 1330, width: "100%" }}>
+          <SignaturePartenaire p={prog(40)} mention={mention} largeurLogo={320} />
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
+  if (variante === "photo") {
+    const zoom = interpolate(frame, [0, 140], [1.0, 1.06], clamp);
+    const carte = prog(18, 20);
+    const LARGEUR = 600;
+    return (
+      <AbsoluteFill style={{ background: C.marine, opacity: bg, overflow: "hidden" }}>
+        {fond ? <Img src={fond} style={{ position: "absolute", inset: 0, width: 1080, height: 1920, objectFit: "cover", transform: `scale(${zoom})` }} /> : null}
+        <AbsoluteFill
+          style={{
+            background: `linear-gradient(180deg, rgba(43,66,88,0.55) 0%, rgba(43,66,88,0.78) 38%, rgba(43,66,88,0.96) 62%, ${C.marine} 100%)`,
+          }}
+        />
+        <Manuscrit texte={accroche} couleur={C.or} reflet="#F6E2B3" top={560} frame={frame} />
+        <div
+          style={{
+            position: "absolute",
+            top: 710,
+            left: (1080 - (LARGEUR + 80)) / 2,
+            width: LARGEUR + 80,
+            padding: 40,
+            background: CREME,
+            borderRadius: 6,
+            opacity: carte,
+            transform: `translateY(${(1 - carte) * 40}px)`,
+          }}
+        >
+          <Img src={logoAgence} style={{ display: "block", width: LARGEUR }} />
+        </div>
+        <div style={{ position: "absolute", top: 710 + LARGEUR / ratioLogo + 80 + 110, width: "100%" }}>
+          <SignaturePartenaire p={prog(40)} mention={mention} />
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
+  // bandeau
+  const bandeau = prog(16, 18);
   const logo = prog(26, 20);
-  const gIn = prog(40, 40);
   const LARGEUR_LOGO = 660;
-  const HAUT_BANDEAU = Math.round((LARGEUR_LOGO / ratioLogo) + 110);
+  const HAUT_BANDEAU = Math.round(LARGEUR_LOGO / ratioLogo + 110);
   const TOP_BANDEAU = 640;
   return (
-    <AbsoluteFill style={{ background: C.marine, opacity: bg, color: C.blanc, overflow: "hidden" }}>
-      {/* sigle G discret, en bas à droite, derrière la signature GNI */}
+    <AbsoluteFill style={{ background: C.marine, opacity: bg, overflow: "hidden" }}>
       <svg
         viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
         width={820}
         height={(820 * SIGLE.h) / SIGLE.w}
-        style={{ position: "absolute", left: 520, top: 1180, opacity: gIn, transform: `scale(${1.15 - 0.15 * gIn})` }}
+        style={{ position: "absolute", left: 520, top: 1180, opacity: prog(40, 40) }}
       >
         <path d={SIGLE.gPath} fill={C.blanc} fillOpacity={0.07} />
         <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.3} />
       </svg>
-
-      <div
-        style={{
-          position: "absolute",
-          top: TOP_BANDEAU - 150,
-          width: "100%",
-          textAlign: "center",
-          fontFamily: "Allison, cursive",
-          fontSize: 118,
-          lineHeight: 1,
-          clipPath: `inset(-20% ${(1 - ecrit) * 100}% -20% -5%)`,
-          backgroundImage: `linear-gradient(100deg, ${C.or} ${reflet - 12}%, #F6E2B3 ${reflet}%, ${C.or} ${reflet + 12}%)`,
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        {accroche}
-      </div>
-
-      {/* bandeau crème pleine largeur, couleur du fond du logo */}
-      <div
-        style={{
-          position: "absolute",
-          top: TOP_BANDEAU,
-          left: 0,
-          width: 1080,
-          height: HAUT_BANDEAU,
-          background: "#FDFCF5",
-          transform: `scaleX(${bandeau})`,
-        }}
-      />
+      <Manuscrit texte={accroche} couleur={C.or} reflet="#F6E2B3" top={TOP_BANDEAU - 150} frame={frame} />
+      <div style={{ position: "absolute", top: TOP_BANDEAU, left: 0, width: 1080, height: HAUT_BANDEAU, background: CREME, transform: `scaleX(${bandeau})` }} />
       <Img
         src={logoAgence}
         style={{
@@ -398,21 +497,8 @@ export const EcranFinPartenaire: React.FC<{ logoAgence: string; ratioLogo: numbe
           transform: `translateY(${(1 - logo) * 18}px) scale(${0.97 + 0.03 * logo})`,
         }}
       />
-
-      <div style={{ position: "absolute", top: TOP_BANDEAU + HAUT_BANDEAU + 90, width: "100%", textAlign: "center" }}>
-        <div style={{ fontFamily: FONT, fontWeight: 500, fontSize: 32, opacity: 0.85 * prog(46), transform: `translateY(${(1 - prog(46)) * 14}px)` }}>
-          {mention}
-        </div>
-        <Img
-          src={MEDIA.logoBlanc}
-          style={{
-            display: "inline-block",
-            width: 380,
-            marginTop: 26,
-            opacity: prog(52),
-            transform: `translateY(${(1 - prog(52, 20)) * 18}px)`,
-          }}
-        />
+      <div style={{ position: "absolute", top: TOP_BANDEAU + HAUT_BANDEAU + 110, width: "100%" }}>
+        <SignaturePartenaire p={prog(46)} mention={mention} />
       </div>
     </AbsoluteFill>
   );
