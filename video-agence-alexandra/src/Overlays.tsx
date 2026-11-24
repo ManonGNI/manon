@@ -182,12 +182,16 @@ export const TitreAccroche: React.FC<{ lignes: string[]; duration: number }> = (
 // Écran de fin marine, reprenant la disposition de la carte agence GNI
 const FONT_ENSEIGNE = "Inter, 'Helvetica Neue', Arial, sans-serif";
 
-export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: number; accroche?: string }> = ({
-  nom,
-  villes,
-  tailleNom = 82,
-  accroche = "Bienvenue à l'agence",
-}) => {
+// `partenaire` : agence partenaire (non licenciée) — le nom de l'agence domine, puis un filet,
+// la mention (« Agence partenaire du ») et le logo GNI en plus petit, pour ne pas laisser croire
+// que l'agence est sous l'enseigne du groupe
+export const EcranFin: React.FC<{
+  nom: string[];
+  villes: string[];
+  tailleNom?: number;
+  accroche?: string;
+  partenaire?: { mention: string };
+}> = ({ nom, villes, tailleNom = 82, accroche = "Bienvenue à l'agence", partenaire }) => {
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const bg = interpolate(frame, [0, 10], [0, 1], clamp);
@@ -244,7 +248,7 @@ export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: n
         </div>
         <div style={{ fontFamily: FONT_ENSEIGNE, fontWeight: 300, fontSize: tailleNom, lineHeight: 1.12, letterSpacing: -1.5 }}>
           {nom.map((ligne, i) => (
-            <div key={i} style={{ overflow: "hidden" }}>
+            <div key={i} style={{ overflow: "hidden", fontSize: partenaire ? (i === 0 ? tailleNom * 1.5 : tailleNom * 0.82) : undefined }}>
               <div style={maskRise(26 + i * 5)}>{ligne}</div>
             </div>
           ))}
@@ -258,17 +262,45 @@ export const EcranFin: React.FC<{ nom: string[]; villes: string[]; tailleNom?: n
             </div>
           ))}
         </div>
-        <div style={{ position: "relative", marginTop: 90, width: 540 }}>
-          <Img
-            src={MEDIA.logoBlanc}
-            style={{
-              display: "block",
-              width: 540,
-              opacity: prog(48),
-              transform: `translateX(${(1 - prog(48, 20)) * -40}px)`,
-            }}
-          />
-        </div>
+        {partenaire ? (
+          <div style={{ marginTop: 80 }}>
+            <div style={{ width: 140 * prog(44, 18), height: 2, background: "rgba(255, 255, 255, 0.45)" }} />
+            <div
+              style={{
+                fontFamily: FONT,
+                fontWeight: 500,
+                fontSize: 32,
+                marginTop: 30,
+                opacity: 0.85 * prog(48),
+                transform: `translateY(${(1 - prog(48)) * 14}px)`,
+              }}
+            >
+              {partenaire.mention}
+            </div>
+            <Img
+              src={MEDIA.logoBlanc}
+              style={{
+                display: "block",
+                width: 400,
+                marginTop: 22,
+                opacity: prog(54),
+                transform: `translateX(${(1 - prog(54, 20)) * -40}px)`,
+              }}
+            />
+          </div>
+        ) : (
+          <div style={{ position: "relative", marginTop: 90, width: 540 }}>
+            <Img
+              src={MEDIA.logoBlanc}
+              style={{
+                display: "block",
+                width: 540,
+                opacity: prog(48),
+                transform: `translateX(${(1 - prog(48, 20)) * -40}px)`,
+              }}
+            />
+          </div>
+        )}
       </div>
     </AbsoluteFill>
   );
