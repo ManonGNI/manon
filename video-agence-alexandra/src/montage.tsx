@@ -7,13 +7,17 @@ export const cover: React.CSSProperties = { width: "100%", height: "100%", objec
 export const fades = (duration: number) => (f: number) =>
   interpolate(f, [0, 4, duration - 4, duration], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-// Plan serré sur Alexandra seule : fenêtre 540 × 960 de l'image 1080 × 1920 (Loïc hors champ)
-const CADRE = { x: 540, y: 740, w: 540 };
-export const PlanSerre: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <AbsoluteFill style={{ transformOrigin: "0 0", transform: `scale(${1080 / CADRE.w}) translate(${-CADRE.x}px, ${-CADRE.y}px)` }}>
-    {children}
-  </AbsoluteFill>
-);
+// Plans serrés : fenêtre 540 × 960 de l'image 1080 × 1920
+// alexandra = moitié droite (Loïc hors champ) ; loic = moitié gauche (Alexandra hors champ)
+const CADRES = { alexandra: { x: 540, y: 740, w: 540 }, loic: { x: 0, y: 740, w: 540 } };
+export const PlanSerre: React.FC<{ children: React.ReactNode; sur?: keyof typeof CADRES }> = ({ children, sur = "alexandra" }) => {
+  const c = CADRES[sur];
+  return (
+    <AbsoluteFill style={{ transformOrigin: "0 0", transform: `scale(${1080 / c.w}) translate(${-c.x}px, ${-c.y}px)` }}>
+      {children}
+    </AbsoluteFill>
+  );
+};
 
 // Fondu enchaîné vers le plan serré (opacité 0 → 1, léger recul d'échelle 1,06 → 1)
 export const FonduPlanSerre: React.FC<{ duration: number; children: React.ReactNode }> = ({ duration, children }) => {

@@ -7,9 +7,9 @@ import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
 // Vidéo 2 — témoignage : « Pourquoi rejoindre un groupement ? »
 // Durées (images à 30 i/s)
-const D = { accroche: 172, proximite: 44, humain: 81, valeurs: 180, communaute1: 213, communaute2: 120, accompagne: 79, avantgarde: 136, fin: 135 };
-const FIN_START = D.accroche + D.proximite + D.humain + D.valeurs + D.communaute1 + D.communaute2 + D.accompagne + D.avantgarde; // 1025
-export const DUREE_TEMOIGNAGE = FIN_START + D.fin; // 1160
+const D = { accroche: 172, qGroupement: 36, proximite: 44, humain: 81, valeurs: 180, communaute1: 213, communaute2: 120, accompagne: 79, avantgarde: 136, fin: 135 };
+const FIN_START = D.accroche + D.qGroupement + D.proximite + D.humain + D.valeurs + D.communaute1 + D.communaute2 + D.accompagne + D.avantgarde; // 1061
+export const DUREE_TEMOIGNAGE = FIN_START + D.fin; // 1196
 
 export const TemoignageAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -24,7 +24,15 @@ export const TemoignageAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.isoleeAccroche} offset={291.4 + 26 / 30} />
         </Series.Sequence>
 
-        {/* 2. Plan large : la proximité, le contact humain */}
+        {/* 2. Loïc : « Pourquoi avoir rejoint le groupement ? » */}
+        <Series.Sequence name="Question : groupement" durationInFrames={36} premountFor={fps}>
+          <PlanSerre sur="loic">
+            <Video src={MEDIA.questionGroupement} style={cover} volume={fades(36)} />
+          </PlanSerre>
+          <Captions items={SOUS_TITRES.qGroupement} offset={249.15} />
+        </Series.Sequence>
+
+        {/* 3. Plan large : la proximité, le contact humain */}
         <Series.Sequence name="Proximité" durationInFrames={44} premountFor={fps}>
           <Video src={MEDIA.proximite} style={cover} volume={fades(44)} />
           <Captions items={SOUS_TITRES.proximite} offset={257.62} />
@@ -41,7 +49,7 @@ export const TemoignageAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.humain} offset={263.22} />
         </Series.Sequence>
 
-        {/* 3. Plan serré : les valeurs, l'écoute */}
+        {/* 4. Plan serré : les valeurs, l'écoute */}
         <Series.Sequence name="Valeurs" durationInFrames={180} premountFor={fps}>
           <PlanSerre>
             <Video src={MEDIA.valeurs} trimBefore={12} style={cover} volume={fades(180)} />
@@ -49,7 +57,7 @@ export const TemoignageAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.valeurs} offset={272.4} />
         </Series.Sequence>
 
-        {/* 4. Être en communauté : plan large puis plan serré */}
+        {/* 5. Être en communauté : plan large puis plan serré */}
         <Series.Sequence name="Communauté" durationInFrames={213} premountFor={fps}>
           <Video src={MEDIA.communaute1} style={cover} volume={fades(213)} />
           <Captions items={SOUS_TITRES.communaute1} offset={299.1} />
@@ -61,7 +69,7 @@ export const TemoignageAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.communaute2} offset={307.45} />
         </Series.Sequence>
 
-        {/* 5. Plan large : accompagnée, esprit avant-gardiste */}
+        {/* 6. Plan large : accompagnée, esprit avant-gardiste */}
         <Series.Sequence name="Accompagnée" durationInFrames={79} premountFor={fps}>
           <Video src={MEDIA.accompagne} trimBefore={12} style={cover} volume={fades(79)} />
           <Captions items={SOUS_TITRES.accompagne} offset={385.5} />

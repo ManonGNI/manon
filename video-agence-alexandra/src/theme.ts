@@ -19,6 +19,11 @@ export const MEDIA = {
   technologie: staticFile("clips/technologie.mp4"), // 150.28
   google: staticFile("clips/google.mp4"), // 160.60 (0,4 s d'amorce pour le fondu)
   journee: staticFile("clips/journee.mp4"), // 179.35
+  service: staticFile("clips/service.mp4"), // 89.45
+  ecouter: staticFile("clips/ecouter.mp4"), // 122.95
+  questionDebut: staticFile("clips/question-debut.mp4"), // 43.40 (Loïc)
+  questionVibrer: staticFile("clips/question-vibrer.mp4"), // 46.58 (Loïc)
+  questionGroupement: staticFile("clips/question-groupement.mp4"), // 249.15 (Loïc)
   // témoignage
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
   communaute1: staticFile("clips/communaute1.mp4"), // 299.10
@@ -142,5 +147,23 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
     [["à", 180.73, 180.89], ["quelle", 180.89, 180.97], ["heure", 180.97, 181.07], ["on", 181.07, 181.15], ["se", 181.15, 181.29], ["lève", 181.29, 181.41]],
     [["le", 181.41, 181.63], ["matin", 181.63, 181.81], ["mais", 181.81, 181.97], ["on", 181.97, 182.09], ["ne", 182.09, 182.25], ["sait", 182.25, 182.25]],
     [["pas", 182.25, 182.41], ["à", 182.41, 182.53], ["quelle", 182.53, 182.55], ["heure", 182.55, 182.69], ["on", 182.69, 182.89], ["termine", 182.89, 183.17], ["le", 183.17, 183.43], ["soir.", 183.43, 183.63]],
+  ],
+  service: [
+    [["Le", 89.49, 89.71], ["service", 89.71, 90.03], ["et", 90.03, 90.19], ["le", 90.19, 90.43], ["conseil", 90.43, 90.81]],
+    [["auprès", 90.81, 91.17], ["des", 91.17, 91.33], ["clients.", 91.33, 91.63]],
+  ],
+  ecouter: [
+    [["Je", 123.01, 123.21], ["pense", 123.21, 123.57], ["qu’il", 123.57, 124.49], ["est", 124.49, 124.63], ["important", 124.63, 124.97]],
+    [["aujourd’hui", 124.97, 125.37], ["de", 125.37, 125.57], ["savoir", 125.57, 125.81], ["écouter", 125.81, 126.45]],
+    [["le", 126.45, 127.19], ["projet", 127.19, 127.45], ["du", 127.45, 127.63], ["client.", 127.63, 128.05]],
+  ],
+  qDebut: [
+    [["Comment", 43.43, 43.79], ["vous", 43.79, 43.95], ["avez", 43.95, 44.11], ["commencé", 44.11, 44.37], ["l’immobilier ?", 44.37, 44.99]],
+  ],
+  qVibrer: [
+    [["Qu’est-ce", 46.63, 46.77], ["qui", 46.77, 46.87], ["vous", 46.87, 47.01], ["fait", 47.01, 47.19], ["vibrer", 47.19, 47.51], ["dans", 47.51, 47.67], ["ce", 47.67, 47.81], ["métier ?", 47.81, 48.01]],
+  ],
+  qGroupement: [
+    [["Pourquoi", 249.19, 249.37], ["avoir", 249.37, 249.67], ["rejoint", 249.67, 249.87], ["le", 249.87, 250.05], ["groupement ?", 250.05, 250.29]],
   ],
 };
