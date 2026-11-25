@@ -24,6 +24,8 @@ export const MEDIA = {
   questionDebut: staticFile("clips/question-debut.mp4"), // 43.40 (Loïc)
   questionVibrer: staticFile("clips/question-vibrer.mp4"), // 46.58 (Loïc)
   questionGroupement: staticFile("clips/question-groupement.mp4"), // 249.15 (Loïc)
+  loicConclusion: staticFile("clips/loic-conclusion.mp4"), // 403.15 (Loïc)
+  merciFinal: staticFile("clips/merci-final.mp4"), // 411.40
   // témoignage
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
   communaute1: staticFile("clips/communaute1.mp4"), // 299.10
@@ -167,5 +169,16 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
   ],
   qGroupement: [
     [["Pourquoi", 249.19, 249.37], ["avoir", 249.37, 249.67], ["rejoint", 249.67, 249.87], ["le", 249.87, 250.05], ["groupement ?", 250.05, 250.29]],
+  ],
+  loicConclusion: [
+    [["Et", 403.17, 403.61], ["le", 403.61, 403.73], ["but,", 403.73, 403.85], ["c’est", 403.95, 404.19], ["de", 404.19, 404.41], ["travailler", 404.41, 404.57]],
+    [["main", 404.57, 404.73], ["dans", 404.73, 404.91], ["la", 404.91, 405.09], ["main", 405.09, 405.21], ["et", 405.79, 406.23], ["que", 406.23, 406.37]],
+    [["toutes", 406.37, 406.51], ["nos", 406.51, 406.71], ["agences", 406.71, 406.91], ["soient", 406.91, 407.11], ["heureuses.", 407.11, 407.55]],
+  ],
+  merciFinal: [
+    [["Merci,", 411.49, 411.65], ["Alexandra.", 412.23, 412.23]],
+    [["Merci", 412.45, 412.73], ["à", 412.73, 412.91], ["vous", 412.91, 413.15], ["et", 413.15, 413.27], ["merci", 413.27, 413.49], ["au", 413.49, 413.67]],
+    [["groupement.", 413.67, 414.07]],
+    [["Merci", 414.23, 414.51], ["à", 414.51, 414.67], ["tous", 414.67, 414.73], ["les", 414.73, 414.93], ["adhérents.", 414.93, 415.31]],
   ],
 };

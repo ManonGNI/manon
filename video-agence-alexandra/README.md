@@ -3,7 +3,7 @@
 Agence partenaire du Groupe National Immobilier (Pernes-les-Fontaines et Beaumes-de-Venise).
 Deux reels verticaux 1080 × 1920, 30 i/s, construit avec Remotion, même style que `video-agence-miramas`.
 
-## Vidéo 1 — Bienvenue à l'agence (`AgenceAlexandra`, ~54 s)
+## Vidéo 1 — Bienvenue à l'agence (`AgenceAlexandra`, ~52 s)
 
 Alexandra, son parcours et sa vision du métier (aucun passage d'interview commun avec la vidéo 2).
 
@@ -12,9 +12,9 @@ Alexandra, son parcours et sa vision du métier (aucun passage d'interview commu
 | 1 | Loïc Fauchet devant l'agence (recadré, éclairci) | Présentation de l'agence et de ses deux sites |
 | 2 | Loïc en plan serré, puis plan large | « Comment vous avez commencé l'immobilier ? » → « Il y a 25 ans » |
 | 3 | Loïc en plan serré, puis Alexandra en plan serré | « Qu'est-ce qui vous fait vibrer dans ce métier ? » → « Le service et le conseil… savoir écouter le projet du client » |
-| 4 | Plan large | « Connaître le projet… et la personne en face de soi » |
-| 5 | Plan large, puis fondu vers plan serré | « Renforcer ce lien pour se démarquer de la technologie, avec Google, l'IA » |
-| 6 | Plan large | « Merci au groupement, merci à tous les adhérents » |
+| 4 | Plan large, puis fondu vers plan serré | « Renforcer ce lien pour se démarquer de la technologie, avec Google, l'IA » |
+| 5 | Loïc en plan serré | « Le but, c'est de travailler main dans la main, et que toutes nos agences soient heureuses » |
+| 6 | Plan large | « Merci, Alexandra » → « Merci au groupement, merci à tous les adhérents » |
 | 7 | Écran de fin « agence partenaire » sur fond ivoire | « Bienvenue à », logo d'Alexandra, filet or, « Agence partenaire du » (italique) + logo GNI bleu |
 
 ## Vidéo 2 — Témoignage « Pourquoi rejoindre un groupement ? » (`TemoignageAlexandra`, ~40 s)

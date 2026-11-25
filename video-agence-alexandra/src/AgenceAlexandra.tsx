@@ -14,16 +14,16 @@ const D = {
   qVibrer: 45,
   service: 66,
   ecouter: 154,
-  conseil: 222,
   technologie: 287,
   google: 49,
-  merci: 89,
+  loicConclusion: 133,
+  merciFinal: 119,
   fin: 135,
 };
 const DEBUT_SERVICE = D.intro + D.qDebut + D.debut + D.qVibrer; // 623
 const FIN_START =
-  D.intro + D.qDebut + D.debut + D.qVibrer + D.service + D.ecouter + D.conseil + D.technologie + D.google + D.merci; // 1490
-export const DUREE_TOTALE = FIN_START + D.fin; // 1625
+  D.intro + D.qDebut + D.debut + D.qVibrer + D.service + D.ecouter + D.technologie + D.google + D.loicConclusion + D.merciFinal; // 1431
+export const DUREE_TOTALE = FIN_START + D.fin; // 1566
 
 export const AgenceAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -67,10 +67,6 @@ export const AgenceAlexandra: React.FC = () => {
           </PlanSerre>
           <Captions items={SOUS_TITRES.ecouter} offset={122.95} />
         </Series.Sequence>
-        <Series.Sequence name="Conseil" durationInFrames={222} premountFor={fps}>
-          <Video src={MEDIA.conseil} style={cover} volume={fades(222)} />
-          <Captions items={SOUS_TITRES.conseil} offset={136.05} />
-        </Series.Sequence>
 
         {/* 4. L'humain face à la technologie (plan large), fondu vers le plan serré */}
         <Series.Sequence name="Technologie" durationInFrames={287} premountFor={fps}>
@@ -91,10 +87,16 @@ export const AgenceAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.google} offset={161.0} />
         </Series.Sequence>
 
-        {/* 5. Remerciements (plan large) */}
-        <Series.Sequence name="Merci" durationInFrames={89} premountFor={fps}>
-          <Video src={MEDIA.merci} style={cover} volume={fades(89)} />
-          <Captions items={SOUS_TITRES.merci} offset={412.4} />
+        {/* 5. Conclusion de Loïc (plan serré), puis remerciements (plan large) */}
+        <Series.Sequence name="Conclusion Loïc" durationInFrames={133} premountFor={fps}>
+          <PlanSerre sur="loic">
+            <Video src={MEDIA.loicConclusion} style={cover} volume={fades(133)} />
+          </PlanSerre>
+          <Captions items={SOUS_TITRES.loicConclusion} offset={403.15} />
+        </Series.Sequence>
+        <Series.Sequence name="Merci" durationInFrames={119} premountFor={fps}>
+          <Video src={MEDIA.merciFinal} style={cover} volume={fades(119)} />
+          <Captions items={SOUS_TITRES.merciFinal} offset={411.4} />
         </Series.Sequence>
       </Series>
 
