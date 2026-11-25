@@ -29,9 +29,7 @@ export const MEDIA = {
   // témoignage
   proximiteSuite: staticFile("clips/proximite-suite.mp4"), // 257.62 → 265.95, d'un seul tenant
   communaute: staticFile("clips/communaute.mp4"), // 299.10 → 311.45, d'un seul tenant
-  accompagneSuite: staticFile("clips/accompagne-suite.mp4"), // 385.50 → 397.98, d'un seul tenant
-  avantgardeSuite: staticFile("clips/avantgarde-suite.mp4"), // 389.50 → « on n'a pas le temps »
-  loicTemps: staticFile("clips/loic-temps.mp4"), // 398.02 (Loïc : « on est là pour ça »)
+  accompagneFin: staticFile("clips/accompagne-fin.mp4"), // 385.50 → 404.00, d'un seul tenant (son coupé après « nos agences »)
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
   communaute1: staticFile("clips/communaute1.mp4"), // 299.10
   communaute2: staticFile("clips/communaute2.mp4"), // 307.45
@@ -197,7 +195,8 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
   loicTemps: [
     [["On", 398.07, 398.17], ["est", 398.17, 398.31], ["là", 398.31, 398.45], ["pour", 398.45, 398.65], ["ça,", 398.65, 399.01], ["et", 399.01, 399.19], ["on", 399.19, 399.39]],
     [["prend", 399.39, 399.57], ["du", 399.57, 399.75], ["temps", 399.75, 399.97], ["pour", 399.97, 400.21], ["ça", 400.21, 400.45]],
-    [["et", 400.45, 400.59], ["on", 400.59, 400.73], ["prend", 400.73, 400.93], ["du", 400.93, 401.07], ["temps", 401.07, 401.25], ["pour", 401.25, 401.65], ["accompagner", 401.65, 402.19], ["nos", 402.19, 402.43], ["agences.", 402.43, 403.15]],
+    [["et", 400.45, 400.59], ["on", 400.59, 400.73], ["prend", 400.73, 400.93], ["du", 400.93, 401.07], ["temps", 401.07, 401.25]],
+    [["pour", 401.25, 401.65], ["accompagner", 401.65, 402.19], ["nos", 402.19, 402.43], ["agences.", 402.43, 403.15]],
   ],
   proximiteSuite: [
     [["La", 257.71, 258.05], ["proximité,", 258.05, 258.97]],

@@ -555,7 +555,7 @@ export const EcranFinGroupementIvoire: React.FC<{ accroche: string; lignes: stri
   const frame = useCurrentFrame();
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const prog = (d: number, len = 16) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
-  const bg = interpolate(frame, [0, 10], [0, 1], clamp);
+  const bg = interpolate(frame, [0, 20], [0, 1], clamp); // fondu plus long depuis la dernière image
   const logo = prog(18, 24);
   const filet = prog(36, 18);
   const LARGEUR = 620;
