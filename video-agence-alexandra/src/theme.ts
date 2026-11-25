@@ -8,6 +8,8 @@ export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 // intro-loic = 20261119_105523 à 7,60 s, recadré sur Loïc (crop 720 × 1280 à 158,560) et éclairci ; les autres = 20261119_113537 (interview) à l'instant indiqué
 export const MEDIA = {
   intro: staticFile("clips/intro-loic.mp4"), // 7.60
+  introCourt: staticFile("clips/intro-loic-court.mp4"), // 10.04 (sans « Aujourd'hui, je me situe… »), recadré et éclairci
+  debutLong: staticFile("clips/debut-long.mp4"), // 48.70 → 57.50 (« …16 ans négociatrice en immobilier VRP »)
   debut: staticFile("clips/debut.mp4"), // 48.70
   conseil: staticFile("clips/conseil.mp4"), // 136.05
   proximite: staticFile("clips/proximite.mp4"), // 257.62
@@ -47,7 +49,7 @@ export const PERSONNES = {
 
 // Écran de fin du témoignage
 export const GROUPEMENT = {
-  accroche: "Rejoignez le groupement",
+  accroche: "Rejoignez notre Groupe",
   lignes: ["Agences immobilières", "indépendantes"],
   site: "groupenationalimmobilier.fr",
 };
@@ -226,5 +228,23 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
     [["effectivement,", 394.99, 395.31]],
     [["on", 395.99, 396.07], ["n’y", 396.07, 396.19], ["pense", 396.19, 396.33], ["pas", 396.33, 396.51], ["toujours.", 396.51, 396.71]],
     [["On", 397.21, 397.47], ["n’a", 397.47, 397.61], ["pas", 397.61, 397.73], ["le", 397.73, 397.83], ["temps.", 397.83, 397.93]],
+  ],
+  introCourt: [
+    [["Je", 10.08, 10.24], ["vais", 10.24, 10.32], ["vous", 10.32, 10.52], ["présenter", 10.52, 11.14], ["une", 11.14, 11.60]],
+    [["nouvelle", 11.60, 11.84], ["agence", 11.84, 12.16], ["qui", 12.16, 12.38], ["vient", 12.38, 12.52]],
+    [["de", 12.52, 12.72], ["rejoindre", 12.72, 13.14], ["le", 13.14, 13.38], ["Groupe", 13.38, 13.58], ["National", 13.58, 13.94]],
+    [["Immobilier,", 13.94, 14.64]],
+    [["l’agence", 15.14, 15.50], ["Alexandra", 15.50, 16.06], ["l’Immobilier", 16.06, 16.62]],
+    [["en", 16.62, 16.84], ["Provence.", 16.84, 17.56]],
+    [["Elle", 17.76, 17.94], ["est", 17.94, 18.18], ["constituée", 18.18, 18.54], ["de", 18.54, 18.86], ["deux", 18.86, 19.06]],
+    [["agences,", 19.06, 19.44], ["une", 19.64, 19.74], ["agence", 19.74, 20.04], ["sur", 20.04, 20.24]],
+    [["Pernes-les-Fontaines", 20.24, 21.02], ["et", 21.02, 21.28]],
+    [["une", 21.28, 21.40], ["agence", 21.40, 21.60], ["sur", 21.60, 21.90], ["Beaumes-de-Venise.", 21.90, 22.60]],
+  ],
+  debutLong: [
+    [["Alors", 48.77, 48.93], ["j’ai", 48.93, 49.13], ["commencé", 49.13, 49.39], ["l’immobilier", 49.39, 49.99]],
+    [["il", 49.99, 50.13], ["y", 50.13, 50.13], ["a", 50.13, 50.19], ["25", 50.19, 50.47], ["ans,", 50.47, 51.65], ["donc", 51.65, 52.97]],
+    [["en", 52.97, 53.51], ["étant", 53.51, 53.89], ["16", 53.89, 54.19], ["ans", 54.19, 54.37], ["négociatrice", 54.37, 55.05]],
+    [["en", 55.05, 55.23], ["immobilier", 55.23, 56.41], ["VRP.", 56.41, 57.50]],
   ],
 };

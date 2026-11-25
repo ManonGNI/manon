@@ -55,7 +55,7 @@ export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, 
             ? interpolate((t - s) * fps, [-1, 3], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease })
             : 0;
           return (
-            <span key={i} style={{ position: "relative", padding: "2px 12px 6px", margin: "0 1px" }}>
+            <span key={i} style={{ position: "relative", padding: "2px 12px 6px", margin: "0 1px", display: "inline-block", transform: `scale(${1 + 0.07 * p})` }}>
               <span
                 style={{
                   position: "absolute",
@@ -723,6 +723,60 @@ export const AccrocheModerne: React.FC<{ variante: VarianteAccroche; duration: n
           notre Groupe ?
         </div>
         <div style={{ width: 160 * trait, height: 6, borderRadius: 3, background: C.or, marginTop: 24 }} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Accroche typographique XXL générique : lignes de texte blanc (segments en or possibles),
+// dégradé sombre en haut, apparition ligne à ligne (flou → net) et mention de série discrète
+export type SegmentAccroche = [string, boolean?];
+export const AccrocheXXL: React.FC<{ lignes: SegmentAccroche[][]; mention?: string; duration: number; top?: number; taille?: number }> = ({
+  lignes,
+  mention,
+  duration,
+  top = 96,
+  taille = 92,
+}) => {
+  const frame = useCurrentFrame();
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const prog = (d: number, len = 14) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(frame, [duration - 10, duration], [1, 0], clamp);
+  const anim = (d: number): React.CSSProperties => ({
+    opacity: prog(d),
+    transform: `translateY(${(1 - prog(d, 16)) * 40}px)`,
+    filter: `blur(${(1 - prog(d, 12)) * 8}px)`,
+  });
+  return (
+    <AbsoluteFill style={{ opacity: out }}>
+      <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(20,30,42,0.66) 0%, rgba(20,30,42,0.3) 28%, rgba(20,30,42,0) 42%)" }} />
+      <div style={{ position: "absolute", top, left: 72, right: 60, color: C.blanc, textShadow: "0 2px 14px rgba(0,0,0,0.35)" }}>
+        {lignes.map((segments, i) => (
+          <div key={i} style={{ fontFamily: FONT, fontWeight: 800, fontSize: taille, lineHeight: 1.05, letterSpacing: -2.5, ...anim(2 + i * 6) }}>
+            {segments.map(([texte, or], j) => (
+              <span key={j} style={{ color: or ? C.or : C.blanc }}>
+                {texte}
+              </span>
+            ))}
+          </div>
+        ))}
+        {mention ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+              marginTop: 22,
+              fontFamily: FONT,
+              fontWeight: 500,
+              fontSize: 30,
+              opacity: 0.9 * prog(4 + lignes.length * 6),
+            }}
+          >
+            <div style={{ width: 44, height: 6, borderRadius: 3, background: C.or }} />
+            {mention}
+          </div>
+        ) : null}
       </div>
     </AbsoluteFill>
   );

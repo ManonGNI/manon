@@ -1,16 +1,17 @@
 import React from "react";
 import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { Captions, EcranFinPartenaire, LogoSignature, LowerThird } from "./Overlays";
+import { AccrocheXXL, Captions, EcranFinPartenaire, LogoSignature, LowerThird } from "./Overlays";
 import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
+import { ChiffreCle, DeuxAgences, MotCle } from "./MotionDesign";
 
 // Vidéo 1 — Bienvenue à l'agence : Alexandra, son parcours et sa vision du métier
 // Durées (images à 30 i/s)
 const D = {
-  intro: 454,
+  intro: 381,
   qDebut: 49,
-  debut: 75,
+  debut: 264,
   qVibrer: 45,
   service: 66,
   ecouter: 154,
@@ -20,32 +21,33 @@ const D = {
   merciFinal: 119,
   fin: 135,
 };
-const DEBUT_SERVICE = D.intro + D.qDebut + D.debut + D.qVibrer; // 623
 const FIN_START =
-  D.intro + D.qDebut + D.debut + D.qVibrer + D.service + D.ecouter + D.technologie + D.google + D.loicConclusion + D.merciFinal; // 1431
-export const DUREE_TOTALE = FIN_START + D.fin; // 1566
+  D.intro + D.qDebut + D.debut + D.qVibrer + D.service + D.ecouter + D.technologie + D.google + D.loicConclusion + D.merciFinal; // 1547
+export const DUREE_TOTALE = FIN_START + D.fin; // 1682
 
 export const AgenceAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
   return (
     <AbsoluteFill style={{ background: "#000" }}>
       <Series>
-        {/* 1. Loïc présente l'agence, devant la façade */}
-        <Series.Sequence name="Intro Loïc" durationInFrames={454} premountFor={fps}>
-          <Video src={MEDIA.intro} style={cover} volume={fades(454)} />
-          <Captions items={SOUS_TITRES.intro} offset={7.6} />
+        {/* 1. Loïc présente l'agence, devant la façade (intro raccourcie) */}
+        <Series.Sequence name="Intro Loïc" durationInFrames={381} premountFor={fps}>
+          <Video src={MEDIA.introCourt} style={cover} volume={fades(381)} />
+          <Captions items={SOUS_TITRES.introCourt} offset={10.04} />
         </Series.Sequence>
 
-        {/* 2. Loïc : « Comment vous avez commencé l'immobilier ? » → Alexandra : 25 ans */}
+        {/* 2. Loïc : « Comment vous avez commencé l'immobilier ? » → Alexandra (plan serré) : 25 ans, négociatrice */}
         <Series.Sequence name="Question : débuts" durationInFrames={49} premountFor={fps}>
           <PlanSerre sur="loic">
             <Video src={MEDIA.questionDebut} style={cover} volume={fades(49)} />
           </PlanSerre>
           <Captions items={SOUS_TITRES.qDebut} offset={43.4} />
         </Series.Sequence>
-        <Series.Sequence name="25 ans" durationInFrames={75} premountFor={fps}>
-          <Video src={MEDIA.debut} style={cover} volume={fades(75)} />
-          <Captions items={SOUS_TITRES.debut} offset={48.7} />
+        <Series.Sequence name="25 ans" durationInFrames={264} premountFor={fps}>
+          <PlanSerre>
+            <Video src={MEDIA.debutLong} style={cover} volume={fades(264)} />
+          </PlanSerre>
+          <Captions items={SOUS_TITRES.debutLong} offset={48.7} />
         </Series.Sequence>
 
         {/* 3. Loïc : « Qu'est-ce qui vous fait vibrer ? » → Alexandra : le service, le conseil, l'écoute */}
@@ -76,9 +78,15 @@ export const AgenceAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.ecouter} offset={122.95} />
         </Series.Sequence>
 
-        {/* 4. L'humain face à la technologie (plan large), fondu vers le plan serré */}
+        {/* 4. L'humain face à la technologie : plan large, puis plan serré en cours de phrase */}
         <Series.Sequence name="Technologie" durationInFrames={287} premountFor={fps}>
           <Video src={MEDIA.technologie} style={cover} volume={fades(287)} />
+          {/* changement de cadrage sans couper le son : plan serré sur Alexandra en cours de phrase */}
+          <Sequence name="Plan serré (même prise)" from={140} durationInFrames={135} premountFor={fps}>
+            <PlanSerre>
+              <Video src={MEDIA.technologie} trimBefore={140} muted style={cover} />
+            </PlanSerre>
+          </Sequence>
           <Sequence name="Fondu vers plan serré" from={275} durationInFrames={12} premountFor={fps}>
             <FonduPlanSerre duration={12}>
               <PlanSerre>
@@ -108,18 +116,63 @@ export const AgenceAlexandra: React.FC = () => {
         </Series.Sequence>
       </Series>
 
+      {/* Accroche XXL d'ouverture + mention de série */}
+      <Sequence name="Accroche" durationInFrames={105}>
+        <AccrocheXXL
+          lignes={[[["Bienvenue à"]], [["Alexandra", true]], [["l’Immobilier"]], [["en Provence"]]]}
+          mention="Rencontre avec Alexandra · 1/2"
+          duration={105}
+        />
+      </Sequence>
+
+      {/* ===== Motion design sur les informations clés ===== */}
+      {/* « deux agences » (Loïc, 18,86 s) puis les villes quand il les nomme */}
+      <Sequence name="MD : 2 agences" from={262} durationInFrames={119}>
+        <DeuxAgences villes={[["Pernes-les-Fontaines", 42], ["Beaumes-de-Venise", 92]]} duration={119} top={560} />
+      </Sequence>
+      {/* « il y a 25 ans » : compteur */}
+      <Sequence name="MD : 25 ans" from={470} durationInFrames={110}>
+        <ChiffreCle valeur={25} unite="ans" legende="dans l’immobilier" duration={110} />
+      </Sequence>
+      {/* « 16 ans négociatrice » */}
+      <Sequence name="MD : 16 ans" from={584} durationInFrames={108}>
+        <ChiffreCle valeur={16} unite="ans" legende="négociatrice VRP" duration={108} />
+      </Sequence>
+      {/* « le service et le conseil » */}
+      <Sequence name="MD : Service" from={745} durationInFrames={60}>
+        <MotCle texte="Service" duration={60} top={170} />
+      </Sequence>
+      <Sequence name="MD : Conseil" from={766} durationInFrames={84}>
+        <MotCle texte="Conseil" duration={84} top={290} />
+      </Sequence>
+      {/* « savoir écouter le projet du client » */}
+      <Sequence name="MD : Écoute" from={888} durationInFrames={70}>
+        <MotCle texte="À l’écoute" sousTexte="du projet client" duration={70} top={170} />
+      </Sequence>
+      {/* « renforcer ce lien-là » face à la technologie */}
+      <Sequence name="MD : Lien humain" from={1052} durationInFrames={140}>
+        <MotCle texte="Le lien humain" sousTexte="face à la technologie" duration={140} top={170} />
+      </Sequence>
+      <Sequence name="MD : Google IA" from={1258} durationInFrames={40}>
+        <MotCle texte="Google · IA" duration={40} top={300} cote="droite" />
+      </Sequence>
+      {/* Loïc : « main dans la main » */}
+      <Sequence name="MD : Main dans la main" from={1336} durationInFrames={92}>
+        <MotCle texte="Main dans la main" duration={92} top={300} cote="droite" />
+      </Sequence>
+
       {/* Bandeaux nom / fonction */}
-      <Sequence name="Bandeau Loïc" from={30} durationInFrames={110}>
+      <Sequence name="Bandeau Loïc" from={100} durationInFrames={110}>
         <LowerThird {...PERSONNES.loic} duration={110} />
       </Sequence>
-      {/* Alexandra : sur son premier plan serré, bandeau sur le buste (visage dégagé) */}
-      <Sequence name="Bandeau Alexandra" from={DEBUT_SERVICE + 4} durationInFrames={150}>
+      {/* Alexandra : dès sa première réponse (plan serré), bandeau sur le buste */}
+      <Sequence name="Bandeau Alexandra" from={D.intro + D.qDebut + 6} durationInFrames={150}>
         <LowerThird {...PERSONNES.alexandra} duration={150} />
       </Sequence>
 
-      {/* Logo signature bleu en haut à droite */}
-      <Sequence name="Logo signature" durationInFrames={FIN_START}>
-        <LogoSignature duration={FIN_START} variante="bleu" />
+      {/* Logo signature bleu en haut à droite, à partir de l'interview (peu lisible sur la façade) */}
+      <Sequence name="Logo signature" from={D.intro} durationInFrames={FIN_START - D.intro}>
+        <LogoSignature duration={FIN_START - D.intro} variante="bleu" />
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>

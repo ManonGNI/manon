@@ -1,7 +1,13 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
 
-export const cover: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
+// Étalonnage léger appliqué à toutes les vidéos : un peu plus chaud et contrasté (rushs d'origine un peu froids et gris)
+export const cover: React.CSSProperties = {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  filter: "contrast(1.06) saturate(1.08) sepia(0.07) brightness(1.02)",
+};
 
 // Micro-fondu sonore de 2 images à chaque coupe : évite les clics sans créer de trou dans la voix
 export const fades = (duration: number) => (f: number) =>
