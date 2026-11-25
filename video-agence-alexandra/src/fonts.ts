@@ -9,6 +9,9 @@ const FONTS: [string, string, string, string?][] = [
   ["Inter", "400", "fonts/inter-latin-400-normal.woff2"],
   ["Allison", "400", "fonts/allison-latin-400-normal.woff2"],
   ["Montserrat", "500", "fonts/montserrat-latin-500-italic.woff2", "italic"],
+  ["Oswald", "600", "fonts/oswald-latin-600-normal.woff2"],
+  ["Oswald", "700", "fonts/oswald-latin-700-normal.woff2"],
+  ["Playfair Display", "500", "fonts/playfair-display-latin-500-italic.woff2", "italic"],
 ];
 
 const handle = delayRender("Chargement des polices");

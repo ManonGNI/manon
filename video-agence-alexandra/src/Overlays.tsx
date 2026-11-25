@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Easing, Img, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, FONT, MEDIA, Mot } from "./theme";
 import { SIGLE } from "./sigle";
 
@@ -777,6 +777,79 @@ export const AccrocheXXL: React.FC<{ lignes: SegmentAccroche[][]; mention?: stri
             {mention}
           </div>
         ) : null}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Bandeau nom / fonction façon « carte de visite éditoriale » : carré de couleur avec monogramme,
+// nom en capitales condensées sur barre blanche, fonction en italique à empattements sur une 2e barre
+export const BandeauSignature: React.FC<{
+  nom: string;
+  fonction: string;
+  monogramme: "gni" | string; // "gni" = G du Groupe ; sinon chemin d'une image (monogramme de l'agence)
+  fondCarre: string;
+  duration: number;
+  top?: number;
+}> = ({ nom, fonction, monogramme, fondCarre, duration, top = 1030 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const carre = spring({ frame, fps, config: { damping: 12, stiffness: 180, mass: 0.6 } });
+  const barreNom = interpolate(frame, [5, 17], [0, 1], { ...clamp, easing: ease });
+  const barreFonction = interpolate(frame, [11, 23], [0, 1], { ...clamp, easing: ease });
+  const sortie = interpolate(frame, [duration - 10, duration], [0, 1], { ...clamp, easing: Easing.in(Easing.quad) });
+  const COTE = 148;
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none", opacity: 1 - sortie }}>
+      <div style={{ position: "absolute", left: 56, top, display: "flex", alignItems: "stretch", transform: `translateX(${-sortie * 60}px)` }}>
+        <div
+          style={{
+            width: COTE,
+            height: COTE,
+            background: fondCarre,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transform: `scale(${Math.min(carre, 1.08)})`,
+            flexShrink: 0,
+          }}
+        >
+          {monogramme === "gni" ? (
+            <svg viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`} width={COTE * 0.62} height={(COTE * 0.62 * SIGLE.h) / SIGLE.w}>
+              <path d={SIGLE.gPath} fill={C.marine} />
+              <path d={SIGLE.barPath} fill={C.blanc} />
+            </svg>
+          ) : (
+            <Img src={monogramme} style={{ width: COTE * 0.8, height: COTE * 0.8, objectFit: "contain" }} />
+          )}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 6 }}>
+          <div
+            style={{
+              background: C.blanc,
+              padding: "6px 28px 8px 24px",
+              width: "fit-content",
+              clipPath: `inset(0 ${(1 - barreNom) * 100}% 0 0)`,
+            }}
+          >
+            <div style={{ fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 54, lineHeight: 1.05, letterSpacing: 0.5, color: "#141414", textTransform: "uppercase" }}>
+              {nom}
+            </div>
+          </div>
+          <div
+            style={{
+              background: C.blanc,
+              padding: "8px 28px 10px 24px",
+              width: "fit-content",
+              clipPath: `inset(0 ${(1 - barreFonction) * 100}% 0 0)`,
+            }}
+          >
+            <div style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500, fontSize: 26, lineHeight: 1.1, color: "#141414", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+              {fonction}
+            </div>
+          </div>
+        </div>
       </div>
     </AbsoluteFill>
   );

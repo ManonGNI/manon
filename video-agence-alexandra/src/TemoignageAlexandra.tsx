@@ -1,8 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Img, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { AccrocheXXL, Captions, EcranFinGroupementIvoire, LogoSignature, LowerThird } from "./Overlays";
-import { GROUPEMENT, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
+import { AccrocheXXL, Captions, EcranFinGroupementIvoire, LogoSignature, BandeauSignature } from "./Overlays";
+import { GROUPEMENT, MEDIA, SIGNATURES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 import { MotCle, Reseau } from "./MotionDesign";
 
@@ -116,7 +116,7 @@ export const TemoignageAlexandra: React.FC = () => {
         />
       </Sequence>
       <Sequence name="Bandeau Alexandra" from={88} durationInFrames={84}>
-        <LowerThird {...PERSONNES.alexandra} duration={84} />
+        <BandeauSignature {...SIGNATURES.alexandra} duration={84} />
       </Sequence>
 
       <Sequence name="Logo signature" from={95} durationInFrames={FIN_START - 95}>

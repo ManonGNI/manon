@@ -1,8 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { AccrocheXXL, Captions, EcranFinPartenaire, LogoSignature, LowerThird } from "./Overlays";
-import { MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
+import { AccrocheXXL, Captions, EcranFinPartenaire, LogoSignature, BandeauSignature } from "./Overlays";
+import { MEDIA, SIGNATURES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 import { ChiffreCle, DeuxAgences, MotCle } from "./MotionDesign";
 
@@ -163,11 +163,11 @@ export const AgenceAlexandra: React.FC = () => {
 
       {/* Bandeaux nom / fonction */}
       <Sequence name="Bandeau Loïc" from={100} durationInFrames={110}>
-        <LowerThird {...PERSONNES.loic} duration={110} />
+        <BandeauSignature {...SIGNATURES.loic} duration={110} />
       </Sequence>
       {/* Alexandra : dès sa première réponse (plan serré), bandeau sur le buste */}
       <Sequence name="Bandeau Alexandra" from={D.intro + D.qDebut + 6} durationInFrames={150}>
-        <LowerThird {...PERSONNES.alexandra} duration={150} />
+        <BandeauSignature {...SIGNATURES.alexandra} duration={150} />
       </Sequence>
 
       {/* Logo signature bleu en haut à droite, à partir de l'interview (peu lisible sur la façade) */}

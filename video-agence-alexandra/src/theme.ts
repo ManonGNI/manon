@@ -42,6 +42,17 @@ export const MEDIA = {
   logoAlexandra: staticFile("medias/logo-alexandra-transparent.png"), // logo officiel de l'agence, recadré, fond crème rendu transparent, 1082 × 785
 };
 
+// Bandeaux « signature » (nom + fonction)
+export const SIGNATURES = {
+  loic: { nom: "Loïc Fauchet", fonction: "Conseiller au Groupe National Immobilier", monogramme: "gni" as const, fondCarre: "#D9AE57" },
+  alexandra: {
+    nom: "Alexandra Gameiro",
+    fonction: "Dirigeante d’Alexandra l’Immobilier en Provence",
+    monogramme: staticFile("medias/monogramme-alexandra.png"),
+    fondCarre: "#F7F3EA",
+  },
+};
+
 export const PERSONNES = {
   loic: { nom: "Loïc Fauchet", role: "Commercial Vaucluse & Bouches-du-Rhône", structure: "Groupe National Immobilier" },
   alexandra: { nom: "Alexandra Gameiro", role: "Dirigeante", structure: "Alexandra l’Immobilier en Provence" },
