@@ -6,7 +6,7 @@ export const cover: React.CSSProperties = {
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  filter: "contrast(1.06) saturate(1.08) sepia(0.07) brightness(1.02)",
+  filter: "contrast(1.05) saturate(1.06) sepia(0.06) brightness(1.03)",
 };
 
 // Micro-fondu sonore de 2 images à chaque coupe : évite les clics sans créer de trou dans la voix
