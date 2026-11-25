@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, FONT } from "./theme";
 
@@ -6,6 +6,15 @@ import { C, FONT } from "./theme";
 // Chaque élément entre avec un ressort (un peu de rebond pour le « peps ») et sort en glissant.
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+
+// Style graphique des animations (choisi une fois pour toute la vidéo)
+// carre     : blocs marine à angles droits, capitales (version d'origine)
+// doux      : bulles arrondies marine translucides (verre dépoli), texte en minuscules
+// manuscrit : mot-clé manuscrit or (Allison) sans cadre, trait or courbe qui se dessine
+// surligne  : coup de surligneur or arrondi et légèrement incliné, texte marine
+export type StyleMD = "carre" | "doux" | "manuscrit" | "surligne";
+export const StyleMDContext = React.createContext<StyleMD>("doux");
+const OMBRE = "0 2px 18px rgba(0,0,0,0.45), 0 0 3px rgba(0,0,0,0.3)";
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
 
 const useEntree = (delai = 0) => {
@@ -30,6 +39,129 @@ export const MotCle: React.FC<{
   const e = useEntree(delai);
   const s = useSortie(duration);
   const dx = (cote === "gauche" ? -1 : 1) * ((1 - e) * 120 + s * 160);
+  const style = useContext(StyleMDContext);
+  const frame = useCurrentFrame();
+  const flotte = Math.sin(frame / 12) * 3; // léger flottement
+  const place: React.CSSProperties = { position: "absolute", top, [cote === "gauche" ? "left" : "right"]: 60 };
+  if (style === "doux") {
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div
+          style={{
+            ...place,
+            background: "rgba(43, 66, 88, 0.72)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            borderRadius: 44,
+            padding: sousTexte ? "16px 36px 20px" : "16px 38px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            opacity: Math.min(1, e * 1.4) * (1 - s),
+            transform: `translateY(${(1 - e) * 30 + flotte - s * 20}px) scale(${0.6 + 0.4 * Math.min(e, 1.04)})`,
+            transformOrigin: cote === "gauche" ? "left center" : "right center",
+          }}
+        >
+          <div style={{ width: 16, height: 16, borderRadius: 8, background: C.or, flexShrink: 0 }} />
+          <div>
+            <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 52, color: C.blanc, lineHeight: 1.1 }}>{texte}</div>
+            {sousTexte ? <div style={{ fontFamily: FONT, fontWeight: 500, fontSize: 28, color: C.or, marginTop: 2 }}>{sousTexte}</div> : null}
+          </div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (style === "manuscrit") {
+    const trait = interpolate(frame - delai, [8, 26], [0, 1], { ...clamp, easing: ease });
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div
+          style={{
+            ...place,
+            textAlign: cote === "gauche" ? "left" : "right",
+            opacity: Math.min(1, e * 1.4) * (1 - s),
+            transform: `translateY(${(1 - e) * 30 + flotte - s * 20}px) rotate(-3deg)`,
+            transformOrigin: cote === "gauche" ? "left center" : "right center",
+          }}
+        >
+          <div style={{ fontFamily: "Allison, cursive", fontSize: 150, lineHeight: 0.85, color: C.or, textShadow: OMBRE, padding: "0 10px" }}>{texte}</div>
+          <svg width={420} height={40} viewBox="0 0 420 40" style={{ display: "block", marginLeft: cote === "gauche" ? 10 : "auto" }}>
+            <path
+              d="M6 28 C 120 6, 260 6, 414 22"
+              fill="none"
+              stroke={C.or}
+              strokeWidth={7}
+              strokeLinecap="round"
+              strokeDasharray={430}
+              strokeDashoffset={430 * (1 - trait)}
+            />
+          </svg>
+          {sousTexte ? (
+            <div style={{ fontFamily: FONT, fontWeight: 600, fontSize: 30, color: C.blanc, textShadow: OMBRE, marginTop: 4, padding: "0 12px" }}>{sousTexte}</div>
+          ) : null}
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (style === "surligne") {
+    const marq = interpolate(frame - delai, [2, 14], [0, 1], { ...clamp, easing: ease });
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div
+          style={{
+            ...place,
+            opacity: 1 - s,
+            transform: `rotate(-2.5deg) translateY(${flotte - s * 20}px)`,
+            transformOrigin: cote === "gauche" ? "left center" : "right center",
+            textAlign: cote === "gauche" ? "left" : "right",
+          }}
+        >
+          <div style={{ position: "relative", display: "inline-block", padding: "10px 30px 16px" }}>
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: C.or,
+                borderRadius: 22,
+                transform: `scaleX(${marq})`,
+                transformOrigin: cote === "gauche" ? "left center" : "right center",
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                fontFamily: FONT,
+                fontWeight: 800,
+                fontSize: 58,
+                color: C.marine,
+                lineHeight: 1.05,
+                opacity: interpolate(frame - delai, [8, 14], [0, 1], clamp),
+                transform: `scale(${0.9 + 0.1 * Math.min(e, 1.05)})`,
+              }}
+            >
+              {texte}
+            </div>
+          </div>
+          {sousTexte ? (
+            <div
+              style={{
+                fontFamily: FONT,
+                fontWeight: 600,
+                fontSize: 30,
+                color: C.blanc,
+                textShadow: OMBRE,
+                marginTop: 8,
+                padding: "0 14px",
+                opacity: interpolate(frame - delai, [14, 22], [0, 1], clamp),
+              }}
+            >
+              {sousTexte}
+            </div>
+          ) : null}
+        </div>
+      </AbsoluteFill>
+    );
+  }
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <div
@@ -70,6 +202,77 @@ export const ChiffreCle: React.FC<{
   const s = useSortie(duration);
   const n = Math.round(interpolate(frame, [2, 26], [0, valeur], { ...clamp, easing: Easing.out(Easing.cubic) }));
   const trait = interpolate(frame, [14, 30], [0, 1], { ...clamp, easing: ease });
+  const style = useContext(StyleMDContext);
+  const flotte = Math.sin(frame / 12) * 3;
+  if (style === "doux") {
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div
+          style={{
+            position: "absolute",
+            top,
+            left: 60,
+            background: "rgba(43, 66, 88, 0.72)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            borderRadius: 48,
+            padding: "18px 44px 26px 38px",
+            opacity: Math.min(1, e * 1.4) * (1 - s),
+            transform: `translateY(${(1 - e) * 40 + flotte - s * 30}px) scale(${0.6 + 0.4 * Math.min(e, 1.04)})`,
+            transformOrigin: "left top",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+            <span style={{ fontFamily: FONT, fontWeight: 800, fontSize: 150, lineHeight: 1, color: C.or, letterSpacing: -4 }}>{n}</span>
+            <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: 56, color: C.blanc }}>{unite}</span>
+          </div>
+          <div style={{ fontFamily: FONT, fontWeight: 500, fontSize: 32, color: C.blanc, opacity: 0.9, marginTop: 4 }}>{legende}</div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (style === "manuscrit") {
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div
+          style={{
+            position: "absolute",
+            top,
+            left: 70,
+            opacity: Math.min(1, e * 1.4) * (1 - s),
+            transform: `translateY(${(1 - e) * 40 + flotte - s * 30}px) rotate(-3deg)`,
+            transformOrigin: "left top",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+            <span style={{ fontFamily: FONT, fontWeight: 800, fontSize: 170, lineHeight: 1, color: C.or, letterSpacing: -5, textShadow: OMBRE }}>{n}</span>
+            <span style={{ fontFamily: "Allison, cursive", fontSize: 130, color: C.blanc, textShadow: OMBRE, lineHeight: 0.8 }}>{unite}</span>
+          </div>
+          <svg width={360} height={34} viewBox="0 0 360 34" style={{ display: "block" }}>
+            <path d="M6 22 C 100 6, 230 6, 354 18" fill="none" stroke={C.or} strokeWidth={7} strokeLinecap="round" strokeDasharray={370} strokeDashoffset={370 * (1 - trait)} />
+          </svg>
+          <div style={{ fontFamily: FONT, fontWeight: 600, fontSize: 32, color: C.blanc, textShadow: OMBRE, marginTop: 4 }}>{legende}</div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (style === "surligne") {
+    const marq = interpolate(frame, [2, 14], [0, 1], { ...clamp, easing: ease });
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div style={{ position: "absolute", top, left: 60, opacity: 1 - s, transform: `rotate(-2.5deg) translateY(${flotte - s * 30}px)`, transformOrigin: "left top" }}>
+          <div style={{ position: "relative", display: "inline-block", padding: "6px 34px 14px" }}>
+            <div style={{ position: "absolute", inset: 0, background: C.or, borderRadius: 26, transform: `scaleX(${marq})`, transformOrigin: "left center" }} />
+            <div style={{ position: "relative", display: "flex", alignItems: "baseline", gap: 12, opacity: interpolate(frame, [8, 14], [0, 1], clamp) }}>
+              <span style={{ fontFamily: FONT, fontWeight: 800, fontSize: 150, lineHeight: 1, color: C.marine, letterSpacing: -4 }}>{n}</span>
+              <span style={{ fontFamily: FONT, fontWeight: 800, fontSize: 56, color: C.marine }}>{unite}</span>
+            </div>
+          </div>
+          <div style={{ fontFamily: FONT, fontWeight: 600, fontSize: 32, color: C.blanc, textShadow: OMBRE, marginTop: 10, padding: "0 16px" }}>{legende}</div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <div
