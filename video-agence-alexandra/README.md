@@ -26,7 +26,7 @@ Alexandra, son parcours et sa vision du métier (aucun passage d'interview commu
 | 3 | Plan large, d'un seul tenant | « La proximité… vous n'êtes pas loin… j'aime bien avoir le contact humain » |
 | 4 | Fondu vers plan serré | « Mes valeurs, l'humanité, l'écoute » |
 | 5 | Plan large, d'un seul tenant | « Il vaut mieux être en communauté, pour faire nos forces entre nous » |
-| 6 | Plan large, d'un seul tenant jusqu'à la fin | « On se sent vraiment accompagné… on n'a pas le temps » → Loïc : « On est là pour ça… accompagner nos agences », puis l'image respire et fond vers l'écran de fin |
+| 6 | Plan large, d'un seul tenant jusqu'à la fin | « On se sent vraiment accompagné… on n'a pas le temps » → Loïc : « On est là pour ça… accompagner nos agences », puis arrêt sur image et fondu vers l'écran de fin |
 | 7 | Écran de fin sur fond ivoire | « Rejoignez le groupement », logo GNI bleu, agences immobilières indépendantes, site |
 
 Montage : passages laissés d'un seul tenant (pas de micro-coupes), fondus enchaînés entre plans de même cadrage, micro-fondus sonores de 2 images aux coupes.

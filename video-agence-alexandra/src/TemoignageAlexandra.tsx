@@ -1,9 +1,16 @@
 import React from "react";
-import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
+import { AbsoluteFill, Img, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
 import { Captions, EcranFinGroupementIvoire, LogoSignature, LowerThird, TitreAccroche } from "./Overlays";
 import { GROUPEMENT, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
+
+// Image figée avec un zoom très lent (1 → 1,03)
+const ArretSurImage: React.FC<{ src: string }> = ({ src }) => {
+  const frame = useCurrentFrame();
+  const s = interpolate(frame, [0, 26], [1, 1.03], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return <Img src={src} style={{ ...cover, position: "absolute", transform: `scale(${s})` }} />;
+};
 
 // Vidéo 2 — témoignage : « Pourquoi rejoindre un groupement ? »
 // Durées (images à 30 i/s)
@@ -60,10 +67,16 @@ export const TemoignageAlexandra: React.FC = () => {
         </Series.Sequence>
 
         {/* 6. Plan large, d'un seul tenant jusqu'à la fin : « accompagnée… on n'a pas le temps »
-             puis la réponse de Loïc « on est là pour ça… accompagner nos agences » ; le son s'éteint
-             juste après sa phrase, l'image continue et l'écran de fin arrive en fondu */}
+             puis la réponse de Loïc « on est là pour ça… accompagner nos agences » ; arrêt sur image
+             à la fin de sa phrase, et l'écran de fin arrive en fondu */}
         <Series.Sequence name="Fin de l'échange" durationInFrames={555} premountFor={fps}>
-          <Video src={MEDIA.accompagneFin} style={cover} volume={fades(555)} />
+          <Sequence name="Vidéo jusqu'à « nos agences »" durationInFrames={530} premountFor={fps}>
+            <Video src={MEDIA.accompagneFin} style={cover} volume={fades(530)} />
+          </Sequence>
+          {/* arrêt sur image à la fin de sa phrase (pas de lèvres qui bougent sans son), léger zoom */}
+          <Sequence name="Arrêt sur image" from={529} durationInFrames={26}>
+            <ArretSurImage src={MEDIA.arretFin} />
+          </Sequence>
           <Captions items={[...SOUS_TITRES.accompagneSuite, ...SOUS_TITRES.loicTemps]} offset={385.5} />
         </Series.Sequence>
       </Series>

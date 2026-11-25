@@ -29,6 +29,7 @@ export const MEDIA = {
   // témoignage
   proximiteSuite: staticFile("clips/proximite-suite.mp4"), // 257.62 → 265.95, d'un seul tenant
   communaute: staticFile("clips/communaute.mp4"), // 299.10 → 311.45, d'un seul tenant
+  arretFin: staticFile("medias/arret-fin-temoignage.jpg"), // image figée à 403,14 s (fin de « nos agences »)
   accompagneFin: staticFile("clips/accompagne-fin.mp4"), // 385.50 → 404.00, d'un seul tenant (son coupé après « nos agences »)
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
   communaute1: staticFile("clips/communaute1.mp4"), // 299.10
