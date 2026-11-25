@@ -82,13 +82,13 @@ export const AgenceAlexandra: React.FC = () => {
         <Series.Sequence name="Technologie" durationInFrames={287} premountFor={fps}>
           <Video src={MEDIA.technologie} style={cover} volume={fades(287)} />
           {/* changement de cadrage sans couper le son : plan serré sur Alexandra en cours de phrase */}
-          <Sequence name="Plan serré (même prise)" from={140} durationInFrames={135} premountFor={fps}>
+          <Sequence name="Plan serré (même prise)" from={140} durationInFrames={147} premountFor={fps}>
             <PlanSerre>
               <Video src={MEDIA.technologie} trimBefore={140} muted style={cover} />
             </PlanSerre>
           </Sequence>
           <Sequence name="Fondu vers plan serré" from={275} durationInFrames={12} premountFor={fps}>
-            <FonduPlanSerre duration={12}>
+            <FonduPlanSerre duration={12} zoom={false}>
               <PlanSerre>
                 <Video src={MEDIA.google} muted style={cover} />
               </PlanSerre>
