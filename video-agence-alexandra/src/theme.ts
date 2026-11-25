@@ -8,7 +8,7 @@ export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 // intro-loic = 20261119_105523 à 7,60 s, recadré sur Loïc (crop 720 × 1280 à 158,560) et éclairci ; les autres = 20261119_113537 (interview) à l'instant indiqué
 export const MEDIA = {
   intro: staticFile("clips/intro-loic.mp4"), // 7.60
-  introCourt: staticFile("clips/intro-loic-court.mp4"), // 10.04 (sans « Aujourd'hui, je me situe… »), recadré et éclairci
+  introCourt: staticFile("clips/intro-loic-court.mp4"), // 10.04 (sans « Aujourd'hui, je me situe… »), recadré, éclairci, dominante bleue corrigée
   debutLong: staticFile("clips/debut-long.mp4"), // 48.70 → 57.50 (« …16 ans négociatrice en immobilier VRP »)
   debut: staticFile("clips/debut.mp4"), // 48.70
   conseil: staticFile("clips/conseil.mp4"), // 136.05
