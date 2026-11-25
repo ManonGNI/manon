@@ -13,7 +13,7 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 // manuscrit : mot-clé manuscrit or (Allison) sans cadre, trait or courbe qui se dessine
 // surligne  : coup de surligneur or arrondi et légèrement incliné, texte marine
 export type StyleMD = "carre" | "doux" | "manuscrit" | "surligne";
-export const StyleMDContext = React.createContext<StyleMD>("doux");
+export const StyleMDContext = React.createContext<StyleMD>("surligne"); // style retenu
 const OMBRE = "0 2px 18px rgba(0,0,0,0.45), 0 0 3px rgba(0,0,0,0.3)";
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
 
@@ -304,6 +304,50 @@ export const DeuxAgences: React.FC<{ villes: [string, number][]; duration: numbe
   const { fps } = useVideoConfig();
   const e = useEntree();
   const s = useSortie(duration);
+  const style = useContext(StyleMDContext);
+  if (style === "surligne") {
+    const marq = interpolate(frame, [2, 14], [0, 1], { ...clamp, easing: ease });
+    return (
+      <AbsoluteFill style={{ pointerEvents: "none" }}>
+        <div style={{ position: "absolute", top, left: 60, opacity: 1 - s, transform: `translateY(${-s * 30}px)` }}>
+          <div style={{ transform: "rotate(-2.5deg)", transformOrigin: "left center" }}>
+            <div style={{ position: "relative", display: "inline-block", padding: "6px 32px 12px" }}>
+              <div style={{ position: "absolute", inset: 0, background: C.or, borderRadius: 24, transform: `scaleX(${marq})`, transformOrigin: "left center" }} />
+              <div style={{ position: "relative", display: "flex", alignItems: "baseline", gap: 14, opacity: interpolate(frame, [8, 14], [0, 1], clamp) }}>
+                <span style={{ fontFamily: FONT, fontWeight: 800, fontSize: 100, lineHeight: 1, color: C.marine }}>2</span>
+                <span style={{ fontFamily: FONT, fontWeight: 800, fontSize: 56, color: C.marine }}>agences</span>
+              </div>
+            </div>
+          </div>
+          {villes.map(([ville, apparition], i) => {
+            const p = spring({ frame: frame - apparition, fps, config: { damping: 11, stiffness: 190, mass: 0.6 } });
+            return (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  marginTop: 14,
+                  marginLeft: 8 + i * 30,
+                  width: "fit-content",
+                  background: C.blanc,
+                  borderRadius: 40,
+                  padding: "10px 26px 12px 18px",
+                  opacity: Math.min(1, p * 1.5),
+                  transform: `translateY(${(1 - p) * 30}px) scale(${0.7 + 0.3 * Math.min(p, 1.06)}) rotate(-1.5deg)`,
+                  transformOrigin: "left center",
+                }}
+              >
+                <div style={{ width: 16, height: 16, borderRadius: 8, background: C.or }} />
+                <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: 38, color: C.marine }}>{ville}</span>
+              </div>
+            );
+          })}
+        </div>
+      </AbsoluteFill>
+    );
+  }
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <div
@@ -367,6 +411,7 @@ export const Reseau: React.FC<{ mode: "isolee" | "reseau"; texte: string; durati
   const e = useEntree();
   const s = useSortie(duration);
   const pulse = 1 + 0.12 * Math.sin(frame / 4);
+  const style = useContext(StyleMDContext);
   const H = 430; // panneau compact : ne couvre pas le visage en plan serré
   return (
     <AbsoluteFill style={{ pointerEvents: "none", opacity: 1 - s }}>
@@ -377,8 +422,9 @@ export const Reseau: React.FC<{ mode: "isolee" | "reseau"; texte: string; durati
           left: 40,
           right: 40,
           height: H,
-          background: `rgba(43, 66, 88, 0.92)`,
-          clipPath: `inset(0 0 ${(1 - Math.min(e, 1)) * 100}% 0)`,
+          background: `rgba(43, 66, 88, 0.9)`,
+          borderRadius: style === "carre" ? 0 : 44,
+          clipPath: `inset(0 0 ${(1 - Math.min(e, 1)) * 100}% 0 round ${style === "carre" ? 0 : 44}px)`,
         }}
       >
         <svg width={1000} height={H - 80} viewBox="20 120 1040 420" style={{ position: "absolute", top: 0, left: 0 }}>
