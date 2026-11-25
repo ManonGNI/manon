@@ -817,8 +817,8 @@ export const BandeauSignature: React.FC<{
         >
           {monogramme === "gni" ? (
             <svg viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`} width={COTE * 0.62} height={(COTE * 0.62 * SIGLE.h) / SIGLE.w}>
-              <path d={SIGLE.gPath} fill={C.marine} />
-              <path d={SIGLE.barPath} fill={C.blanc} />
+              <path d={SIGLE.gPath} fill={C.blanc} />
+              <path d={SIGLE.barPath} fill={C.or} />
             </svg>
           ) : (
             <Img src={monogramme} style={{ width: COTE * 0.8, height: COTE * 0.8, objectFit: "contain" }} />

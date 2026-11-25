@@ -44,7 +44,7 @@ export const MEDIA = {
 
 // Bandeaux « signature » (nom + fonction)
 export const SIGNATURES = {
-  loic: { nom: "Loïc Fauchet", fonction: "Conseiller au Groupe National Immobilier", monogramme: "gni" as const, fondCarre: "#D9AE57" },
+  loic: { nom: "Loïc Fauchet", fonction: "Conseiller au Groupe National Immobilier", monogramme: "gni" as const, fondCarre: "#2B4258" },
   alexandra: {
     nom: "Alexandra Gameiro",
     fonction: "Dirigeante d’Alexandra l’Immobilier en Provence",
