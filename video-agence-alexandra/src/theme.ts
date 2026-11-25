@@ -39,10 +39,17 @@ export const MEDIA = {
   logoBlanc: staticFile("medias/logo-gni-blanc.png"),
   logoBleu: staticFile("medias/logo-gni-bleu.png"),
   fondAlexandra: staticFile("medias/fond-alexandra.jpg"), // photo d'Alexandra (interview, 126,5 s) pour l'écran de fin « photo »
+  facadeAlexandra: staticFile("medias/facade-alexandra.jpg"), // façade de l'agence (rush de Loïc, avant son entrée)
   logoAlexandra: staticFile("medias/logo-alexandra-transparent.png"), // logo officiel de l'agence, recadré, fond crème rendu transparent, 1082 × 785
 };
 
-// Bandeaux « signature » (nom + fonction)
+// Bandeaux nom de la rubrique « Portrait d'agence »
+export const BANDEAUX = {
+  loic: { prenom: "Loïc", nom: "Fauchet", structure: "Conseiller · Groupe National Immobilier" },
+  alexandra: { prenom: "Alexandra", nom: "Gameiro", structure: "Dirigeante · Alexandra l’Immobilier" },
+};
+
+// Bandeaux « signature » (nom + fonction) — version précédente
 export const SIGNATURES = {
   loic: { nom: "Loïc Fauchet", fonction: "Conseiller au Groupe National Immobilier", monogramme: "gni" as const, fondCarre: "#2B4258" },
   alexandra: {

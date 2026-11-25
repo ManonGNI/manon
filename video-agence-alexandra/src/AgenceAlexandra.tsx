@@ -1,10 +1,10 @@
 import React from "react";
 import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { AccrocheXXL, Captions, EcranFinPartenaire, LogoSignature, BandeauSignature } from "./Overlays";
-import { MEDIA, SIGNATURES, SOUS_TITRES } from "./theme";
+import { Captions } from "./Overlays";
+import { BandeauRubrique, FicheChiffre, FicheEtiquettes, FinRubrique, OuverturePortrait } from "./Rubrique";
+import { BANDEAUX, MEDIA, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
-import { ChiffreCle, DeuxAgences, MotCle } from "./MotionDesign";
 
 // Vidéo 1 — Bienvenue à l'agence : Alexandra, son parcours et sa vision du métier
 // Durées (images à 30 i/s)
@@ -117,66 +117,56 @@ export const AgenceAlexandra: React.FC = () => {
       </Series>
 
       {/* Accroche XXL d'ouverture + mention de série */}
-      <Sequence name="Accroche" durationInFrames={105}>
-        <AccrocheXXL
-          lignes={[[["Bienvenue à"]], [["Alexandra", true]], [["l’Immobilier"]], [["en Provence"]]]}
-          mention="Rencontre avec Alexandra · 1/2"
-          duration={105}
+      {/* ===== Rubrique « Portrait d'agence » ===== */}
+      {/* Fiches d'information (haut, centré) */}
+      <Sequence name="Fiche : 2 agences" from={262} durationInFrames={42}>
+        <FicheChiffre valeur={2} libelle="agences" duration={42} />
+      </Sequence>
+      <Sequence name="Fiche : implantations" from={300} durationInFrames={81}>
+        <FicheEtiquettes titre="Implantations" items={[["Pernes-les-Fontaines", 6], ["Beaumes-de-Venise", 56]]} duration={81} />
+      </Sequence>
+      <Sequence name="Fiche : 25 ans" from={470} durationInFrames={110}>
+        <FicheChiffre valeur={25} libelle="ans d’immobilier" duration={110} />
+      </Sequence>
+      <Sequence name="Fiche : 16 ans" from={584} durationInFrames={108}>
+        <FicheChiffre valeur={16} libelle="ans négociatrice VRP" duration={108} />
+      </Sequence>
+      <Sequence name="Fiche : valeurs" from={745} durationInFrames={205}>
+        <FicheEtiquettes titre="Ses valeurs" items={[["Service", 0], ["Conseil", 21], ["Écoute du client", 143]]} duration={205} />
+      </Sequence>
+      <Sequence name="Fiche : lien humain" from={1052} durationInFrames={190}>
+        <FicheEtiquettes titre="Sa vision" items={[["Le lien humain", 0], ["face à la technologie", 140]]} duration={190} />
+      </Sequence>
+      <Sequence name="Fiche : main dans la main" from={1336} durationInFrames={92}>
+        <FicheEtiquettes titre="L’esprit du Groupe" items={[["Main dans la main", 0]]} duration={92} />
+      </Sequence>
+
+      {/* Bandeaux nom */}
+      <Sequence name="Bandeau Loïc" from={82} durationInFrames={110}>
+        <BandeauRubrique {...BANDEAUX.loic} duration={110} />
+      </Sequence>
+      <Sequence name="Bandeau Alexandra" from={D.intro + D.qDebut + 6} durationInFrames={150}>
+        <BandeauRubrique {...BANDEAUX.alexandra} duration={150} />
+      </Sequence>
+
+      {/* Ouverture « Portrait d'agence » (le son de Loïc continue dessous) */}
+      <Sequence name="Ouverture" durationInFrames={80}>
+        <OuverturePortrait
+          photo={MEDIA.facadeAlexandra}
+          surtitre="PORTRAIT D’AGENCE"
+          titre="Alexandra"
+          sousTitre="Agence partenaire · Vaucluse"
+          duration={80}
         />
       </Sequence>
 
-      {/* ===== Motion design sur les informations clés ===== */}
-      {/* « deux agences » (Loïc, 18,86 s) puis les villes quand il les nomme */}
-      <Sequence name="MD : 2 agences" from={262} durationInFrames={119}>
-        <DeuxAgences villes={[["Pernes-les-Fontaines", 42], ["Beaumes-de-Venise", 92]]} duration={119} top={560} />
-      </Sequence>
-      {/* « il y a 25 ans » : compteur */}
-      <Sequence name="MD : 25 ans" from={470} durationInFrames={110}>
-        <ChiffreCle valeur={25} unite="ans" legende="dans l’immobilier" duration={110} />
-      </Sequence>
-      {/* « 16 ans négociatrice » */}
-      <Sequence name="MD : 16 ans" from={584} durationInFrames={108}>
-        <ChiffreCle valeur={16} unite="ans" legende="négociatrice VRP" duration={108} />
-      </Sequence>
-      {/* « le service et le conseil » */}
-      <Sequence name="MD : Service" from={745} durationInFrames={60}>
-        <MotCle texte="Service" duration={60} top={170} />
-      </Sequence>
-      <Sequence name="MD : Conseil" from={766} durationInFrames={84}>
-        <MotCle texte="Conseil" duration={84} top={290} />
-      </Sequence>
-      {/* « savoir écouter le projet du client » */}
-      <Sequence name="MD : Écoute" from={888} durationInFrames={70}>
-        <MotCle texte="À l’écoute" sousTexte="du projet client" duration={70} top={170} />
-      </Sequence>
-      {/* « renforcer ce lien-là » face à la technologie */}
-      <Sequence name="MD : Lien humain" from={1052} durationInFrames={140}>
-        <MotCle texte="Le lien humain" sousTexte="face à la technologie" duration={140} top={170} />
-      </Sequence>
-      <Sequence name="MD : Google IA" from={1258} durationInFrames={40}>
-        <MotCle texte="Google · IA" duration={40} top={300} cote="droite" />
-      </Sequence>
-      {/* Loïc : « main dans la main » */}
-      <Sequence name="MD : Main dans la main" from={1336} durationInFrames={92}>
-        <MotCle texte="Main dans la main" duration={92} top={300} cote="droite" />
-      </Sequence>
-
-      {/* Bandeaux nom / fonction */}
-      <Sequence name="Bandeau Loïc" from={100} durationInFrames={110}>
-        <BandeauSignature {...SIGNATURES.loic} duration={110} />
-      </Sequence>
-      {/* Alexandra : dès sa première réponse (plan serré), bandeau sur le buste */}
-      <Sequence name="Bandeau Alexandra" from={D.intro + D.qDebut + 6} durationInFrames={150}>
-        <BandeauSignature {...SIGNATURES.alexandra} duration={150} />
-      </Sequence>
-
-      {/* Logo signature bleu en haut à droite, à partir de l'interview (peu lisible sur la façade) */}
-      <Sequence name="Logo signature" from={D.intro} durationInFrames={FIN_START - D.intro}>
-        <LogoSignature duration={FIN_START - D.intro} variante="bleu" />
-      </Sequence>
-
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
-        <EcranFinPartenaire variante="ivoire" logoAgence={MEDIA.logoAlexandra} ratioLogo={1082 / 785} />
+        <FinRubrique
+          photo={MEDIA.facadeAlexandra}
+          surtitre="Agence partenaire du Groupe National Immobilier"
+          titre="Alexandra"
+          sousTitre="L’Immobilier en Provence · Vaucluse"
+        />
       </Sequence>
     </AbsoluteFill>
   );
