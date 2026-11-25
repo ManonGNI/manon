@@ -603,3 +603,127 @@ export const EcranFinGroupementIvoire: React.FC<{ accroche: string; lignes: stri
     </AbsoluteFill>
   );
 };
+
+// Accroche du témoignage — variantes modernes
+// xxl   : grandes lettres blanches sur l'image (dégradé sombre en haut), « Pourquoi » manuscrit or, mots clés en or
+// mot   : la question apparaît mot à mot, surlignage or sur le mot clé (même langage que les sous-titres)
+// carte : carte ivoire, texte marine, trait or qui se dessine
+export type VarianteAccroche = "xxl" | "mot" | "carte";
+export const AccrocheModerne: React.FC<{ variante: VarianteAccroche; duration: number }> = ({ variante, duration }) => {
+  const frame = useCurrentFrame();
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const prog = (d: number, len = 14) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(frame, [duration - 10, duration], [1, 0], clamp);
+
+  if (variante === "xxl") {
+    const ligne = (d: number): React.CSSProperties => ({
+      opacity: prog(d),
+      transform: `translateY(${(1 - prog(d, 16)) * 40}px)`,
+      filter: `blur(${(1 - prog(d, 12)) * 8}px)`,
+    });
+    return (
+      <AbsoluteFill style={{ opacity: out }}>
+        <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(20,30,42,0.62) 0%, rgba(20,30,42,0.25) 30%, rgba(20,30,42,0) 42%)" }} />
+        <div style={{ position: "absolute", top: 150, left: 72, right: 60, color: C.blanc, textShadow: "0 2px 14px rgba(0,0,0,0.35)" }}>
+          <div style={{ fontFamily: "Allison, cursive", fontSize: 130, lineHeight: 0.9, color: C.or, ...ligne(2) }}>Pourquoi</div>
+          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 92, lineHeight: 1.0, letterSpacing: -2.5, marginTop: 6, ...ligne(8) }}>
+            Alexandra a rejoint
+          </div>
+          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 92, lineHeight: 1.05, letterSpacing: -2.5, ...ligne(14) }}>
+            <span style={{ color: C.or }}>notre Groupe</span> ?
+          </div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
+  if (variante === "mot") {
+    const mots: [string, boolean][] = [
+      ["Pourquoi", false], ["Alexandra", false], ["a", false], ["rejoint", false], ["notre", true], ["Groupe\u00a0?", true],
+    ];
+    return (
+      <AbsoluteFill style={{ opacity: out }}>
+        <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(20,30,42,0.45) 0%, rgba(20,30,42,0) 35%)" }} />
+        <div
+          style={{
+            position: "absolute",
+            top: 190,
+            left: 70,
+            right: 70,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            rowGap: 10,
+            fontFamily: FONT,
+            fontWeight: 800,
+            fontSize: 80,
+            lineHeight: 1.12,
+            letterSpacing: -1.5,
+            color: C.blanc,
+            textShadow: "0 2px 12px rgba(0,0,0,0.45)",
+          }}
+        >
+          {mots.map(([m, cle], i) => {
+            const p = prog(3 + i * 4, 8);
+            const surl = cle ? prog(3 + 5 * 4, 8) : 0;
+            return (
+              <span
+                key={i}
+                style={{
+                  position: "relative",
+                  padding: "0 14px 6px",
+                  opacity: p,
+                  transform: `scale(${0.7 + 0.3 * p})`,
+                  display: "inline-block",
+                }}
+              >
+                {cle ? (
+                  <span
+                    style={{
+                      position: "absolute",
+                      inset: "4px 2px 0",
+                      background: C.or,
+                      borderRadius: 10,
+                      transform: `scaleX(${surl})`,
+                      transformOrigin: "left center",
+                    }}
+                  />
+                ) : null}
+                <span style={{ position: "relative" }}>{m}</span>
+              </span>
+            );
+          })}
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
+  // carte ivoire
+  const carte = prog(2, 16);
+  const trait = prog(16, 18);
+  return (
+    <AbsoluteFill style={{ opacity: out }}>
+      <div
+        style={{
+          position: "absolute",
+          top: 170,
+          left: 60,
+          right: 60,
+          background: IVOIRE,
+          borderRadius: 6,
+          padding: "40px 46px 44px",
+          opacity: carte,
+          transform: `translateY(${(1 - carte) * -30}px)`,
+        }}
+      >
+        <div style={{ fontFamily: "Allison, cursive", fontSize: 96, lineHeight: 0.9, color: C.or }}>Pourquoi</div>
+        <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 70, lineHeight: 1.08, letterSpacing: -1.5, color: C.marine, marginTop: 4 }}>
+          Alexandra a rejoint
+          <br />
+          notre Groupe ?
+        </div>
+        <div style={{ width: 160 * trait, height: 6, borderRadius: 3, background: C.or, marginTop: 24 }} />
+      </div>
+    </AbsoluteFill>
+  );
+};
