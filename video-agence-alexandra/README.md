@@ -17,7 +17,7 @@ Alexandra, son parcours et sa vision du métier (aucun passage d'interview commu
 | 6 | Plan large | « Merci, Alexandra » → « Merci au groupement, merci à tous les adhérents » |
 | 7 | Écran de fin « agence partenaire » sur fond ivoire | « Bienvenue à », logo d'Alexandra, filet or, « Agence partenaire du » (italique) + logo GNI bleu |
 
-## Vidéo 2 — Témoignage « Pourquoi rejoindre un groupement ? » (`TemoignageAlexandra`, ~40 s)
+## Vidéo 2 — Témoignage « Pourquoi rejoindre un groupement ? » (`TemoignageAlexandra`, ~49 s)
 
 | # | Plan | Contenu |
 |---|---|---|
@@ -26,8 +26,9 @@ Alexandra, son parcours et sa vision du métier (aucun passage d'interview commu
 | 3 | Plan large | « La proximité, j'aime bien avoir le contact humain » |
 | 4 | Fondu vers plan serré | « Mes valeurs, l'humanité, l'écoute » |
 | 5 | Plan large puis serré | « Il vaut mieux être en communauté, pour faire nos forces entre nous » |
-| 6 | Plan large | « On se sent vraiment accompagné… esprit avant-gardiste » |
-| 7 | Écran de fin marine animé | « Rejoignez le groupement », agences immobilières indépendantes, site, logo GNI |
+| 6 | Plan large | « On se sent vraiment accompagné… esprit avant-gardiste… on n'a pas le temps » |
+| 7 | Loïc en plan serré | « On est là pour ça, et on prend du temps pour accompagner nos agences » |
+| 8 | Écran de fin marine animé | « Rejoignez le groupement », agences immobilières indépendantes, site, logo GNI |
 
 ## Fichiers
 

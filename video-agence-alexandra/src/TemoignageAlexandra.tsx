@@ -7,9 +7,9 @@ import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
 // Vidéo 2 — témoignage : « Pourquoi rejoindre un groupement ? »
 // Durées (images à 30 i/s)
-const D = { accroche: 172, qGroupement: 36, proximite: 44, humain: 81, valeurs: 180, communaute1: 213, communaute2: 120, accompagne: 79, avantgarde: 136, fin: 135 };
-const FIN_START = D.accroche + D.qGroupement + D.proximite + D.humain + D.valeurs + D.communaute1 + D.communaute2 + D.accompagne + D.avantgarde; // 1061
-export const DUREE_TEMOIGNAGE = FIN_START + D.fin; // 1196
+const D = { accroche: 172, qGroupement: 36, proximite: 44, humain: 81, valeurs: 180, communaute1: 213, communaute2: 120, accompagne: 79, avantgardeSuite: 254, loicTemps: 153, fin: 135 };
+const FIN_START = D.accroche + D.qGroupement + D.proximite + D.humain + D.valeurs + D.communaute1 + D.communaute2 + D.accompagne + D.avantgardeSuite + D.loicTemps; // 1332
+export const DUREE_TEMOIGNAGE = FIN_START + D.fin; // 1467
 
 export const TemoignageAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -74,9 +74,17 @@ export const TemoignageAlexandra: React.FC = () => {
           <Video src={MEDIA.accompagne} trimBefore={12} style={cover} volume={fades(79)} />
           <Captions items={SOUS_TITRES.accompagne} offset={385.5} />
         </Series.Sequence>
-        <Series.Sequence name="Avant-gardiste" durationInFrames={136} premountFor={fps}>
-          <Video src={MEDIA.avantgarde} style={cover} volume={fades(136)} />
-          <Captions items={SOUS_TITRES.avantgarde} offset={389.5} />
+        <Series.Sequence name="Avant-gardiste" durationInFrames={254} premountFor={fps}>
+          <Video src={MEDIA.avantgardeSuite} style={cover} volume={fades(254)} />
+          <Captions items={SOUS_TITRES.avantgardeSuite} offset={389.5} />
+        </Series.Sequence>
+
+        {/* 7. Loïc (plan serré) : « On est là pour ça… accompagner nos agences » */}
+        <Series.Sequence name="Réponse Loïc" durationInFrames={153} premountFor={fps}>
+          <PlanSerre sur="loic">
+            <Video src={MEDIA.loicTemps} style={cover} volume={fades(153)} />
+          </PlanSerre>
+          <Captions items={SOUS_TITRES.loicTemps} offset={398.02} />
         </Series.Sequence>
       </Series>
 

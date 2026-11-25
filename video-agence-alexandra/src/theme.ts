@@ -27,6 +27,8 @@ export const MEDIA = {
   loicConclusion: staticFile("clips/loic-conclusion.mp4"), // 403.15 (Loïc)
   merciFinal: staticFile("clips/merci-final.mp4"), // 411.40
   // témoignage
+  avantgardeSuite: staticFile("clips/avantgarde-suite.mp4"), // 389.50 → « on n'a pas le temps »
+  loicTemps: staticFile("clips/loic-temps.mp4"), // 398.02 (Loïc : « on est là pour ça »)
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
   communaute1: staticFile("clips/communaute1.mp4"), // 299.10
   communaute2: staticFile("clips/communaute2.mp4"), // 307.45
@@ -180,5 +182,18 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
     [["Merci", 412.45, 412.73], ["à", 412.73, 412.91], ["vous", 412.91, 413.15], ["et", 413.15, 413.27], ["merci", 413.27, 413.49], ["au", 413.49, 413.67]],
     [["groupement.", 413.67, 414.07]],
     [["Merci", 414.23, 414.51], ["à", 414.51, 414.67], ["tous", 414.67, 414.73], ["les", 414.73, 414.93], ["adhérents.", 414.93, 415.31]],
+  ],
+  avantgardeSuite: [
+    [["Et", 389.57, 389.75], ["il", 389.75, 389.75], ["y", 389.75, 389.75], ["a", 389.75, 390.03], ["cet", 390.03, 390.29], ["esprit", 390.29, 390.65], ["aussi", 390.65, 391.43]],
+    [["avant-gardiste", 391.43, 392.07], ["que", 392.07, 392.81], ["j’apprécie", 392.81, 393.45]],
+    [["énormément", 393.45, 394.03], ["parce", 394.03, 394.41], ["que", 394.41, 394.53], ["nous,", 394.53, 394.71]],
+    [["effectivement,", 394.99, 395.31]],
+    [["on", 395.99, 396.07], ["n’y", 396.07, 396.19], ["pense", 396.19, 396.33], ["pas", 396.33, 396.51], ["toujours.", 396.51, 396.71]],
+    [["On", 397.21, 397.47], ["n’a", 397.47, 397.61], ["pas", 397.61, 397.73], ["le", 397.73, 397.83], ["temps.", 397.83, 397.93]],
+  ],
+  loicTemps: [
+    [["On", 398.07, 398.17], ["est", 398.17, 398.31], ["là", 398.31, 398.45], ["pour", 398.45, 398.65], ["ça,", 398.65, 399.01], ["et", 399.01, 399.19], ["on", 399.19, 399.39]],
+    [["prend", 399.39, 399.57], ["du", 399.57, 399.75], ["temps", 399.75, 399.97], ["pour", 399.97, 400.21], ["ça", 400.21, 400.45]],
+    [["et", 400.45, 400.59], ["on", 400.59, 400.73], ["prend", 400.73, 400.93], ["du", 400.93, 401.07], ["temps", 401.07, 401.25], ["pour", 401.25, 401.65], ["accompagner", 401.65, 402.19], ["nos", 402.19, 402.43], ["agences.", 402.43, 403.15]],
   ],
 };
