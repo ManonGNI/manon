@@ -783,7 +783,7 @@ export const AccrocheXXL: React.FC<{ lignes: SegmentAccroche[][]; mention?: stri
 };
 
 // Bandeau nom / fonction façon « carte de visite éditoriale » : carré de couleur avec monogramme,
-// nom en capitales condensées sur barre blanche, fonction en italique à empattements sur une 2e barre
+// nom en Montserrat ExtraBold capitales sur barre blanche, fonction en Montserrat italique sur une 2e barre (charte GNI)
 export const BandeauSignature: React.FC<{
   nom: string;
   fonction: string;
@@ -833,7 +833,7 @@ export const BandeauSignature: React.FC<{
               clipPath: `inset(0 ${(1 - barreNom) * 100}% 0 0)`,
             }}
           >
-            <div style={{ fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 54, lineHeight: 1.05, letterSpacing: 0.5, color: "#141414", textTransform: "uppercase" }}>
+            <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 48, lineHeight: 1.1, letterSpacing: -0.5, color: C.marine, textTransform: "uppercase" }}>
               {nom}
             </div>
           </div>
@@ -845,7 +845,7 @@ export const BandeauSignature: React.FC<{
               clipPath: `inset(0 ${(1 - barreFonction) * 100}% 0 0)`,
             }}
           >
-            <div style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500, fontSize: 26, lineHeight: 1.1, color: "#141414", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+            <div style={{ fontFamily: FONT, fontStyle: "italic", fontWeight: 500, fontSize: 24, lineHeight: 1.15, color: C.marine, textTransform: "uppercase", whiteSpace: "nowrap" }}>
               {fonction}
             </div>
           </div>
