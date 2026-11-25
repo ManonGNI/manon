@@ -76,7 +76,7 @@ export const TemoignageAlexandra: React.FC = () => {
 
       {/* Accroche en haut, puis bandeau d'Alexandra (sur le buste, plan serré) */}
       <Sequence name="Titre accroche" durationInFrames={95}>
-        <TitreAccroche lignes={["Pourquoi rejoindre", "un groupement ?"]} duration={95} />
+        <TitreAccroche lignes={["Pourquoi Alexandra", "a rejoint notre Groupe ?"]} duration={95} />
       </Sequence>
       <Sequence name="Bandeau Alexandra" from={88} durationInFrames={84}>
         <LowerThird {...PERSONNES.alexandra} duration={84} />
