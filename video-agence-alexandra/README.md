@@ -21,7 +21,7 @@ Alexandra, son parcours et sa vision du métier (aucun passage d'interview commu
 
 | # | Plan | Contenu |
 |---|---|---|
-| 1 | Plan serré, titre « Pourquoi Alexandra a rejoint notre Groupe ? » | « Une agence isolée, seule dans son coin, ce n'est plus d'actualité » |
+| 1 | Plan serré, accroche typographique XXL « Pourquoi Alexandra a rejoint notre Groupe ? » | « Une agence isolée, seule dans son coin, ce n'est plus d'actualité » |
 | 2 | Loïc en plan serré | « Pourquoi avoir rejoint le groupement ? » |
 | 3 | Plan large, d'un seul tenant | « La proximité… vous n'êtes pas loin… j'aime bien avoir le contact humain » |
 | 4 | Fondu vers plan serré | « Mes valeurs, l'humanité, l'écoute » |

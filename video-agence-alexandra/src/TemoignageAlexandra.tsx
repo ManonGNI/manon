@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Img, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { Captions, EcranFinGroupementIvoire, LogoSignature, LowerThird, TitreAccroche } from "./Overlays";
+import { AccrocheModerne, Captions, EcranFinGroupementIvoire, LogoSignature, LowerThird } from "./Overlays";
 import { GROUPEMENT, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
@@ -81,9 +81,9 @@ export const TemoignageAlexandra: React.FC = () => {
         </Series.Sequence>
       </Series>
 
-      {/* Accroche en haut, puis bandeau d'Alexandra (sur le buste, plan serré) */}
+      {/* Accroche typographique XXL en haut, puis bandeau d'Alexandra (sur le buste, plan serré) */}
       <Sequence name="Titre accroche" durationInFrames={95}>
-        <TitreAccroche lignes={["Pourquoi Alexandra", "a rejoint notre Groupe ?"]} duration={95} />
+        <AccrocheModerne variante="xxl" duration={95} />
       </Sequence>
       <Sequence name="Bandeau Alexandra" from={88} durationInFrames={84}>
         <LowerThird {...PERSONNES.alexandra} duration={84} />

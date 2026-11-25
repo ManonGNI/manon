@@ -605,7 +605,7 @@ export const EcranFinGroupementIvoire: React.FC<{ accroche: string; lignes: stri
 };
 
 // Accroche du témoignage — variantes modernes
-// xxl   : grandes lettres blanches sur l'image (dégradé sombre en haut), « Pourquoi » manuscrit or, mots clés en or
+// xxl   : grandes lettres blanches sur l'image (dégradé sombre en haut), une seule typo, mots clés en or
 // mot   : la question apparaît mot à mot, surlignage or sur le mot clé (même langage que les sous-titres)
 // carte : carte ivoire, texte marine, trait or qui se dessine
 export type VarianteAccroche = "xxl" | "mot" | "carte";
@@ -624,9 +624,9 @@ export const AccrocheModerne: React.FC<{ variante: VarianteAccroche; duration: n
     return (
       <AbsoluteFill style={{ opacity: out }}>
         <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(20,30,42,0.62) 0%, rgba(20,30,42,0.25) 30%, rgba(20,30,42,0) 42%)" }} />
-        <div style={{ position: "absolute", top: 150, left: 72, right: 60, color: C.blanc, textShadow: "0 2px 14px rgba(0,0,0,0.35)" }}>
-          <div style={{ fontFamily: "Allison, cursive", fontSize: 130, lineHeight: 0.9, color: C.or, ...ligne(2) }}>Pourquoi</div>
-          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 92, lineHeight: 1.0, letterSpacing: -2.5, marginTop: 6, ...ligne(8) }}>
+        <div style={{ position: "absolute", top: 96, left: 72, right: 60, color: C.blanc, textShadow: "0 2px 14px rgba(0,0,0,0.35)" }}>
+          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 92, lineHeight: 1.05, letterSpacing: -2.5, ...ligne(2) }}>Pourquoi</div>
+          <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 92, lineHeight: 1.05, letterSpacing: -2.5, ...ligne(8) }}>
             Alexandra a rejoint
           </div>
           <div style={{ fontFamily: FONT, fontWeight: 800, fontSize: 92, lineHeight: 1.05, letterSpacing: -2.5, ...ligne(14) }}>
