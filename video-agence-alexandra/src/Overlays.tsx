@@ -549,3 +549,57 @@ export const EcranFinPartenaire: React.FC<{
     </AbsoluteFill>
   );
 };
+
+// Écran de fin du témoignage sur fond ivoire : « Rejoignez le groupement », logo GNI bleu, cible et site
+export const EcranFinGroupementIvoire: React.FC<{ accroche: string; lignes: string[]; site: string }> = ({ accroche, lignes, site }) => {
+  const frame = useCurrentFrame();
+  const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  const prog = (d: number, len = 16) => interpolate(frame, [d, d + len], [0, 1], { ...clamp, easing: ease });
+  const bg = interpolate(frame, [0, 10], [0, 1], clamp);
+  const logo = prog(18, 24);
+  const filet = prog(36, 18);
+  const LARGEUR = 620;
+  const TOP_LOGO = 720;
+  const BAS_LOGO = TOP_LOGO + (LARGEUR * 1085) / 2000;
+  return (
+    <AbsoluteFill style={{ background: IVOIRE, opacity: bg, overflow: "hidden" }}>
+      <svg
+        viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
+        width={760}
+        height={(760 * SIGLE.h) / SIGLE.w}
+        style={{ position: "absolute", left: 600, top: 1320, opacity: prog(44, 30) }}
+      >
+        <path d={SIGLE.gPath} fill={C.marine} fillOpacity={0.05} />
+        <path d={SIGLE.barPath} fill={C.or} fillOpacity={0.35} />
+      </svg>
+      <Manuscrit texte={accroche} couleur={C.marine} reflet="#6C86A3" top={TOP_LOGO - 170} frame={frame} />
+      <Img
+        src={MEDIA.logoBleu}
+        style={{
+          position: "absolute",
+          top: TOP_LOGO,
+          left: (1080 - LARGEUR) / 2,
+          width: LARGEUR,
+          opacity: logo,
+          transform: `translateY(${(1 - logo) * 24}px) scale(${0.97 + 0.03 * logo})`,
+        }}
+      />
+      <div style={{ position: "absolute", top: BAS_LOGO + 70, left: 540 - 70 * filet, width: 140 * filet, height: 3, background: C.or }} />
+      <div
+        style={{
+          position: "absolute",
+          top: BAS_LOGO + 120,
+          width: "100%",
+          textAlign: "center",
+          fontFamily: FONT,
+          color: C.marine,
+          opacity: prog(44),
+          transform: `translateY(${(1 - prog(44)) * 16}px)`,
+        }}
+      >
+        <div style={{ fontWeight: 500, fontSize: 38, lineHeight: 1.3 }}>{lignes.join(" ")}</div>
+        <div style={{ fontWeight: 500, fontSize: 30, marginTop: 14, opacity: 0.7 }}>{site}</div>
+      </div>
+    </AbsoluteFill>
+  );
+};

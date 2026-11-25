@@ -1,15 +1,15 @@
 import React from "react";
 import { AbsoluteFill, Sequence, Series, useVideoConfig } from "remotion";
 import { Video } from "@remotion/media";
-import { Captions, EcranFin, LogoSignature, LowerThird, TitreAccroche } from "./Overlays";
+import { Captions, EcranFinGroupementIvoire, LogoSignature, LowerThird, TitreAccroche } from "./Overlays";
 import { GROUPEMENT, MEDIA, PERSONNES, SOUS_TITRES } from "./theme";
 import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 
 // Vidéo 2 — témoignage : « Pourquoi rejoindre un groupement ? »
 // Durées (images à 30 i/s)
-const D = { accroche: 172, qGroupement: 36, proximite: 44, humain: 81, valeurs: 180, communaute1: 213, communaute2: 120, accompagne: 79, avantgardeSuite: 254, loicTemps: 153, fin: 135 };
-const FIN_START = D.accroche + D.qGroupement + D.proximite + D.humain + D.valeurs + D.communaute1 + D.communaute2 + D.accompagne + D.avantgardeSuite + D.loicTemps; // 1332
-export const DUREE_TEMOIGNAGE = FIN_START + D.fin; // 1467
+const D = { accroche: 172, qGroupement: 36, proximite: 250, valeurs: 180, communaute: 371, accompagne: 374, loicTemps: 153, fin: 135 };
+const FIN_START = D.accroche + D.qGroupement + D.proximite + D.valeurs + D.communaute + D.accompagne + D.loicTemps; // 1536
+export const DUREE_TEMOIGNAGE = FIN_START + D.fin; // 1671
 
 export const TemoignageAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -32,21 +32,17 @@ export const TemoignageAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.qGroupement} offset={249.15} />
         </Series.Sequence>
 
-        {/* 3. Plan large : la proximité, le contact humain */}
-        <Series.Sequence name="Proximité" durationInFrames={44} premountFor={fps}>
-          <Video src={MEDIA.proximite} style={cover} volume={fades(44)} />
-          <Captions items={SOUS_TITRES.proximite} offset={257.62} />
-        </Series.Sequence>
-        <Series.Sequence name="Contact humain" durationInFrames={81} premountFor={fps}>
-          <Video src={MEDIA.humain} style={cover} volume={fades(81)} />
-          <Sequence name="Fondu vers plan serré" from={69} durationInFrames={12} premountFor={fps}>
+        {/* 3. Plan large, d'un seul tenant : la proximité, le contact humain ; fondu vers le plan serré */}
+        <Series.Sequence name="Proximité" durationInFrames={250} premountFor={fps}>
+          <Video src={MEDIA.proximiteSuite} style={cover} volume={fades(250)} />
+          <Sequence name="Fondu vers plan serré" from={238} durationInFrames={12} premountFor={fps}>
             <FonduPlanSerre duration={12}>
               <PlanSerre>
                 <Video src={MEDIA.valeurs} muted style={cover} />
               </PlanSerre>
             </FonduPlanSerre>
           </Sequence>
-          <Captions items={SOUS_TITRES.humain} offset={263.22} />
+          <Captions items={SOUS_TITRES.proximiteSuite} offset={257.62} />
         </Series.Sequence>
 
         {/* 4. Plan serré : les valeurs, l'écoute */}
@@ -57,26 +53,16 @@ export const TemoignageAlexandra: React.FC = () => {
           <Captions items={SOUS_TITRES.valeurs} offset={272.4} />
         </Series.Sequence>
 
-        {/* 5. Être en communauté : plan large puis plan serré */}
-        <Series.Sequence name="Communauté" durationInFrames={213} premountFor={fps}>
-          <Video src={MEDIA.communaute1} style={cover} volume={fades(213)} />
-          <Captions items={SOUS_TITRES.communaute1} offset={299.1} />
-        </Series.Sequence>
-        <Series.Sequence name="Nos forces" durationInFrames={120} premountFor={fps}>
-          <PlanSerre>
-            <Video src={MEDIA.communaute2} style={cover} volume={fades(120)} />
-          </PlanSerre>
-          <Captions items={SOUS_TITRES.communaute2} offset={307.45} />
+        {/* 5. Plan large, d'un seul tenant : être en communauté */}
+        <Series.Sequence name="Communauté" durationInFrames={371} premountFor={fps}>
+          <Video src={MEDIA.communaute} style={cover} volume={fades(371)} />
+          <Captions items={SOUS_TITRES.communaute} offset={299.1} />
         </Series.Sequence>
 
-        {/* 6. Plan large : accompagnée, esprit avant-gardiste */}
-        <Series.Sequence name="Accompagnée" durationInFrames={79} premountFor={fps}>
-          <Video src={MEDIA.accompagne} trimBefore={12} style={cover} volume={fades(79)} />
-          <Captions items={SOUS_TITRES.accompagne} offset={385.5} />
-        </Series.Sequence>
-        <Series.Sequence name="Avant-gardiste" durationInFrames={254} premountFor={fps}>
-          <Video src={MEDIA.avantgardeSuite} style={cover} volume={fades(254)} />
-          <Captions items={SOUS_TITRES.avantgardeSuite} offset={389.5} />
+        {/* 6. Plan large, d'un seul tenant : accompagnée, esprit avant-gardiste, « on n'a pas le temps » */}
+        <Series.Sequence name="Accompagnée" durationInFrames={374} premountFor={fps}>
+          <Video src={MEDIA.accompagneSuite} style={cover} volume={fades(374)} />
+          <Captions items={SOUS_TITRES.accompagneSuite} offset={385.5} />
         </Series.Sequence>
 
         {/* 7. Loïc (plan serré) : « On est là pour ça… accompagner nos agences » */}
@@ -101,7 +87,7 @@ export const TemoignageAlexandra: React.FC = () => {
       </Sequence>
 
       <Sequence name="Écran de fin" from={FIN_START - 8} durationInFrames={D.fin + 8}>
-        <EcranFin accroche={GROUPEMENT.accroche} nom={GROUPEMENT.lignes} villes={[GROUPEMENT.site]} tailleNom={74} />
+        <EcranFinGroupementIvoire accroche={GROUPEMENT.accroche} lignes={GROUPEMENT.lignes} site={GROUPEMENT.site} />
       </Sequence>
     </AbsoluteFill>
   );

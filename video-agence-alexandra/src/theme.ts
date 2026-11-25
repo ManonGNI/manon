@@ -20,13 +20,16 @@ export const MEDIA = {
   google: staticFile("clips/google.mp4"), // 160.60 (0,4 s d'amorce pour le fondu)
   journee: staticFile("clips/journee.mp4"), // 179.35
   service: staticFile("clips/service.mp4"), // 89.45
-  ecouter: staticFile("clips/ecouter.mp4"), // 122.95
+  ecouter: staticFile("clips/ecouter.mp4"), // 122.55 (0,4 s d'amorce pour le fondu)
   questionDebut: staticFile("clips/question-debut.mp4"), // 43.40 (Loïc)
   questionVibrer: staticFile("clips/question-vibrer.mp4"), // 46.58 (Loïc)
   questionGroupement: staticFile("clips/question-groupement.mp4"), // 249.15 (Loïc)
   loicConclusion: staticFile("clips/loic-conclusion.mp4"), // 403.15 (Loïc)
   merciFinal: staticFile("clips/merci-final.mp4"), // 411.40
   // témoignage
+  proximiteSuite: staticFile("clips/proximite-suite.mp4"), // 257.62 → 265.95, d'un seul tenant
+  communaute: staticFile("clips/communaute.mp4"), // 299.10 → 311.45, d'un seul tenant
+  accompagneSuite: staticFile("clips/accompagne-suite.mp4"), // 385.50 → 397.98, d'un seul tenant
   avantgardeSuite: staticFile("clips/avantgarde-suite.mp4"), // 389.50 → « on n'a pas le temps »
   loicTemps: staticFile("clips/loic-temps.mp4"), // 398.02 (Loïc : « on est là pour ça »)
   valeurs: staticFile("clips/valeurs.mp4"), // 272.00 (0,4 s d'amorce pour le fondu)
@@ -195,5 +198,33 @@ export const SOUS_TITRES: Record<string, Mot[][]> = {
     [["On", 398.07, 398.17], ["est", 398.17, 398.31], ["là", 398.31, 398.45], ["pour", 398.45, 398.65], ["ça,", 398.65, 399.01], ["et", 399.01, 399.19], ["on", 399.19, 399.39]],
     [["prend", 399.39, 399.57], ["du", 399.57, 399.75], ["temps", 399.75, 399.97], ["pour", 399.97, 400.21], ["ça", 400.21, 400.45]],
     [["et", 400.45, 400.59], ["on", 400.59, 400.73], ["prend", 400.73, 400.93], ["du", 400.93, 401.07], ["temps", 401.07, 401.25], ["pour", 401.25, 401.65], ["accompagner", 401.65, 402.19], ["nos", 402.19, 402.43], ["agences.", 402.43, 403.15]],
+  ],
+  proximiteSuite: [
+    [["La", 257.71, 258.05], ["proximité,", 258.05, 258.97]],
+    [["parce", 259.41, 259.57], ["que", 259.57, 259.65], ["c’est", 259.65, 259.75], ["vrai", 259.75, 259.79], ["que", 259.79, 259.93]],
+    [["vous", 259.93, 260.01], ["n’êtes", 260.01, 260.29], ["pas", 260.29, 260.49], ["loin", 260.49, 260.71], ["géographiquement.", 260.71, 261.53]],
+    [["Donc,", 262.07, 262.55], ["c’est", 262.55, 262.81], ["rassurant.", 262.81, 263.17]],
+    [["J’aime", 263.31, 263.45], ["bien", 263.45, 263.55], ["avoir", 263.55, 263.75], ["le", 263.75, 263.93], ["contact", 263.93, 264.17]],
+    [["humain", 264.17, 264.39], ["et", 264.39, 264.53], ["pour", 264.53, 264.65], ["moi,", 264.65, 264.87]],
+    [["c’est", 265.17, 265.19], ["important.", 265.19, 265.83]],
+  ],
+  communaute: [
+    [["On", 299.11, 299.49], ["a", 299.49, 299.59], ["un", 299.59, 299.75], ["métier", 299.75, 299.93], ["qui", 299.93, 300.17], ["a", 300.17, 300.27], ["énormément", 300.27, 300.67]],
+    [["évolué,", 300.67, 301.01], ["comme", 301.09, 301.25], ["beaucoup", 301.25, 301.63]],
+    [["de", 301.63, 301.85], ["métiers,", 301.85, 302.59], ["et", 302.93, 303.17], ["qu’il", 303.17, 303.39], ["vaut", 303.39, 303.51], ["mieux", 303.51, 303.77]],
+    [["être", 303.77, 304.77], ["en", 304.77, 305.43], ["communauté", 305.43, 306.09], ["pour", 307.53, 307.93]],
+    [["faire", 307.93, 308.11], ["nos", 308.11, 308.31], ["forces", 308.31, 308.53], ["entre", 308.53, 310.91], ["nous.", 310.91, 311.33]],
+  ],
+  accompagneSuite: [
+    [["Dans", 385.55, 385.69], ["le", 385.69, 385.81], ["Groupe", 385.81, 386.05], ["National", 386.05, 386.43]],
+    [["Immobilier,", 386.43, 386.77]],
+    [["on", 386.83, 386.87], ["se", 386.87, 387.03], ["sent", 387.03, 387.17], ["vraiment", 387.17, 387.69], ["accompagné.", 387.69, 388.17]],
+    [["C’est", 388.17, 388.31], ["gentil.", 388.31, 388.77]],
+    [["Et", 389.57, 389.75], ["il", 389.75, 389.75], ["y", 389.75, 389.75], ["a", 389.75, 390.03], ["cet", 390.03, 390.29], ["esprit", 390.29, 390.65], ["aussi", 390.65, 391.43]],
+    [["avant-gardiste", 391.43, 392.07], ["que", 392.07, 392.81], ["j’apprécie", 392.81, 393.45]],
+    [["énormément", 393.45, 394.03], ["parce", 394.03, 394.41], ["que", 394.41, 394.53], ["nous,", 394.53, 394.71]],
+    [["effectivement,", 394.99, 395.31]],
+    [["on", 395.99, 396.07], ["n’y", 396.07, 396.19], ["pense", 396.19, 396.33], ["pas", 396.33, 396.51], ["toujours.", 396.51, 396.71]],
+    [["On", 397.21, 397.47], ["n’a", 397.47, 397.61], ["pas", 397.61, 397.73], ["le", 397.73, 397.83], ["temps.", 397.83, 397.93]],
   ],
 };

@@ -59,11 +59,19 @@ export const AgenceAlexandra: React.FC = () => {
           <PlanSerre>
             <Video src={MEDIA.service} style={cover} volume={fades(66)} />
           </PlanSerre>
+          {/* fondu enchaîné : les deux plans serrés se suivent, on évite le saut d'image */}
+          <Sequence name="Fondu enchaîné" from={54} durationInFrames={12} premountFor={fps}>
+            <FonduPlanSerre duration={12} zoom={false}>
+              <PlanSerre>
+                <Video src={MEDIA.ecouter} muted style={cover} />
+              </PlanSerre>
+            </FonduPlanSerre>
+          </Sequence>
           <Captions items={SOUS_TITRES.service} offset={89.45} />
         </Series.Sequence>
         <Series.Sequence name="Écouter le projet" durationInFrames={154} premountFor={fps}>
           <PlanSerre>
-            <Video src={MEDIA.ecouter} style={cover} volume={fades(154)} />
+            <Video src={MEDIA.ecouter} trimBefore={12} style={cover} volume={fades(154)} />
           </PlanSerre>
           <Captions items={SOUS_TITRES.ecouter} offset={122.95} />
         </Series.Sequence>
