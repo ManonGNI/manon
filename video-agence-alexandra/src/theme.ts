@@ -42,6 +42,7 @@ export const MEDIA = {
   fondAlexandra: staticFile("medias/fond-alexandra.jpg"), // photo d'Alexandra (interview, 126,5 s) pour l'écran de fin « photo »
   facadePlein: staticFile("medias/facade-plein.jpg"), // façade plein cadre (ouverture vidéo 1)
   facadeAlexandra: staticFile("medias/facade-alexandra.jpg"), // façade de l'agence (rush de Loïc, avant son entrée)
+  logoAlexandraBlanc: staticFile("medias/logo-alexandra-blanc.png"), // logo officiel de l'agence passé en blanc (écran de fin)
   logoAlexandra: staticFile("medias/logo-alexandra-transparent.png"), // logo officiel de l'agence, recadré, fond crème rendu transparent, 1082 × 785
 };
 

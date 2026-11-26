@@ -284,7 +284,8 @@ export const FinRubrique: React.FC<{
   logoHaut?: boolean;
   sousTitreManuscrit?: boolean; // sous-titre en Allison or (typo secondaire)
   sousTitreNom?: string; // petite ligne justifiée sous le titre, de la largeur du mot
-}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false, sousTitreNom }) => {
+  logoAgence?: string; // logo de l'agence (version blanche) affiché à la place du titre
+}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false, sousTitreNom, logoAgence }) => {
   const frame = useCurrentFrame();
   const fond = interpolate(frame, [0, 12], [0, 1], clamp);
   const texte = (d: number): React.CSSProperties => {
@@ -299,10 +300,13 @@ export const FinRubrique: React.FC<{
       {logoHaut ? (
         <Img src={MEDIA.logoBlanc} style={{ position: "absolute", top: 230, left: 340, width: 400, ...texte(4) }} />
       ) : null}
-      <div style={{ position: "absolute", top: 760, left: 90, right: 90, textAlign: "center", fontFamily: FONT, color: C.blanc }}>
+      <div style={{ position: "absolute", top: logoAgence ? 640 : 760, left: 90, right: 90, textAlign: "center", fontFamily: FONT, color: C.blanc }}>
         {surtitre ? (
           <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 6, color: C.or, lineHeight: 1.45, textTransform: "uppercase", ...texte(8) }}>{surtitre}</div>
         ) : null}
+        {logoAgence ? (
+          <Img src={logoAgence} style={{ display: "block", width: 600, margin: "22px auto 0", ...texte(14) }} />
+        ) : (
         <div style={{ display: "inline-block", marginTop: 16, ...texte(14) }}>
           <div style={{ fontWeight: 800, fontSize: 116, letterSpacing: -2, lineHeight: 1.08 }}>{titre}</div>
           {sousTitreNom ? (
@@ -312,6 +316,7 @@ export const FinRubrique: React.FC<{
             />
           ) : null}
         </div>
+        )}
         <div style={{ width: 380 * filet, height: 4, background: C.or, margin: "26px auto 26px" }} />
         {sousTitreManuscrit ? (
           <div style={{ fontFamily: "Allison, cursive", fontSize: 120, lineHeight: 0.9, color: C.or, ...texte(22) }}>{sousTitre}</div>
