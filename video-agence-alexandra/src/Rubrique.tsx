@@ -285,9 +285,10 @@ export const FinRubrique: React.FC<{
   sousTitreManuscrit?: boolean; // sous-titre en Allison or (typo secondaire)
   sousTitreNom?: string; // petite ligne justifiée sous le titre, de la largeur du mot
   logoAgence?: string; // logo de l'agence (version blanche) affiché à la place du titre
-}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false, sousTitreNom, logoAgence }) => {
+  fondu?: number; // durée du fondu d'entrée (images)
+}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false, sousTitreNom, logoAgence, fondu = 12 }) => {
   const frame = useCurrentFrame();
-  const fond = interpolate(frame, [0, 12], [0, 1], clamp);
+  const fond = interpolate(frame, [0, fondu], [0, 1], { ...clamp, easing: ease });
   const texte = (d: number): React.CSSProperties => {
     const p = interpolate(frame, [d, d + 14], [0, 1], { ...clamp, easing: ease });
     return { opacity: p, transform: `translateY(${(1 - p) * 22}px)` };

@@ -9,16 +9,16 @@ import { cover, fades, FonduPlanSerre, PlanSerre } from "./montage";
 // Image figée avec un zoom très lent (1 → 1,03)
 const ArretSurImage: React.FC<{ src: string }> = ({ src }) => {
   const frame = useCurrentFrame();
-  const s = interpolate(frame, [0, 26], [1, 1.03], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const s = interpolate(frame, [0, 60], [1, 1.04], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return <Img src={src} style={{ ...cover, position: "absolute", transform: `scale(${s})` }} />;
 };
 
 // Vidéo 2 — témoignage : « Pourquoi rejoindre un groupement ? »
 // Durées (images à 30 i/s)
-const D = { accroche: 172, qGroupement: 36, proximite: 250, communaute: 371, finEchange: 555, fin: 135 };
-const FIN_START = D.accroche + D.qGroupement + D.proximite + D.communaute + D.finEchange; // 1384
+const D = { accroche: 172, qGroupement: 36, proximite: 250, communaute: 371, finEchange: 585, fin: 135 };
+const FIN_START = D.accroche + D.qGroupement + D.proximite + D.communaute + D.finEchange; // 1414
 const OUVERTURE = 126; // ouverture « Témoignage » sur le moment où ils rient
-export const DUREE_TEMOIGNAGE = OUVERTURE + FIN_START + D.fin; // 1645
+export const DUREE_TEMOIGNAGE = OUVERTURE + FIN_START + D.fin; // 1675
 
 export const TemoignageAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -41,7 +41,8 @@ export const TemoignageAlexandra: React.FC = () => {
           {/* 1. Accroche, plan serré : « une agence isolée… ce n'est plus d'actualité » */}
           <Series.Sequence name="Accroche" durationInFrames={172} premountFor={fps}>
             <PlanSerre>
-              <Video src={MEDIA.isolee} trimBefore={26} style={cover} volume={fades(172)} />
+              {/* son coupé après « aujourd'hui » : retire le bruit de bouche (≈ 0:09) */}
+              <Video src={MEDIA.isolee} trimBefore={26} style={cover} volume={(f) => fades(172)(f) * interpolate(f, [146, 151], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
             </PlanSerre>
             <Captions items={SOUS_TITRES.isoleeAccroche} offset={291.4 + 26 / 30} />
           </Series.Sequence>
@@ -74,9 +75,10 @@ export const TemoignageAlexandra: React.FC = () => {
           {/* 5. D'un seul tenant jusqu'à la fin : « accompagnée… on n'a pas le temps »
                puis la réponse de Loïc « on est là pour ça… accompagner nos agences » ; arrêt sur image
                à la fin de sa phrase, et l'écran de fin arrive en fondu */}
-          <Series.Sequence name="Fin de l'échange" durationInFrames={555} premountFor={fps}>
+          <Series.Sequence name="Fin de l'échange" durationInFrames={585} premountFor={fps}>
             <Sequence name="Vidéo jusqu'à « nos agences »" durationInFrames={530} premountFor={fps}>
-              <Video src={MEDIA.accompagneFin} style={cover} volume={fades(530)} />
+              {/* l'ambiance s'éteint doucement après « nos agences » au lieu d'une coupure sèche */}
+              <Video src={MEDIA.accompagneFin} style={cover} volume={(f) => fades(530)(f) * interpolate(f, [517, 530], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
             </Sequence>
             {/* même prise, son continu : Alexandra en plan serré pendant ses phrases, plan large sur « C'est gentil » et la réponse de Loïc */}
             <Sequence name="Serré : accompagnée" durationInFrames={80} premountFor={fps}>
@@ -90,7 +92,7 @@ export const TemoignageAlexandra: React.FC = () => {
               </PlanSerre>
             </Sequence>
             {/* arrêt sur image à la fin de sa phrase (pas de lèvres qui bougent sans son), léger zoom */}
-            <Sequence name="Arrêt sur image" from={529} durationInFrames={26}>
+            <Sequence name="Arrêt sur image" from={529} durationInFrames={56}>
               <ArretSurImage src={MEDIA.arretFin} />
             </Sequence>
             <Captions items={[...SOUS_TITRES.accompagneSuite, ...SOUS_TITRES.loicTemps]} offset={385.5} />
@@ -114,13 +116,14 @@ export const TemoignageAlexandra: React.FC = () => {
           <BandeauRubrique {...BANDEAUX.alexandra} duration={86} />
         </Sequence>
 
-        <Sequence name="Écran de fin" from={FIN_START - 20} durationInFrames={D.fin + 20}>
+        <Sequence name="Écran de fin" from={FIN_START - 30} durationInFrames={D.fin + 30}>
           <FinRubrique
             photo={MEDIA.facadeAlexandra}
             titre="Rejoignez notre Groupe"
             sousTitre="Plus forts ensemble"
             sousTitreManuscrit
             logoHaut
+            fondu={26}
           />
         </Sequence>
       </Sequence>
