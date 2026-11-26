@@ -345,7 +345,7 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
         height={(112 * SIGLE.h) / SIGLE.w}
         style={{
           position: "absolute",
-          top: 150,
+          top: 230,
           left: 484,
           opacity: Math.min(1, pSigle * 1.4) * sortie,
           transform: `scale(${0.6 + 0.4 * Math.min(pSigle, 1.05)})`,
@@ -355,7 +355,7 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
         <path d={SIGLE.gPath} fill={C.blanc} />
         <path d={SIGLE.barPath} fill={C.or} />
       </svg>
-      <div style={{ position: "absolute", top: 330, left: 60, right: 60, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
+      <div style={{ position: "absolute", top: 410, left: 60, right: 60, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
         <div
           style={{
             fontWeight: 800,
