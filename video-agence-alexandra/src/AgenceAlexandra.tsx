@@ -37,14 +37,14 @@ export const AgenceAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
   return (
     <AbsoluteFill style={{ background: "#000" }}>
-      {/* Ouverture : façade de l'agence sous un voile marine, sigle GNI, titre lumineux, pastille de lieu */}
+      {/* Ouverture : l'accueil (« Merci de nous recevoir ») sous un voile marine, sigle GNI, titre lumineux, pastilles de lieu */}
       <Sequence name="Ouverture" durationInFrames={OUVERTURE}>
         <OuvertureTemoignage
-          video={<PhotoLente src={MEDIA.facadePlein} duration={OUVERTURE} />}
+          video={<Video src={MEDIA.ouvertureAccueil} style={cover} volume={(f) => 0.45 * fades(OUVERTURE)(f)} />}
           titre="Portrait|d’agence"
           sousTitre={["Alexandra · L’Immobilier en Provence"]}
           lieu={["Pernes-les-Fontaines", "Beaumes-de-Venise"]}
-          decalage={360}
+          decalage={0}
           duration={OUVERTURE}
         />
       </Sequence>
