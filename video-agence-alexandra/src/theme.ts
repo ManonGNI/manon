@@ -40,6 +40,7 @@ export const MEDIA = {
   logoBlanc: staticFile("medias/logo-gni-blanc.png"),
   logoBleu: staticFile("medias/logo-gni-bleu.png"),
   fondAlexandra: staticFile("medias/fond-alexandra.jpg"), // photo d'Alexandra (interview, 126,5 s) pour l'écran de fin « photo »
+  ouvertureDevanture: staticFile("clips/ouverture-devanture.mp4"), // rush de Loïc 0.40 → 4.60 : la devanture, un passant (sans son)
   ouvertureAccueil: staticFile("clips/ouverture-accueil.mp4"), // 35.40 → 39.60 : « Merci Alexandra de nous recevoir » / « Merci à vous Loïc »
   facadePlein: staticFile("medias/facade-plein.jpg"), // façade plein cadre (ouverture vidéo 1)
   facadeAlexandra: staticFile("medias/facade-alexandra.jpg"), // façade de l'agence (rush de Loïc, avant son entrée)
