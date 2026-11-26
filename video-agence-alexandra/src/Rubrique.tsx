@@ -276,13 +276,14 @@ export const FicheEtiquettes: React.FC<{ titre: string; items: [string, number][
 };
 
 // ---------- Écran de fin : photo en transparence sous un voile marine, texte centré ----------
-export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: string; sousTitre: string; logoHaut?: boolean }> = ({
-  photo,
-  surtitre,
-  titre,
-  sousTitre,
-  logoHaut = false,
-}) => {
+export const FinRubrique: React.FC<{
+  photo: string;
+  surtitre?: string;
+  titre: string;
+  sousTitre: string;
+  logoHaut?: boolean;
+  sousTitreManuscrit?: boolean; // sous-titre en Allison or (typo secondaire)
+}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false }) => {
   const frame = useCurrentFrame();
   const fond = interpolate(frame, [0, 12], [0, 1], clamp);
   const texte = (d: number): React.CSSProperties => {
@@ -298,10 +299,16 @@ export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: str
         <Img src={MEDIA.logoBlanc} style={{ position: "absolute", top: 230, left: 340, width: 400, ...texte(4) }} />
       ) : null}
       <div style={{ position: "absolute", top: 760, left: 90, right: 90, textAlign: "center", fontFamily: FONT, color: C.blanc }}>
-        <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 6, color: C.or, lineHeight: 1.45, textTransform: "uppercase", ...texte(8) }}>{surtitre}</div>
+        {surtitre ? (
+          <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 6, color: C.or, lineHeight: 1.45, textTransform: "uppercase", ...texte(8) }}>{surtitre}</div>
+        ) : null}
         <div style={{ fontWeight: 800, fontSize: 116, letterSpacing: -2, lineHeight: 1.08, marginTop: 16, ...texte(14) }}>{titre}</div>
         <div style={{ width: 380 * filet, height: 4, background: C.or, margin: "26px auto 26px" }} />
-        <div style={{ fontWeight: 500, fontSize: 38, ...texte(22) }}>{sousTitre}</div>
+        {sousTitreManuscrit ? (
+          <div style={{ fontFamily: "Allison, cursive", fontSize: 120, lineHeight: 0.9, color: C.or, ...texte(22) }}>{sousTitre}</div>
+        ) : (
+          <div style={{ fontWeight: 500, fontSize: 38, ...texte(22) }}>{sousTitre}</div>
+        )}
       </div>
     </AbsoluteFill>
   );

@@ -117,9 +117,9 @@ export const TemoignageAlexandra: React.FC = () => {
         <Sequence name="Écran de fin" from={FIN_START - 20} durationInFrames={D.fin + 20}>
           <FinRubrique
             photo={MEDIA.facadeAlexandra}
-            surtitre="Groupe National Immobilier"
             titre="Rejoignez notre Groupe"
-            sousTitre="Agences immobilières indépendantes"
+            sousTitre="Plus forts ensemble"
+            sousTitreManuscrit
             logoHaut
           />
         </Sequence>
