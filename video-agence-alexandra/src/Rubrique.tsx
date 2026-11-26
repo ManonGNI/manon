@@ -331,13 +331,14 @@ const Pin: React.FC<{ taille: number; couleur: string }> = ({ taille, couleur })
     <circle cx="12" cy="9.5" r="2.6" />
   </svg>
 );
-export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: string; sousTitre: string[]; lieu: string | string[]; duration: number }> = ({
-  video,
-  titre,
-  sousTitre,
-  lieu,
-  duration,
-}) => {
+export const OuvertureTemoignage: React.FC<{
+  video: React.ReactNode;
+  titre: string;
+  sousTitre: string[];
+  lieu: string | string[];
+  duration: number;
+  decalage?: number; // décalage vertical du bloc (px)
+}> = ({ video, titre, sousTitre, lieu, duration, decalage = 0 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const voile = interpolate(frame, [0, 10], [0.3, 0.62], clamp);
@@ -361,7 +362,7 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
         height={(112 * SIGLE.h) / SIGLE.w}
         style={{
           position: "absolute",
-          top: 230,
+          top: 230 + decalage,
           left: 484,
           opacity: Math.min(1, pSigle * 1.4) * sortie,
           transform: `scale(${0.6 + 0.4 * Math.min(pSigle, 1.05)})`,
@@ -371,7 +372,7 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
         <path d={SIGLE.gPath} fill={C.blanc} />
         <path d={SIGLE.barPath} fill={C.or} />
       </svg>
-      <div style={{ position: "absolute", top: 410, left: 60, right: 60, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
+      <div style={{ position: "absolute", top: 410 + decalage, left: 60, right: 60, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
         <div
           style={{
             fontWeight: 800,

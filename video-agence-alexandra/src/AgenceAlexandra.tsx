@@ -44,6 +44,7 @@ export const AgenceAlexandra: React.FC = () => {
           titre="Portrait|d’agence"
           sousTitre={["Alexandra · L’Immobilier en Provence"]}
           lieu={["Pernes-les-Fontaines", "Beaumes-de-Venise"]}
+          decalage={360}
           duration={OUVERTURE}
         />
       </Sequence>
