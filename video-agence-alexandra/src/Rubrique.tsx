@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Easing, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { C, FONT } from "./theme";
+import { C, FONT, MEDIA } from "./theme";
+import { SIGLE } from "./sigle";
 
 // Rubrique « Portrait d'agence » — mêmes codes graphiques que les vidéos de la série
 // (ouverture, bandeau nom, fiches d'information, écran de fin). Montserrat, marine, or.
@@ -275,7 +276,13 @@ export const FicheEtiquettes: React.FC<{ titre: string; items: [string, number][
 };
 
 // ---------- Écran de fin : photo en transparence sous un voile marine, texte centré ----------
-export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: string; sousTitre: string }> = ({ photo, surtitre, titre, sousTitre }) => {
+export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: string; sousTitre: string; logoHaut?: boolean }> = ({
+  photo,
+  surtitre,
+  titre,
+  sousTitre,
+  logoHaut = false,
+}) => {
   const frame = useCurrentFrame();
   const fond = interpolate(frame, [0, 12], [0, 1], clamp);
   const texte = (d: number): React.CSSProperties => {
@@ -287,6 +294,9 @@ export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: str
     <AbsoluteFill style={{ opacity: fond, background: C.marine }}>
       <Img src={photo} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.18, filter: "grayscale(0.3)", transform: `scale(${1.05 + 0.03 * fond})` }} />
       <AbsoluteFill style={{ background: "rgba(43,66,88,0.55)" }} />
+      {logoHaut ? (
+        <Img src={MEDIA.logoBlanc} style={{ position: "absolute", top: 230, left: 340, width: 400, ...texte(4) }} />
+      ) : null}
       <div style={{ position: "absolute", top: 760, left: 90, right: 90, textAlign: "center", fontFamily: FONT, color: C.blanc }}>
         <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 6, color: C.or, lineHeight: 1.45, textTransform: "uppercase", ...texte(8) }}>{surtitre}</div>
         <div style={{ fontWeight: 800, fontSize: 116, letterSpacing: -2, lineHeight: 1.08, marginTop: 16, ...texte(14) }}>{titre}</div>
@@ -315,9 +325,10 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const voile = interpolate(frame, [0, 10], [0.3, 0.62], clamp);
-  const pTitre = interpolate(frame, [2, 18], [0, 1], { ...clamp, easing: ease });
-  const pSous = interpolate(frame, [12, 26], [0, 1], { ...clamp, easing: ease });
-  const pLieu = spring({ frame: frame - 22, fps, config: { damping: 13, stiffness: 180, mass: 0.6 } });
+  const pSigle = spring({ frame, fps, config: { damping: 12, stiffness: 170, mass: 0.6 } });
+  const pTitre = interpolate(frame, [8, 24], [0, 1], { ...clamp, easing: ease });
+  const pSous = interpolate(frame, [18, 32], [0, 1], { ...clamp, easing: ease });
+  const pLieu = spring({ frame: frame - 28, fps, config: { damping: 13, stiffness: 180, mass: 0.6 } });
   const sortie = interpolate(frame, [duration - 8, duration], [1, 0], clamp);
   return (
     <AbsoluteFill>
@@ -327,7 +338,24 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
           background: `linear-gradient(180deg, rgba(27,44,66,${voile * 1.1}) 0%, rgba(43,66,88,${voile}) 40%, rgba(43,66,88,${voile * 0.45}) 62%, rgba(27,44,66,${voile * 0.6}) 100%)`,
         }}
       />
-      <div style={{ position: "absolute", top: 300, left: 50, right: 50, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
+      {/* sigle GNI (G blanc, barre or) en tout début */}
+      <svg
+        viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
+        width={150}
+        height={(150 * SIGLE.h) / SIGLE.w}
+        style={{
+          position: "absolute",
+          top: 110,
+          left: 465,
+          opacity: Math.min(1, pSigle * 1.4) * sortie,
+          transform: `scale(${0.6 + 0.4 * Math.min(pSigle, 1.05)})`,
+          filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.35))",
+        }}
+      >
+        <path d={SIGLE.gPath} fill={C.blanc} />
+        <path d={SIGLE.barPath} fill={C.or} />
+      </svg>
+      <div style={{ position: "absolute", top: 330, left: 50, right: 50, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
         <div
           style={{
             fontWeight: 800,

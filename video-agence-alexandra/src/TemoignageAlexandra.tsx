@@ -17,8 +17,8 @@ const ArretSurImage: React.FC<{ src: string }> = ({ src }) => {
 // Durées (images à 30 i/s)
 const D = { accroche: 172, qGroupement: 36, proximite: 250, communaute: 371, finEchange: 555, fin: 135 };
 const FIN_START = D.accroche + D.qGroupement + D.proximite + D.communaute + D.finEchange; // 1384
-const OUVERTURE = 96; // ouverture « Témoignage » sur le moment où ils rient
-export const DUREE_TEMOIGNAGE = OUVERTURE + FIN_START + D.fin; // 1615
+const OUVERTURE = 126; // ouverture « Témoignage » sur le moment où ils rient
+export const DUREE_TEMOIGNAGE = OUVERTURE + FIN_START + D.fin; // 1645
 
 export const TemoignageAlexandra: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -120,6 +120,7 @@ export const TemoignageAlexandra: React.FC = () => {
             surtitre="Groupe National Immobilier"
             titre="Rejoignez notre Groupe"
             sousTitre="Agences immobilières indépendantes"
+            logoHaut
           />
         </Sequence>
       </Sequence>
