@@ -343,7 +343,8 @@ export const OuvertureTemoignage: React.FC<{
   lieu: string | string[];
   duration: number;
   decalage?: number; // décalage vertical du bloc (px)
-}> = ({ video, titre, sousTitre, lieu, duration, decalage = 0 }) => {
+  voileCentre?: boolean; // voile bleu renforcé derrière le bloc (bloc centré sur une image chargée)
+}> = ({ video, titre, sousTitre, lieu, duration, decalage = 0, voileCentre = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const voile = interpolate(frame, [0, 10], [0.3, 0.62], clamp);
@@ -360,6 +361,13 @@ export const OuvertureTemoignage: React.FC<{
           background: `linear-gradient(180deg, rgba(27,44,66,${voile * 1.1}) 0%, rgba(43,66,88,${voile}) 40%, rgba(43,66,88,${voile * 0.45}) 62%, rgba(27,44,66,${voile * 0.6}) 100%)`,
         }}
       />
+      {voileCentre ? (
+        <AbsoluteFill
+          style={{
+            background: `radial-gradient(ellipse 85% 26% at 50% ${((570 + decalage) / 1920) * 100}%, rgba(27,44,66,${voile * 0.75}) 0%, rgba(27,44,66,${voile * 0.4}) 55%, rgba(27,44,66,0) 100%)`,
+          }}
+        />
+      ) : null}
       {/* sigle GNI (G blanc, barre or) en tout début */}
       <svg
         viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
