@@ -28,9 +28,9 @@ export const TemoignageAlexandra: React.FC = () => {
       <Sequence name="Ouverture témoignage" durationInFrames={OUVERTURE}>
         <OuvertureTemoignage
           video={<Video src={MEDIA.ouvertureRires} style={cover} volume={(f) => 0.45 * fades(OUVERTURE)(f)} />}
-          surtitre="TÉMOIGNAGE D’AGENCE"
-          lignes={[["Pourquoi"], ["Alexandra", true], ["a rejoint"], ["notre Groupe ?"]]}
-          signature="Alexandra Gameiro · L’Immobilier en Provence"
+          titre="Témoignage"
+          sousTitre={["Pourquoi Alexandra a rejoint", "notre Groupe ?"]}
+          lieu="Pernes-les-Fontaines"
           duration={OUVERTURE}
         />
       </Sequence>

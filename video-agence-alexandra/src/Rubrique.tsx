@@ -297,39 +297,78 @@ export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: str
   );
 };
 
-// ---------- Ouverture « Témoignage » (autre rubrique) : vidéo plein écran sous un voile marine translucide ----------
-export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; surtitre: string; lignes: [string, boolean?][]; signature: string; duration: number }> = ({
+// ---------- Ouverture « Témoignage » (autre rubrique) : vidéo plein écran sous un voile marine translucide,
+// grand titre lumineux, sous-titre, et pastille de lieu avec pictogramme ----------
+const Pin: React.FC<{ taille: number; couleur: string }> = ({ taille, couleur }) => (
+  <svg width={taille} height={taille} viewBox="0 0 24 24" fill="none" stroke={couleur} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z" />
+    <circle cx="12" cy="9.5" r="2.6" />
+  </svg>
+);
+export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: string; sousTitre: string[]; lieu: string; duration: number }> = ({
   video,
-  surtitre,
-  lignes,
-  signature,
+  titre,
+  sousTitre,
+  lieu,
   duration,
 }) => {
   const frame = useCurrentFrame();
-  const voile = interpolate(frame, [0, 10], [0.35, 0.72], clamp);
-  const texte = (d: number): React.CSSProperties => {
-    const p = interpolate(frame, [d, d + 12], [0, 1], { ...clamp, easing: ease });
-    return { opacity: p, transform: `translateY(${(1 - p) * 24}px)`, filter: `blur(${(1 - p) * 6}px)` };
-  };
-  const filet = interpolate(frame, [20, 36], [0, 1], { ...clamp, easing: ease });
+  const { fps } = useVideoConfig();
+  const voile = interpolate(frame, [0, 10], [0.3, 0.62], clamp);
+  const pTitre = interpolate(frame, [2, 18], [0, 1], { ...clamp, easing: ease });
+  const pSous = interpolate(frame, [12, 26], [0, 1], { ...clamp, easing: ease });
+  const pLieu = spring({ frame: frame - 22, fps, config: { damping: 13, stiffness: 180, mass: 0.6 } });
   const sortie = interpolate(frame, [duration - 8, duration], [1, 0], clamp);
   return (
     <AbsoluteFill>
       {video}
-      <AbsoluteFill style={{ background: `linear-gradient(180deg, rgba(27,44,66,${voile * 1.15}) 0%, rgba(43,66,88,${voile}) 42%, rgba(43,66,88,${voile * 0.45}) 62%, rgba(27,44,66,${voile * 0.55}) 100%)` }} />
-      <div style={{ position: "absolute", top: 190, left: 80, right: 80, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
-        <div style={{ display: "inline-block", border: `2px solid ${C.or}`, borderRadius: 40, padding: "8px 26px 10px", fontWeight: 700, fontSize: 30, letterSpacing: 6, color: C.or, ...texte(2) }}>
-          {surtitre}
+      <AbsoluteFill
+        style={{
+          background: `linear-gradient(180deg, rgba(27,44,66,${voile * 1.1}) 0%, rgba(43,66,88,${voile}) 40%, rgba(43,66,88,${voile * 0.45}) 62%, rgba(27,44,66,${voile * 0.6}) 100%)`,
+        }}
+      />
+      <div style={{ position: "absolute", top: 300, left: 50, right: 50, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
+        <div
+          style={{
+            fontWeight: 800,
+            fontSize: 150,
+            lineHeight: 1,
+            letterSpacing: -3,
+            textShadow: "0 0 28px rgba(255,255,255,0.35), 0 6px 24px rgba(0,0,0,0.45)",
+            opacity: pTitre,
+            transform: `scale(${1.08 - 0.08 * pTitre})`,
+            filter: `blur(${(1 - pTitre) * 10}px)`,
+          }}
+        >
+          {titre}
         </div>
-        <div style={{ marginTop: 34 }}>
-          {lignes.map(([l, or], i) => (
-            <div key={i} style={{ fontWeight: 800, fontSize: 92, lineHeight: 1.06, letterSpacing: -2, color: or ? C.or : C.blanc, textShadow: OMBRE_TEXTE, ...texte(6 + i * 4) }}>
+        <div style={{ marginTop: 26, opacity: pSous, transform: `translateY(${(1 - pSous) * 18}px)` }}>
+          {sousTitre.map((l, i) => (
+            <div key={i} style={{ fontWeight: 700, fontSize: 56, lineHeight: 1.2, textShadow: "0 0 18px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.45)" }}>
               {l}
             </div>
           ))}
         </div>
-        <div style={{ width: 300 * filet, height: 4, background: C.or, margin: "30px auto 24px" }} />
-        <div style={{ fontWeight: 600, fontSize: 34, ...texte(22) }}>{signature}</div>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 16,
+            marginTop: 40,
+            padding: "14px 40px 16px 30px",
+            borderRadius: 60,
+            background: "rgba(217, 174, 87, 0.42)",
+            border: "2px solid rgba(217, 174, 87, 0.85)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+            transform: `translateY(${(1 - Math.min(pLieu, 1)) * 30}px) scale(${0.8 + 0.2 * Math.min(pLieu, 1.04)})`,
+            opacity: Math.min(1, pLieu * 1.5),
+          }}
+        >
+          <Pin taille={46} couleur={C.blanc} />
+          <span style={{ fontWeight: 700, fontSize: 48, color: C.blanc }}>{lieu}</span>
+        </div>
       </div>
     </AbsoluteFill>
   );
