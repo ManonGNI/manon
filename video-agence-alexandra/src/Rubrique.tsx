@@ -341,12 +341,12 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
       {/* sigle GNI (G blanc, barre or) en tout début */}
       <svg
         viewBox={`0 0 ${SIGLE.w} ${SIGLE.h}`}
-        width={150}
-        height={(150 * SIGLE.h) / SIGLE.w}
+        width={112}
+        height={(112 * SIGLE.h) / SIGLE.w}
         style={{
           position: "absolute",
-          top: 110,
-          left: 465,
+          top: 150,
+          left: 484,
           opacity: Math.min(1, pSigle * 1.4) * sortie,
           transform: `scale(${0.6 + 0.4 * Math.min(pSigle, 1.05)})`,
           filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.35))",
@@ -355,11 +355,11 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
         <path d={SIGLE.gPath} fill={C.blanc} />
         <path d={SIGLE.barPath} fill={C.or} />
       </svg>
-      <div style={{ position: "absolute", top: 330, left: 50, right: 50, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
+      <div style={{ position: "absolute", top: 330, left: 60, right: 60, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
         <div
           style={{
             fontWeight: 800,
-            fontSize: 150,
+            fontSize: 118,
             lineHeight: 1,
             letterSpacing: -3,
             textShadow: "0 0 28px rgba(255,255,255,0.35), 0 6px 24px rgba(0,0,0,0.45)",
@@ -370,9 +370,9 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
         >
           {titre}
         </div>
-        <div style={{ marginTop: 26, opacity: pSous, transform: `translateY(${(1 - pSous) * 18}px)` }}>
+        <div style={{ marginTop: 20, opacity: pSous, transform: `translateY(${(1 - pSous) * 18}px)` }}>
           {sousTitre.map((l, i) => (
-            <div key={i} style={{ fontWeight: 700, fontSize: 56, lineHeight: 1.2, textShadow: "0 0 18px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.45)" }}>
+            <div key={i} style={{ fontWeight: 700, fontSize: 44, lineHeight: 1.2, textShadow: "0 0 18px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.45)" }}>
               {l}
             </div>
           ))}
@@ -382,8 +382,8 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
             display: "inline-flex",
             alignItems: "center",
             gap: 16,
-            marginTop: 40,
-            padding: "14px 40px 16px 30px",
+            marginTop: 32,
+            padding: "11px 32px 13px 24px",
             borderRadius: 60,
             background: "rgba(217, 174, 87, 0.42)",
             border: "2px solid rgba(217, 174, 87, 0.85)",
@@ -394,8 +394,8 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
             opacity: Math.min(1, pLieu * 1.5),
           }}
         >
-          <Pin taille={46} couleur={C.blanc} />
-          <span style={{ fontWeight: 700, fontSize: 48, color: C.blanc }}>{lieu}</span>
+          <Pin taille={36} couleur={C.blanc} />
+          <span style={{ fontWeight: 700, fontSize: 38, color: C.blanc }}>{lieu}</span>
         </div>
       </div>
     </AbsoluteFill>
