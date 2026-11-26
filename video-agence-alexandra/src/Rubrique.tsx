@@ -283,7 +283,8 @@ export const FinRubrique: React.FC<{
   sousTitre: string;
   logoHaut?: boolean;
   sousTitreManuscrit?: boolean; // sous-titre en Allison or (typo secondaire)
-}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false }) => {
+  sousTitreNom?: string; // petite ligne justifiée sous le titre, de la largeur du mot
+}> = ({ photo, surtitre, titre, sousTitre, logoHaut = false, sousTitreManuscrit = false, sousTitreNom }) => {
   const frame = useCurrentFrame();
   const fond = interpolate(frame, [0, 12], [0, 1], clamp);
   const texte = (d: number): React.CSSProperties => {
@@ -302,7 +303,15 @@ export const FinRubrique: React.FC<{
         {surtitre ? (
           <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 6, color: C.or, lineHeight: 1.45, textTransform: "uppercase", ...texte(8) }}>{surtitre}</div>
         ) : null}
-        <div style={{ fontWeight: 800, fontSize: 116, letterSpacing: -2, lineHeight: 1.08, marginTop: 16, ...texte(14) }}>{titre}</div>
+        <div style={{ display: "inline-block", marginTop: 16, ...texte(14) }}>
+          <div style={{ fontWeight: 800, fontSize: 116, letterSpacing: -2, lineHeight: 1.08 }}>{titre}</div>
+          {sousTitreNom ? (
+            <LigneJustifiee
+              texte={sousTitreNom.toUpperCase()}
+              style={{ fontWeight: 600, fontSize: 28, color: C.blanc, opacity: 0.9, marginTop: 4, padding: "0 4px" }}
+            />
+          ) : null}
+        </div>
         <div style={{ width: 380 * filet, height: 4, background: C.or, margin: "26px auto 26px" }} />
         {sousTitreManuscrit ? (
           <div style={{ fontFamily: "Allison, cursive", fontSize: 120, lineHeight: 0.9, color: C.or, ...texte(22) }}>{sousTitre}</div>
@@ -322,7 +331,7 @@ const Pin: React.FC<{ taille: number; couleur: string }> = ({ taille, couleur })
     <circle cx="12" cy="9.5" r="2.6" />
   </svg>
 );
-export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: string; sousTitre: string[]; lieu: string; duration: number }> = ({
+export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: string; sousTitre: string[]; lieu: string | string[]; duration: number }> = ({
   video,
   titre,
   sousTitre,
@@ -375,7 +384,9 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
             filter: `blur(${(1 - pTitre) * 10}px)`,
           }}
         >
-          {titre}
+          {titre.split("|").map((l, i) => (
+            <div key={i}>{l}</div>
+          ))}
         </div>
         <div style={{ marginTop: 20, opacity: pSous, transform: `translateY(${(1 - pSous) * 18}px)` }}>
           {sousTitre.map((l, i) => (
@@ -384,12 +395,14 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
             </div>
           ))}
         </div>
-        <div
-          style={{
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 14, marginTop: 32 }}>
+          {(Array.isArray(lieu) ? lieu : [lieu]).map((l, n) => (
+            <div
+              key={n}
+              style={{
             display: "inline-flex",
             alignItems: "center",
             gap: 16,
-            marginTop: 32,
             padding: "11px 32px 13px 24px",
             borderRadius: 60,
             background: "rgba(217, 174, 87, 0.42)",
@@ -402,7 +415,9 @@ export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; titre: stri
           }}
         >
           <Pin taille={36} couleur={C.blanc} />
-          <span style={{ fontWeight: 700, fontSize: 38, color: C.blanc }}>{lieu}</span>
+          <span style={{ fontWeight: 700, fontSize: 38, color: C.blanc }}>{l}</span>
+        </div>
+          ))}
         </div>
       </div>
     </AbsoluteFill>
