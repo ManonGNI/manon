@@ -7,6 +7,7 @@ export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 // Passages découpés dans les rushs (fichier source, début en s) :
 // intro-loic = 20261119_105523 à 7,60 s, recadré sur Loïc (crop 720 × 1280 à 158,560) et éclairci ; les autres = 20261119_113537 (interview) à l'instant indiqué
 export const MEDIA = {
+  musique: staticFile("medias/musique.m4a"), // musique composée pour la vidéo (scripts/musique.py), libre de droits
   intro: staticFile("clips/intro-loic.mp4"), // 7.60
   introCourt: staticFile("clips/intro-loic-court.mp4"), // 10.04 (sans « Aujourd'hui, je me situe… »), recadré, éclairci, dominante bleue corrigée
   debutLong: staticFile("clips/debut-long.mp4"), // 48.70 → 57.50 (« …16 ans négociatrice en immobilier VRP »)
