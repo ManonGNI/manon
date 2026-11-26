@@ -13,6 +13,13 @@ const PhotoLente: React.FC<{ src: string; duration: number }> = ({ src, duration
   return <Img src={src} style={{ ...cover, position: "absolute", transformOrigin: "50% 48%", transform: `scale(${z})` }} />;
 };
 
+// Zoom lent appliqué à une vidéo d'arrière-plan
+const ZoomLent: React.FC<{ duration: number; children: React.ReactNode }> = ({ duration, children }) => {
+  const frame = useCurrentFrame();
+  const z = interpolate(frame, [0, duration], [1.0, 1.12], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return <AbsoluteFill style={{ transformOrigin: "50% 45%", transform: `scale(${z})` }}>{children}</AbsoluteFill>;
+};
+
 // Vidéo 1 — Bienvenue à l'agence : Alexandra, son parcours et sa vision du métier
 // Durées (images à 30 i/s)
 const D = {
@@ -40,7 +47,11 @@ export const AgenceAlexandra: React.FC = () => {
       {/* Ouverture : la devanture de l'agence (début du rush de Loïc) sous un voile marine, sigle GNI, titre lumineux, pastilles de lieu */}
       <Sequence name="Ouverture" durationInFrames={OUVERTURE}>
         <OuvertureTemoignage
-          video={<Video src={MEDIA.ouvertureDevanture} muted style={cover} />}
+          video={
+            <ZoomLent duration={OUVERTURE}>
+              <Video src={MEDIA.ouvertureDevanture} muted style={cover} />
+            </ZoomLent>
+          }
           titre="Portrait|d’agence"
           sousTitre={["Alexandra · L’Immobilier en Provence"]}
           lieu={["Pernes-les-Fontaines", "Beaumes-de-Venise"]}
