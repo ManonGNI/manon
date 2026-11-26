@@ -106,6 +106,7 @@ export const TemoignageAlexandra: React.FC = () => {
           photo={MEDIA.fondAlexandra}
           surtitre="TÉMOIGNAGE"
           titre="Alexandra"
+          sousTitreNom="L’Immobilier en Provence"
           sousTitre="Pourquoi avoir rejoint notre Groupe ?"
           duration={80}
         />

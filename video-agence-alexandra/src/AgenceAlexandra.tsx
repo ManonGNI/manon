@@ -155,6 +155,7 @@ export const AgenceAlexandra: React.FC = () => {
           photo={MEDIA.facadeAlexandra}
           surtitre="PORTRAIT D’AGENCE"
           titre="Alexandra"
+          sousTitreNom="L’Immobilier en Provence"
           sousTitre="Agence partenaire · Vaucluse"
           duration={80}
         />

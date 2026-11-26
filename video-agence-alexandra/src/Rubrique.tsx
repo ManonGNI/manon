@@ -21,13 +21,23 @@ const useSortie = (duration: number) => {
 };
 
 // ---------- Ouverture : fond marine dégradé, photo dans un cadre arrondi liseré or, titre centré ----------
-export const OuverturePortrait: React.FC<{ photo: string; surtitre: string; titre: string; sousTitre: string; duration: number }> = ({
-  photo,
-  surtitre,
-  titre,
-  sousTitre,
-  duration,
-}) => {
+// Ligne de texte étirée lettre à lettre sur toute la largeur de son conteneur
+const LigneJustifiee: React.FC<{ texte: string; style: React.CSSProperties }> = ({ texte, style }) => (
+  <div style={{ display: "flex", justifyContent: "space-between", ...style }}>
+    {Array.from(texte).map((c, i) => (
+      <span key={i}>{c === " " ? "\u00a0" : c}</span>
+    ))}
+  </div>
+);
+
+export const OuverturePortrait: React.FC<{
+  photo: string;
+  surtitre: string;
+  titre: string;
+  sousTitre: string;
+  duration: number;
+  sousTitreNom?: string; // petite ligne sous le titre, de la même largeur que le mot
+}> = ({ photo, surtitre, titre, sousTitre, duration, sousTitreNom }) => {
   const frame = useCurrentFrame();
   const carte = usePop(0);
   const texte = (d: number): React.CSSProperties => {
@@ -57,7 +67,15 @@ export const OuverturePortrait: React.FC<{ photo: string; surtitre: string; titr
       </div>
       <div style={{ position: "absolute", top: 1110, width: "100%", textAlign: "center", fontFamily: FONT, color: C.blanc }}>
         <div style={{ fontWeight: 700, fontSize: 38, letterSpacing: 8, color: C.or, ...texte(6) }}>{surtitre}</div>
-        <div style={{ fontWeight: 800, fontSize: 124, letterSpacing: -2, lineHeight: 1.1, marginTop: 8, ...texte(10) }}>{titre}</div>
+        <div style={{ display: "inline-block", marginTop: 8, ...texte(10) }}>
+          <div style={{ fontWeight: 800, fontSize: 124, letterSpacing: -2, lineHeight: 1.1 }}>{titre}</div>
+          {sousTitreNom ? (
+            <LigneJustifiee
+              texte={sousTitreNom.toUpperCase()}
+              style={{ fontWeight: 600, fontSize: 30, color: C.blanc, opacity: 0.9, marginTop: 2, padding: "0 4px" }}
+            />
+          ) : null}
+        </div>
         <div style={{ width: 560 * filet, height: 3, background: C.or, margin: "18px auto 22px" }} />
         <div style={{ fontWeight: 600, fontSize: 38, ...texte(16) }}>{sousTitre}</div>
       </div>
