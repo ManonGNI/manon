@@ -71,7 +71,7 @@ export const BandeauRubrique: React.FC<{ prenom: string; nom: string; structure:
   nom,
   structure,
   duration,
-  top = 1180,
+  top = 1010, // au-dessus des sous-titres
 }) => {
   const frame = useCurrentFrame();
   const filet = interpolate(frame, [0, 10], [0, 1], { ...clamp, easing: ease });

@@ -7,8 +7,8 @@ const ease = Easing.bezier(0.22, 1, 0.36, 1);
 
 // Sous-titres synchronisés : texte blanc épais, surlignage or qui passe sous le mot prononcé.
 // `offset` = temps (s) du fichier source au début de la séquence
-// Sous-titres « rubrique » : capitales Montserrat ExtraBold blanches cerclées de noir, 2-3 mots à la fois,
-// le mot prononcé passe en or (même style que les autres portraits d'agence de la série)
+// Sous-titres synchronisés : texte blanc épais, surlignage or qui passe sous le mot prononcé.
+// `offset` = temps (s) du fichier source au début de la séquence
 export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, offset }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -21,60 +21,58 @@ export const Captions: React.FC<{ items: Mot[][]; offset: number }> = ({ items, 
   });
   if (idx < 0) return null;
   const line = items[idx];
-  // découpe de la ligne en petits groupes (≈ 20 caractères max)
-  const groupes: Mot[][] = [];
-  let cur: Mot[] = [];
-  let n = 0;
-  line.forEach((m) => {
-    if (cur.length && n + m[0].length > 20) {
-      groupes.push(cur);
-      cur = [];
-      n = 0;
-    }
-    cur.push(m);
-    n += m[0].length + 1;
+  const appear = interpolate((t - line[0][1]) * fps, [-1.5, 3], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: ease,
   });
-  if (cur.length) groupes.push(cur);
-  // groupe affiché = celui qui contient le dernier mot commencé
-  let g = 0;
-  groupes.forEach((grp, i) => {
-    if (t >= grp[0][1] - 0.03) g = i;
-  });
-  const groupe = groupes[g];
-  const debut = groupe[0][1];
-  const appear = interpolate((t - debut) * fps, [-1, 3], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+  // mot actif = dernier mot commencé ; le surlignage reste sur le dernier mot jusqu'à la ligne suivante
   let active = -1;
-  groupe.forEach(([, s], i) => {
+  line.forEach(([, s], i) => {
     if (t >= s - 0.03) active = i;
   });
   return (
-    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 330 }}>
+    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 460 }}>
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          columnGap: 18,
-          maxWidth: 960,
+          maxWidth: 940,
+          rowGap: 6,
           fontFamily: FONT,
           fontWeight: 800,
-          fontSize: 70,
-          lineHeight: 1.12,
-          letterSpacing: 0.5,
-          textTransform: "uppercase",
+          fontSize: 64,
+          lineHeight: 1.15,
+          letterSpacing: -0.5,
           color: C.blanc,
-          WebkitTextStroke: "9px #161616",
-          paintOrder: "stroke fill",
-          textShadow: "0 5px 0 rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.35)",
-          transform: `scale(${0.9 + 0.1 * appear})`,
+          textShadow: "0 2px 10px rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.35)",
           opacity: appear,
+          transform: `translateY(${(1 - appear) * 12}px)`,
         }}
       >
-        {groupe.map(([mot], i) => (
-          <span key={i} style={{ color: i === active ? C.or : C.blanc }}>
-            {mot}
-          </span>
-        ))}
+        {line.map(([mot, s], i) => {
+          const on = i === active;
+          const p = on
+            ? interpolate((t - s) * fps, [-1, 3], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease })
+            : 0;
+          return (
+            <span key={i} style={{ position: "relative", padding: "2px 12px 6px", margin: "0 1px", display: "inline-block", transform: `scale(${1 + 0.07 * p})` }}>
+              <span
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: C.or,
+                  borderRadius: 8,
+                  transform: `scaleX(${p})`,
+                  transformOrigin: "left center",
+                  opacity: on ? 1 : 0,
+                }}
+              />
+              <span style={{ position: "relative" }}>{mot}</span>
+            </span>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );
