@@ -296,3 +296,41 @@ export const FinRubrique: React.FC<{ photo: string; surtitre: string; titre: str
     </AbsoluteFill>
   );
 };
+
+// ---------- Ouverture « Témoignage » (autre rubrique) : vidéo plein écran sous un voile marine translucide ----------
+export const OuvertureTemoignage: React.FC<{ video: React.ReactNode; surtitre: string; lignes: [string, boolean?][]; signature: string; duration: number }> = ({
+  video,
+  surtitre,
+  lignes,
+  signature,
+  duration,
+}) => {
+  const frame = useCurrentFrame();
+  const voile = interpolate(frame, [0, 10], [0.35, 0.72], clamp);
+  const texte = (d: number): React.CSSProperties => {
+    const p = interpolate(frame, [d, d + 12], [0, 1], { ...clamp, easing: ease });
+    return { opacity: p, transform: `translateY(${(1 - p) * 24}px)`, filter: `blur(${(1 - p) * 6}px)` };
+  };
+  const filet = interpolate(frame, [20, 36], [0, 1], { ...clamp, easing: ease });
+  const sortie = interpolate(frame, [duration - 8, duration], [1, 0], clamp);
+  return (
+    <AbsoluteFill>
+      {video}
+      <AbsoluteFill style={{ background: `linear-gradient(180deg, rgba(27,44,66,${voile * 1.15}) 0%, rgba(43,66,88,${voile}) 42%, rgba(43,66,88,${voile * 0.45}) 62%, rgba(27,44,66,${voile * 0.55}) 100%)` }} />
+      <div style={{ position: "absolute", top: 190, left: 80, right: 80, textAlign: "center", fontFamily: FONT, color: C.blanc, opacity: sortie }}>
+        <div style={{ display: "inline-block", border: `2px solid ${C.or}`, borderRadius: 40, padding: "8px 26px 10px", fontWeight: 700, fontSize: 30, letterSpacing: 6, color: C.or, ...texte(2) }}>
+          {surtitre}
+        </div>
+        <div style={{ marginTop: 34 }}>
+          {lignes.map(([l, or], i) => (
+            <div key={i} style={{ fontWeight: 800, fontSize: 92, lineHeight: 1.06, letterSpacing: -2, color: or ? C.or : C.blanc, textShadow: OMBRE_TEXTE, ...texte(6 + i * 4) }}>
+              {l}
+            </div>
+          ))}
+        </div>
+        <div style={{ width: 300 * filet, height: 4, background: C.or, margin: "30px auto 24px" }} />
+        <div style={{ fontWeight: 600, fontSize: 34, ...texte(22) }}>{signature}</div>
+      </div>
+    </AbsoluteFill>
+  );
+};

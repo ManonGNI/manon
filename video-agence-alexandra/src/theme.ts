@@ -29,6 +29,7 @@ export const MEDIA = {
   loicConclusion: staticFile("clips/loic-conclusion.mp4"), // 403.15 (Loïc)
   merciFinal: staticFile("clips/merci-final.mp4"), // 411.40
   // témoignage
+  ouvertureRires: staticFile("clips/ouverture-rires.mp4"), // 8.30 → 11.50 : Alexandra et Loïc rient (avant l'interview)
   proximiteSuite: staticFile("clips/proximite-suite.mp4"), // 257.62 → 265.95, d'un seul tenant
   communaute: staticFile("clips/communaute.mp4"), // 299.10 → 311.45, d'un seul tenant
   arretFin: staticFile("medias/arret-fin-temoignage.jpg"), // image figée à 403,14 s (fin de « nos agences »)
