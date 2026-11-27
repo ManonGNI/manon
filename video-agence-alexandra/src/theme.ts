@@ -7,6 +7,7 @@ export const FONT = "Montserrat, 'Helvetica Neue', Arial, sans-serif";
 // Passages découpés dans les rushs (fichier source, début en s) :
 // intro-loic = 20261119_105523 à 7,60 s, recadré sur Loïc (crop 720 × 1280 à 158,560) et éclairci ; les autres = 20261119_113537 (interview) à l'instant indiqué
 export const MEDIA = {
+  musiqueTemoignage: staticFile("medias/musique-temoignage.m4a"), // même morceau, 56 premières secondes, fondu de fin
   musique: staticFile("medias/musique.m4a"), // « Musique GNI instrumentale 2 » fournie par la com, 60 premières secondes, fondu de fin
   intro: staticFile("clips/intro-loic.mp4"), // 7.60
   introCourt: staticFile("clips/intro-loic-court.mp4"), // 10.04 (sans « Aujourd'hui, je me situe… »), recadré, éclairci, dominante bleue corrigée

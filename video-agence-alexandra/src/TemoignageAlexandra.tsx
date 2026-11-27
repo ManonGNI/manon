@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Img, interpolate, Sequence, Series, useCurrentFrame, useVideoConfig } from "remotion";
-import { Video } from "@remotion/media";
+import { Audio, Video } from "@remotion/media";
+import VOLUME_MUSIQUE from "./volumeMusiqueTemoignage.json";
 import { Captions } from "./Overlays";
 import { BandeauRubrique, FicheNumero, FinRubrique, OuvertureTemoignage } from "./Rubrique";
 import { BANDEAUX, MEDIA, SOUS_TITRES } from "./theme";
@@ -127,6 +128,8 @@ export const TemoignageAlexandra: React.FC = () => {
           />
         </Sequence>
       </Sequence>
+      {/* Musique GNI : très basse sous les voix, remonte dans les blancs (courbe : scripts/ducking.py) */}
+      <Audio src={MEDIA.musiqueTemoignage} volume={(f) => VOLUME_MUSIQUE[Math.min(f, VOLUME_MUSIQUE.length - 1)]} />
     </AbsoluteFill>
   );
 };
