@@ -53,7 +53,7 @@ export const MEDIA = {
 // Bandeaux nom de la rubrique « Portrait d'agence »
 export const BANDEAUX = {
   loic: { prenom: "Loïc", nom: "Fauchet", structure: "Conseiller · Groupe National Immobilier" },
-  alexandra: { prenom: "Alexandra", nom: "Gameiro", structure: "Dirigeante · Alexandra l’Immobilier" },
+  alexandra: { prenom: "Alexandra", nom: "Gameiro", structure: "Gérante des agences Alexandra" },
 };
 
 // Bandeaux « signature » (nom + fonction) — version précédente
@@ -61,7 +61,7 @@ export const SIGNATURES = {
   loic: { nom: "Loïc Fauchet", fonction: "Conseiller au Groupe National Immobilier", monogramme: "gni" as const, fondCarre: "#2B4258" },
   alexandra: {
     nom: "Alexandra Gameiro",
-    fonction: "Dirigeante d’Alexandra l’Immobilier en Provence",
+    fonction: "Gérante des agences Alexandra",
     monogramme: staticFile("medias/monogramme-alexandra.png"),
     fondCarre: "#F7F3EA",
   },
@@ -69,7 +69,7 @@ export const SIGNATURES = {
 
 export const PERSONNES = {
   loic: { nom: "Loïc Fauchet", role: "Commercial Vaucluse & Bouches-du-Rhône", structure: "Groupe National Immobilier" },
-  alexandra: { nom: "Alexandra Gameiro", role: "Dirigeante", structure: "Alexandra l’Immobilier en Provence" },
+  alexandra: { nom: "Alexandra Gameiro", role: "Gérante", structure: "des agences Alexandra" },
 };
 
 // Écran de fin du témoignage
